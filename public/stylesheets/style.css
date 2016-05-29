@@ -1,0 +1,121 @@
+body {
+  font: 15px "Roboto" !important;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: #00B7FF;
+}
+
+input {
+  font-size: 15px;
+  padding: 4px 8px;
+}
+
+nav {
+  background-color: #09d;
+  color: white;
+  display: flex;
+  font-size: 20px;
+  font-weight: bold;
+  height: 60px;
+  margin: 0;
+  position: fixed;
+  width: 100%;
+}
+
+nav * {
+  margin: auto;
+}
+
+nav a {
+  color: white !important;
+  text-decoration: none;
+}
+
+.brand-icon {
+  font-size: 35px;
+  margin-left: 20px;
+}
+
+.search-bar > label {
+  margin-right: 10px;
+}
+
+nav > .menu {
+  height: 100%;
+  list-style: none;
+}
+
+nav > .menu > li {
+  float: left;
+  position: relative;
+}
+
+nav > .menu > li > a {
+  color: white;
+  cursor: pointer;
+  display: flex;
+  height: 100%;
+  padding: 0 10px;
+  vertical-align: center;
+}
+
+nav > .menu > li > a:hover {
+  background-color: #8df;
+  color: #09d;
+}
+
+nav > .menu > li > a:hover > span > ul {
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  padding: 0;
+  width: 250px;
+}
+
+nav > .menu > li > a:hover > span > ul > li {
+  background-color: #8df;
+  border: 1px solid white;
+  display: inline-block;
+  font-size: 18px;
+  padding: 4px 8px;
+  width: 100%;
+}
+
+nav > .menu > li > a:hover > span > ul > li:hover {
+  background-color: white;
+  border: 1px solid #8df;
+  border-collapse: collapse;
+  color: #8df;
+  display: inline-block;
+  padding: 4px 8px;
+  width: 100%;
+}
+
+
+nav > .menu > li {
+  display: flex;
+  height: 100%;
+}
+
+nav > .menu ul {
+  display: none;
+  list-style: none;
+}
+
+main {
+  height: 100%;
+  padding: 20px;
+  padding-top: 80px;
+}
+
+footer {
+  bottom: 0;
+  padding: 10px;
+  position: fixed;
+  text-align: center;
+  width: 100%;
+}
