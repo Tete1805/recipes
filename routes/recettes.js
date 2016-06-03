@@ -2,8 +2,7 @@ var express = require('express');
 var router = express.Router();
 var recettes = require('../models/recettes');
 
-/* GET users listing. */
-router.get('/', recettes, function(req, res, next) {
+router.get(['/', '/all'], recettes, function(req, res, next) {
   console.log('routes/recettes');
   res.render('recettes/all');
 });

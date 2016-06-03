@@ -6,32 +6,29 @@ nav
     input(name="search-bar" type="text")
   ul.menu
     li
-      a
-        span Recettes
-          ul
-            li
-              span Toutes les recettes
-            li
-              span Nouvelle recette
-            li
-              span Mes recettes
+      span Recettes
+        ul
+          li
+            a(href='/recettes/all') Toutes les recettes
+          li
+            a(href='/recettes/new') Nouvelle recette
+          li
+            a(href='/recettes/my') Mes recettes
     li
-      a
-        span Arômes
-          ul
-            li
-              span Tous les arômes
-            li
-              span Nouvel arôme
-            li
-              span Mes arômes
+      span Arômes
+        ul
+          li
+            span Tous les arômes
+          li
+            span Nouvel arôme
+          li
+            span Mes arômes
     li
-      a
-        span Groupes
-          ul
-            li
-              span Tous les groupes
-            li
-              span Nouveau groupe
-            li
-              span Mes groupes
+      span Groupes
+        ul
+          li
+            span Tous les groupes
+          li
+            span Nouveau groupe
+          li
+            span Mes groupes
