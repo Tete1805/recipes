@@ -5,17 +5,16 @@ block content
 
   h1 #{ title }
 
-  form
+  form(method="POST")
     ul
       li
         label Nom de la recette
-        input(value="#{recipe.name}")
-      li
-        label Date de création
-        input(value="#{recipe.date}", type="date")
+        input(name="nom", value="#{recette.nom}")
       li
         label Arôme 1
-        input
+        input(name="arome1")
       li
         label Arôme 2
-        input
+        input(name="arome2")
+    input(type="submit", value="Enregistrer cette recette.")
+    input(type="hidden" name="_csrf" value=csrfToken)

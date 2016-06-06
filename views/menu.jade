@@ -36,9 +36,11 @@ nav
     li
       span Profil
         ul
-          if (!user || !user.username)
+          if (!user)
             li
               a(href='/users/login') Connexion
+            li
+              a(href='/users/signup') Inscription
           else
             li
               a(href='/users/profile') Mon profil

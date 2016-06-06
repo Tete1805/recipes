@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var groupes = require('../models/groupes');
+var passport = require('passport');
 
-router.get(['/', '/all'], groupes, function(req, res, next) {
+router.get(['/', '/all'], function(req, res, next) {
   res.render('groupes/all', { title: 'Tous les groupes '});
 });
 

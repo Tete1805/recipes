@@ -1,21 +1,36 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var session = require('express-session');
+var express       = require('express');
+var app           = express();
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var recettes = require('./routes/recettes');
-var groupes = require('./routes/groupes');
-var aromes = require('./routes/aromes');
+var path          = require('path');
+var favicon       = require('serve-favicon');
+var logger        = require('morgan');
+var cookieParser  = require('cookie-parser');
+var bodyParser    = require('body-parser');
+var session       = require('express-session');
 
-var app = express();
+var mongoose      = require('mongoose');
+var passport      = require('passport');
+var flash         = require('connect-flash');
+var csurf         = require('csurf');
 
-// view engine setup
+var routes        = require('./routes/index');
+var users         = require('./routes/users');
+var recettes      = require('./routes/recettes');
+var groupes       = require('./routes/groupes');
+var aromes        = require('./routes/aromes');
+
+// Où est stockée la chaîne de connexion
+var configDb      = require('./config/database.js');
+
+// Connexion à la base de données
+mongoose.connect(configDb.url);
+
+// Configuration de passport avec les stratégies
+require('./config/passport')(passport);
+
+// Endroit où sont stockées les vues
 app.set('views', path.join(__dirname, 'views'));
+// Configuration du moteur de vue à Jade
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
@@ -23,9 +38,24 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(session( { secret: 'PlopzeSecret' }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Pour la session
+app.use(session( { secret: 'PlopzeSecret' }));
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+app.use(csurf());
+
+app.use(function(req, res, next) {  
+  res.locals.csrfToken = req.csrfToken();
+  res.locals.flash     = req.flash();
+  if (req.isAuthenticated()) {
+    res.locals.user = req.user;
+  };
+  next();
+});
 
 app.use('/', routes);
 app.use('/recettes', recettes);

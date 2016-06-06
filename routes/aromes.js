@@ -1,8 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var aromes = require('../models/aromes');
 
-router.get(['/', '/all'], aromes, function(req, res, next) {
+router.get(['/', '/all'], function(req, res, next) {
   res.render('aromes/all', { title: 'Tous les arômes '});
 });
 
