@@ -1,7 +1,9 @@
 extends ../layout
+block extend_script
+  script(src="../javascripts/app/recipes/new.js")
 block content
 
-  h1 Nouvelle recette
+  h1 #{ title }
 
   form
     ul
@@ -16,16 +18,4 @@ block content
         input
       li
         label Arôme 2
-        input
-      li
-        label
-        input
-      li
-        label
-        input
-      li
-        label
-        input
-      li
-        label
         input

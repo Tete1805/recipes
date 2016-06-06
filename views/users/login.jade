@@ -1,0 +1,14 @@
+extends ../layout
+
+block content
+
+  h1 #{ title }
+
+  form
+    label User
+    input(name="username")
+    br
+    labek Password
+    input(type="password", name="password")
+    br
+    input(type="submit", value="Login!")

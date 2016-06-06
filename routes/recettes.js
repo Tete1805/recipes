@@ -4,15 +4,15 @@ var recettes = require('../models/recettes');
 
 router.get(['/', '/all'], recettes, function(req, res, next) {
   console.log('routes/recettes');
-  res.render('recettes/all');
+  res.render('recettes/all', { title: 'Toutes les recettes '});
 });
 
 router.get('/new', function(req, res, next) {
-  res.render('recettes/new');
+  res.render('recettes/new', { title: 'Nouvelle recette '});
 });
 
 router.get('/my', function(req, res, next) {
-  res.render('recettes/my');
+  res.render('recettes/my', { title: 'Toutes mes recettes '});
 });
 
 module.exports = router;

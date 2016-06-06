@@ -18,17 +18,29 @@ nav
       span Arômes
         ul
           li
-            span Tous les arômes
+            a(href="/aromes/all") Tous les arômes
           li
-            span Nouvel arôme
+            a(href="/aromes/new") Nouvel arôme
           li
-            span Mes arômes
+            a(href="/aromes/my") Mes arômes
     li
       span Groupes
         ul
           li
-            span Tous les groupes
+            a(href="/groupes/all") Tous les groupes
           li
-            span Nouveau groupe
+            a(href="/groupes/new") Nouveau groupe
           li
-            span Mes groupes
+            a(href="/groupes/my") Mes groupes
+
+    li
+      span Profil
+        ul
+          if (!user || !user.username)
+            li
+              a(href='/users/login') Connexion
+          else
+            li
+              a(href='/users/profile') Mon profil
+            li
+              a(href='/users/logout') Déconnexion

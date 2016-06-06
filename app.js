@@ -4,10 +4,13 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var recettes = require('./routes/recettes');
+var groupes = require('./routes/groupes');
+var aromes = require('./routes/aromes');
 
 var app = express();
 
@@ -20,11 +23,14 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(session( { secret: 'PlopzeSecret' }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/recettes', recettes);
+app.use('/groupes', groupes);
+app.use('/aromes', aromes);
 app.use('/users', users);
 
 // catch 404 and forward to error handler
