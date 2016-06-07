@@ -10,6 +10,12 @@ block content
       li
         label(name="marque") Marque
         input
+        ul.autocomplete(for="marque")
+          li Capella
+          li TPA / TFA (The Perfumer's Apprentice / The Flavor Apprentice)
+          li Flavor West
+          li Tasty Puff
+          li Solubarôme
       li
         label(name="nom") Nom
         input
@@ -22,3 +28,4 @@ block content
       li
         label vendeurs
         input
+    input(type="submit" value="Enregistrer")
