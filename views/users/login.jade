@@ -5,11 +5,15 @@ block content
   h1 #{ title }
 
   form(method="POST")
-    label User
-    input(name="email")
-    br
-    labek Password
-    input(type="password", name="password")
-    br
+    ul
+      li
+        label User
+        input(name="email")
+      li
+        label Password
+        input(type="password", name="password")
+    
     input(type="submit", value="Login!")
     input(type="hidden" name="_csrf" value=csrfToken)
+
+    a(href="/signup") Pas encore inscrit ? S'enregistrer

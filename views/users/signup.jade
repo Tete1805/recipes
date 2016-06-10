@@ -2,9 +2,10 @@ extends ../layout
 
 block content
 
-  h1 #{ title }
+  h1 Inscription
 
   form(method="POST")
+
     label User
     input(name="email")
     br
@@ -13,3 +14,5 @@ block content
     br
     input(type="submit", value="Signup!")
     input(type="hidden" name="_csrf" value=csrfToken)
+
+  a(href="/login") Déjà enregistré ? Se connecter
