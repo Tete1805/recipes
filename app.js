@@ -23,7 +23,13 @@ var aromes        = require('./routes/aromes');
 var configDb      = require('./config/database.js');
 
 // Connexion à la base de données
-mongoose.connect(configDb.url);
+mongoose.connect(configDb.url, function(err) {
+  if (err) {
+    console.log('Sushi connecting to db: ' + err);
+  } else {
+    console.log('Connection success');
+  }
+});
 
 // Configuration de passport avec les stratégies
 require('./config/passport')(passport);

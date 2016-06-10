@@ -4,7 +4,7 @@ var Recette = require('../models/recette');
 
 function renderWithResults(err, results) {
   res.render('recettes/all', {
-   title: 'Tous les arômes',
+   title: 'Toutes les recettes',
    recettes: results
  });
 }
