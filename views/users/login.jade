@@ -13,7 +13,8 @@ block content
         label Password
         input(type="password", name="password")
     
-    input(type="submit", value="Login!")
-    input(type="hidden" name="_csrf" value=csrfToken)
-
-    a(href="/signup") Pas encore inscrit ? S'enregistrer
+      li
+        input(type="submit", value="Login!")
+        input(type="hidden" name="_csrf" value=csrfToken)
+      li
+        a(href="/users/signup") Pas encore inscrit ? S'enregistrer

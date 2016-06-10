@@ -5,14 +5,15 @@ block content
   h1 Inscription
 
   form(method="POST")
-
-    label User
-    input(name="email")
-    br
-    labek Password
-    input(type="password", name="password")
-    br
-    input(type="submit", value="Signup!")
-    input(type="hidden" name="_csrf" value=csrfToken)
-
-  a(href="/login") Déjà enregistré ? Se connecter
+    ul
+      li
+        label User
+        input(name="email")
+      li
+        label Password
+        input(type="password", name="password")
+      li
+        input(type="submit", value="Signup!")
+        input(type="hidden" name="_csrf" value=csrfToken)
+      li
+        a(href="/users/login") Déjà enregistré ? Se connecter
