@@ -5,7 +5,7 @@ var Arome = require('../models/arome');
 function renderWithResults(err, results) {
   res.render('aromes/all', {
    title: 'Tous les arômes',
-   recettes: results
+   aromes: results
  });
 }
 
