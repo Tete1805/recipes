@@ -135,6 +135,7 @@ form label + input {
 }
 
 .autocomplete {
+  border: 1px solid #ccc;
   display: none;
   left: 40%;
   position: absolute;
@@ -143,17 +144,14 @@ form label + input {
 
 .autocomplete > li {
   background-color: white;
-  border: 1px solid #ccc;
+  border: inherit;
   border-bottom: none;
   cursor: pointer;
+  display: block;
   margin: 0;
   padding: 4px 8px;
   white-space: nowrap;
   z-index: 1000;
-}
-
-.autocomplete > li:last-child {
-  border-bottom: 1px solid #ccc;
 }
 
 .autocomplete > li:hover {

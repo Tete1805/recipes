@@ -6,11 +6,9 @@ var bcrypt   = require('bcrypt-nodejs');
 // define the schema for our user model
 var aromeSchema = mongoose.Schema({
 
-    marque: String
+    marque: String,
     nom: String,
-    description: String,
-    hashtags: [String],
-    vendeurs: [String]
+    description: String
 
 });
 

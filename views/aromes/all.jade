@@ -3,3 +3,8 @@ extends ../layout
 block content
 
   h1 #{ title }
+
+  ul.aromes
+    each arome in aromes
+      li
+        span #{ arome.nom }
