@@ -1,20 +1,25 @@
 extends ../layout
-block extend_script
-  script(src="../javascripts/app/recipes/new.js")
 block content
 
   h1 #{ title }
 
   form(method="POST")
-    ul
+    ul.recette
       li
         label Nom de la recette
-        input(name="nom", value="#{recette.nom}")
+        input(name="nom", placeholder="#{ recette.nom }")
       li
         label Arôme 1
-        input(name="arome1")
+        input(name="arome1", placeholder="Un arôme dans la liste ou un autre")
       li
-        label Arôme 2
-        input(name="arome2")
+        label Maturation
+        input(name="maturation", type="number" placeholder="Combien de jours avant de déguster la recette")
+      li
+        label Notes
+        input(name="notes", placeholder="Gourmande ? Manque de punch sur la fin ? Irait bien avec des noisettes ?")
+      li
+        label Tags
+        input(name="tags", placeholder="#custard #2diy4")
+
     input(type="submit", value="Enregistrer cette recette.")
     input(type="hidden" name="_csrf" value=csrfToken)

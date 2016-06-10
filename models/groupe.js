@@ -1,10 +1,9 @@
-// app/models/recette.js
+// app/models/groupe.js
 var mongoose = require('mongoose');
 
 // define the schema for our model
 var aromeSchema = mongoose.Schema({
 
-    marque: String,
     nom: String,
     description: String
 

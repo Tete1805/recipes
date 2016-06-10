@@ -1,11 +1,15 @@
 extends ../layout
-
 block content
 
   h1 #{ title }
 
-  ul.aromes
+  ul.recettes
     each recette in recettes
       li
-        span #{ recette.nom + ' - Ajoutée le ' + recette.ajoute + ' - Par' + recette.auteur }
+        span #{ recette.nom + ' - Ajoutée le ' + recette.ajoute + ' - Par ' + recette.auteur }
+          span Notes : #{ recette.notes }
+          ul
+            each tag in recette.hashtags
+              li #{ tag }
+
         a(href=recette._id)

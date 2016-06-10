@@ -1,5 +1,10 @@
 extends ../layout
-
 block content
 
   h1 #{ title }
+
+  ul.recettes
+    each recette in recettes
+      li
+        span #{ recette.nom + ' - Ajoutée le ' + recette.ajoute + ' - Par ' + recette.auteur }
+        a(href="detail/" + recette._id) Voir le détail

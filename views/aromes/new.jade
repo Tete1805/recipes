@@ -1,6 +1,6 @@
 extends ../layout
 block extend_script
-  script(src="../javascripts/app/recipes/new.js")
+  script(src="../javascripts/app/aromes/new.js")
 block content
 
   h1 #{ title }
@@ -9,7 +9,7 @@ block content
     ul
       li
         label Marque
-        input(name="marque")
+        input(name="marque", placeholder="Le fabricant ou la marque (Ex : Capella)")
         ul.autocomplete(for="marque")
           li Capella
           li TPA / TFA (The Perfumer's Apprentice / The Flavor Apprentice)
@@ -18,10 +18,10 @@ block content
           li Solubarôme
       li
         label Nom
-        input(name="nom")
+        input(name="nom", placeholder="Le nom de l'arôme donné par le fabricant")
       li
         label Description
-        input(name="description")
+        input(name="description", placeholder="Une courte description de l'arôme")
 
     input(type="hidden" name="_csrf" value=csrfToken)
     input(type="submit" value="Enregistrer")

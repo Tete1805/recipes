@@ -1,5 +1,4 @@
 extends ../layout
-
 block content
 
   h1 #{ title }
@@ -8,3 +7,6 @@ block content
     each arome in aromes
       li
         span #{ arome.marque + ' - ' + arome.nom + ' - ' + arome.description }
+          input(type='hidden', value=arome._id)
+          label(for='iGotIt') Je l'ai
+          input(name='iGotIt', type='checkbox')

@@ -1,9 +1,7 @@
 // app/models/recette.js
-// load the things we need
 var mongoose = require('mongoose');
-var bcrypt   = require('bcrypt-nodejs');
 
-// define the schema for our user model
+// define the schema for our model
 var recetteSchema = mongoose.Schema({
 
     nom: String,
@@ -29,5 +27,5 @@ var recetteSchema = mongoose.Schema({
 
 });
 
-// create the model for users and expose it to our app
+// create the model and expose it to our app
 module.exports = mongoose.model('Recette', recetteSchema);

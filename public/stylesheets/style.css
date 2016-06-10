@@ -74,6 +74,10 @@ nav > .menu > li:hover ul {
 }
 
 nav > .menu > li:hover ul > li {
+  padding: 0;
+}
+
+nav > .menu > li:hover ul > li > a {
   background-color: #8df;
   border: 1px solid white;
   display: inline-block;
@@ -82,14 +86,10 @@ nav > .menu > li:hover ul > li {
   width: 100%;
 }
 
-nav > .menu > li:hover ul > li:hover {
+nav > .menu > li:hover ul > li:hover > a {
   background-color: white;
   border: 1px solid #8df;
-  border-collapse: collapse;
-  color: #8df;
-  display: inline-block;
-  padding: 4px 8px;
-  width: 100%;
+  color: #8df !important;
 }
 
 
@@ -111,6 +111,7 @@ main {
 
 form {
   display: inline-block;
+  min-width: 50%;
 }
 
 form ul {
@@ -126,7 +127,10 @@ form li {
 
 form label {
   display: inline-block;
-  width: 40%;
+  border-bottom: 1px solid #bbb;
+  margin-bottom: 10px;
+  padding-bottom: 4px;
+  width: 180px;
 }
 
 form label + input {
