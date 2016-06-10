@@ -2,26 +2,19 @@ var express = require('express');
 var router = express.Router();
 var Arome = require('../models/arome');
 
+function renderWithResults(err, results) {
+  res.render('aromes/all', {
+   title: 'Tous les arômes',
+   recettes: results
+ });
+}
+
 router.get(['/', '/all'], function(req, res, next) {
-
-  Arome.find().limit(10).exec(function(err, results) {
-    res.render('aromes/all', {
-     title: 'Tous les arômes',
-     aromes: results
-   });
-  });
-
+  Arome.find().limit(10).exec(renderWithResults);
 });
 
 router.get('/all/:page', function(req, res, next) {
-
-  Arome.find().skip((req.query.page || 0) * 10).limit(10).exec(function(err, results) {
-    res.render('aromes/all', {
-     title: 'Tous les arômes',
-     aromes: results
-   });
-  });
-
+  Arome.find().skip((req.query.page || 0) * 10).limit(10).exec(renderWithResults);
 });
 
 router.get('/new', function(req, res, next) {
@@ -37,7 +30,7 @@ router.post('/new', function(req, res, next) {
     if(err) { 
       console.log('error while saving arome'); 
     }
-  })
+  });
   res.redirect('/aromes/all');
 })
 
