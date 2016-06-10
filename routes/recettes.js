@@ -27,7 +27,7 @@ router.get('/new', function(req, res, next) {
 router.post('/new', function(req, res, next) {
   var recette = new Recette();
   recette.nom = req.body.nom;
-  recette.auteur = req.user._id;
+  recette.auteur = req.user;
   recette.notes = req.body.notes;
   recettes.hashtags = req.body.hashtags.replace(/[^a-zA-Z0-9\#\s]*/g, '').split(' ').filter(function(elm) { return elm.length > 0 ? true : false });
   recette.save(function(err) {
