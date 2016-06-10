@@ -3,11 +3,10 @@ var router = express.Router();
 var Recette = require('../models/recette');
 
 function renderWithResults(err, results) {
-    res.render('recettes/all', {
-     title: 'Tous les arômes',
-     recettes: results
-   });
-  }
+  res.render('recettes/all', {
+   title: 'Tous les arômes',
+   recettes: results
+ });
 }
 
 router.get(['/', '/all'], function(req, res, next) {
