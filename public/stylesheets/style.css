@@ -178,3 +178,14 @@ footer {
   text-align: center;
   width: 100%;
 }
+
+.recettes li {
+  border: 1px solid #09d;
+  border-radius: 5px;
+  display: inline-block;
+  list-style: none;
+  margin: 0;
+  padding: 30px;
+}
+
+.recettes li  {}

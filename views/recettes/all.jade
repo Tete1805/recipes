@@ -6,10 +6,20 @@ block content
   ul.recettes
     each recette in recettes
       li
-        span #{ recette.nom + ' - Ajoutée le ' + recette.ajoute + ' - Par ' + recette.auteur }
-          span Notes : #{ recette.notes }
-          ul
-            each tag in recette.hashtags
-              li #{ tag }
+        .recette-nom
+          label Nom de la recette
+          span #{ recette.nom }
+        .recette-ajoute
+          label Ajoutée le
+          span #{ recette.ajoute }
+        .recette-auteur
+          label Auteur
+          span #{ recette.auteur }
+        .recette-notes
+          label Notes
+          span #{ recette.notes }
+        ul.recette-tags
+          each tag in recette.hashtags
+            li #{ tag }
 
-        a(href=recette._id)
+        a(href="detail/" + recette._id) Détail
