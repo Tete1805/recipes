@@ -3,7 +3,8 @@ var router = express.Router();
 var Recette = require('../models/recette');
 
 router.get(['/', '/all'], function(req, res, next) {
-  Recette.find().limit(10).exec(function(err, results) {
+  Recette.find().populate('auteur').limit(10).exec(function(err, results) {
+    console.log(results);
     res.render('recettes/all', {
      title: 'Toutes les recettes',
      recettes: results
@@ -25,13 +26,14 @@ router.get('/new', function(req, res, next) {
 });
 
 router.post('/new', function(req, res, next) {
-  var recette = new Recette();
-  recette.nom = req.body.nom;
-  recette.auteur = req.user;
-  recette.notes = req.body.notes;
-  recette.hashtags = req.body.tags.replace(/[^a-zA-Z0-9\#\s]*/g, '').split(' ').filter(function(elm) { return elm.length > 0 ? true : false });
+  var recette = new Recette({
+    nom: req.body.nom,
+    auteur: req.user,
+    notes: req.body.notes,
+    hashtags:req.body.tags.replace(/[^a-zA-Z0-9\#\s]*/g, '').split(' ').filter(function(elm) { return elm.length > 0 ? true : false })
+  });
   recette.save(function(err) {
-    console.log('error while saving recette: ' + err);
+    if (err) { console.log('error while saving recette: ' + err); }
   })
   res.redirect('/recettes/all');
 })

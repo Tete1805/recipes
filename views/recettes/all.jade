@@ -6,20 +6,17 @@ block content
   ul.recettes
     each recette in recettes
       li
-        .recette-nom
-          label Nom de la recette
-          span #{ recette.nom }
-        .recette-ajoute
-          label Ajoutée le
-          span #{ recette.ajoute }
-        .recette-auteur
-          label Auteur
-          span #{ recette.auteur }
-        .recette-notes
-          label Notes
-          span #{ recette.notes }
-        ul.recette-tags
-          each tag in recette.hashtags
-            li #{ tag }
+        .recette
+          b #{ recette.nom }
+          br
+          span Ajoutée le #{ recette.ajoute.toISOString().substr(0, 10) }
+          br
+          span par #{ recette.auteur ? recette.auteur.local.pseudo : '' }
+          ul.tags
+            each tag in recette.hashtags
+              li #{ tag }
+          div.likes
+            span.plus 10
+            span.minus 5
 
         a(href="detail/" + recette._id) Détail

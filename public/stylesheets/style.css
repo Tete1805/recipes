@@ -1,6 +1,7 @@
 body {
   font: 15px "Roboto" !important;
   margin: 0;
+  overflow-x: hidden;
   padding: 0;
 }
 
@@ -150,6 +151,28 @@ form label + input {
   width: 50%;
 }
 
+footer {
+  bottom: 0;
+  padding: 10px;
+  position: fixed;
+  text-align: center;
+  width: 100%;
+}
+
+.center {
+  text-align: center;
+}
+
+.jumbo {
+  margin: -20px;
+  overflow: hidden;
+  width: 110%;
+}
+
+.jumbo > img {
+  width: 100%;
+}
+
 .autocomplete {
   border: 1px solid #ccc;
   display: none;
@@ -175,14 +198,6 @@ form label + input {
   background-color: #E8F7FF;
 }
 
-footer {
-  bottom: 0;
-  padding: 10px;
-  position: fixed;
-  text-align: center;
-  width: 100%;
-}
-
 .recettes {
   display: inline-block;
   padding: 0;
@@ -191,8 +206,49 @@ footer {
 .recettes > li {
   border: 1px solid #09d;
   border-radius: 5px;
-  display: flex;
+  display: inline-block;
   list-style: none;
-  margin: 20px auto;
+  margin: 10px;
   padding: 20px;
+}
+
+.recette label {
+  border-bottom: 1px solid #ccc;
+  display: inline-block;
+  margin: 10px 10px 0 10px;
+  padding: 4px;
+  text-decoration: italic;
+  width: 160px;
+}
+
+.tags {
+  list-style: none;
+  padding: 15px;
+}
+
+.tags > li {
+  background-color: #3af;
+  color: white;
+  display: inline-block;
+  margin: 5px;
+  padding: 10px;
+}
+
+.likes {
+  text-align: right;
+}
+
+.likes > * {
+  border-radius: 8px;
+  color: white;
+  padding: 5px 21px;
+}
+
+.likes > .plus {
+  background-color: #2A2;
+  margin-right: 5px;
+}
+
+.likes > .minus {
+  background-color: #F73;
 }
