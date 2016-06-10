@@ -13,6 +13,14 @@ input {
   padding: 4px 8px;
 }
 
+input[type="submit"] {
+  border: none;
+  background-color: #09f;
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+}
+
 nav {
   background-color: #09d;
   color: white;
@@ -141,7 +149,8 @@ form label + input {
 .autocomplete {
   border: 1px solid #ccc;
   display: none;
-  left: 40%;
+  left: 180px;
+  margin-top: -11px;
   position: absolute;
   top: 100%;
 }
