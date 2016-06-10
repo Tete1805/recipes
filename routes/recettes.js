@@ -29,7 +29,7 @@ router.post('/new', function(req, res, next) {
   recette.nom = req.body.nom;
   recette.auteur = req.user;
   recette.notes = req.body.notes;
-  recette.hashtags = req.body.hashtags.replace(/[^a-zA-Z0-9\#\s]*/g, '').split(' ').filter(function(elm) { return elm.length > 0 ? true : false });
+  recette.hashtags = req.body.tags.replace(/[^a-zA-Z0-9\#\s]*/g, '').split(' ').filter(function(elm) { return elm.length > 0 ? true : false });
   recette.save(function(err) {
     console.log('error while saving recette: ' + err);
   })
