@@ -2,8 +2,20 @@ var express = require('express');
 var router = express.Router();
 var Recette = require('../models/recette');
 
+function renderWithResults(err, results) {
+    res.render('recettes/all', {
+     title: 'Tous les arômes',
+     recettes: results
+   });
+  }
+}
+
 router.get(['/', '/all'], function(req, res, next) {
-  res.render('recettes/all');
+  Recette.find().limit(10).exec(renderWithResults);
+});
+
+router.get('/all/:page', function(req, res, next) {
+  Recette.find().skip((req.query.page || 0) * 10).limit(10).exec(renderWithResults);
 });
 
 router.get('/new', function(req, res, next) {

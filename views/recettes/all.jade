@@ -3,3 +3,9 @@ extends ../layout
 block content
 
   h1 #{ title }
+
+  ul.aromes
+    each recette in recettes
+      li
+        span #{ recette.nom + ' - Ajoutée le ' + recette.ajoute + ' - Par' + recette.auteur }
+        a(href=recette._id)

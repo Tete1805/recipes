@@ -42,7 +42,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Pour la session
-app.use(session( { secret: 'PlopzeSecret' }));
+app.use(session( { secret: 'PlopzeSecret', resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
