@@ -2,19 +2,22 @@ var express = require('express');
 var router = express.Router();
 var Recette = require('../models/recette');
 
-function renderWithResults(err, results) {
-  res.render('recettes/all', {
-   title: 'Toutes les recettes',
-   recettes: results
- });
-}
-
 router.get(['/', '/all'], function(req, res, next) {
-  Recette.find().limit(10).exec(renderWithResults);
+  Recette.find().limit(10).exec(function(err, results) {
+    res.render('recettes/all', {
+     title: 'Toutes les recettes',
+     recettes: results
+   });
+  });
 });
 
 router.get('/all/:page', function(req, res, next) {
-  Recette.find().skip((req.query.page || 0) * 10).limit(10).exec(renderWithResults);
+  Recette.find().skip((req.query.page || 0) * 10).limit(10).exec(function(err, results) {
+    res.render('recettes/all', {
+     title: 'Toutes les recettes',
+     recettes: results
+   });
+  });
 });
 
 router.get('/new', function(req, res, next) {
