@@ -3,17 +3,27 @@ var router = express.Router();
 var Arome = require('../models/arome');
 
 router.get(['/', '/all'], function(req, res, next) {
-  res.render('aromes/all', {
-   title: 'Tous les arômes ',
-   aromes: Arome.find().limit(10).exec()
- });
+
+  Arome.find().limit(10).exec(function(err, results) {
+    console.log (results);
+    res.render('aromes/all', {
+     title: 'Tous les arômes',
+     aromes: results
+   });
+  });
+
 });
 
 router.get('/all/:page', function(req, res, next) {
-  res.render('aromes/all', {
-   title: 'Tous les arômes ',
-   aromes: Arome.find().skip((req.query.page || 0) * 10).limit(10).exec()
- });
+
+  Arome.find().skip((req.query.page || 0) * 10).limit(10).exec(function(err, results) {
+    console.log (results);
+    res.render('aromes/all', {
+     title: 'Tous les arômes',
+     aromes: results
+   });
+  });
+
 });
 
 router.get('/new', function(req, res, next) {
@@ -27,9 +37,11 @@ router.post('/new', function(req, res, next) {
   arome.nom = req.body.nom;
   arome.description = req.body.description;
   arome.save(function(err) {
-    console.log('error while saving arome');
+    if(err) { 
+      console.log('error while saving arome'); 
+    }
   })
-  res.redirect('/arome/all');
+  res.redirect('/aromes/all');
 })
 
 router.get('/my', function(req, res, next) {

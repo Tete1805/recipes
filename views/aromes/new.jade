@@ -8,8 +8,8 @@ block content
   form(method="POST")
     ul
       li
-        label(name="marque") Marque
-        input
+        label Marque
+        input(name="marque")
         ul.autocomplete(for="marque")
           li Capella
           li TPA / TFA (The Perfumer's Apprentice / The Flavor Apprentice)
@@ -17,16 +17,11 @@ block content
           li Tasty Puff
           li Solubarôme
       li
-        label(name="nom") Nom
-        input
+        label Nom
+        input(name="nom")
       li
-        label(name="description") Description
-        input
-      li
-        label hastags
-        input
-      li
-        label vendeurs
-        input
+        label Description
+        input(name="description")
+
     input(type="hidden" name="_csrf" value=csrfToken)
     input(type="submit" value="Enregistrer")
