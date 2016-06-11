@@ -4,7 +4,7 @@
 }
 
 .recette .title {
-  background-color: #09d;
+  background-color: #94ACC3;
   color: white;
   font-size: 1.1em;
   padding: 8px;
@@ -19,7 +19,7 @@
   text-decoration: italic;
 }
 
-.recette input, .recette textarea {
+.recette input, .recette textarea, .recettte select {
   border: none;
   border-bottom: 1px solid #ccc;
   display: block;
@@ -34,5 +34,11 @@
 }
 
 .recette .arome > input {
+  width: 100%;
+}
+
+.recette .short-label {
+  display: block;
+  text-align: right;
   width: 100%;
 }

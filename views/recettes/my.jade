@@ -6,5 +6,15 @@ block content
   ul.recettes
     each recette in recettes
       li
-        span #{ recette.nom + ' - Ajoutée le ' + recette.ajoute + ' - Par ' + recette.auteur }
-        a(href="detail/" + recette._id) Voir le détail
+        .recette-container
+          b.title #{ recette.nom }
+          br
+          span Ajoutée le #{ recette.ajoute.toISOString().substr(0, 10) }
+          ul.tags
+            each tag in recette.hashtags
+              li #{ tag }
+          div.likes
+            span.plus 10
+            span.minus 5
+
+          a(href="detail/" + recette._id) Détail

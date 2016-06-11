@@ -2,33 +2,35 @@
 
   window.onload = function() {
 
-    var autocompletes = document.querySelectorAll(".autocomplete");
-
-    for (var i = 0; i < autocompletes.length; i++) {
-
-      var autocomplete = autocompletes[i];
-
-      var input = autocomplete.parentElement.querySelector('input')
-
-      input.addEventListener('focus', function() {
-        this.parentElement.querySelector('ul').style.display = 'inline-block';
-      }, false);
-
-      input.addEventListener('blur', function() {
-        this.value = this.parentElement.querySelector('li:hover').innerText;
-        this.parentElement.querySelector('ul').style.display = 'none';
-      }, false);
-
-      input.addEventListener('keyup', function(e){
-        var filter = this.value.toUpperCase();
-        var width = window.getComputedStyle(this.parentElement).width;
-        var suggestions = this.parentElement.querySelectorAll('li');
-        for (var i = 0; i < suggestions.length; i++) {
-          suggestions[i].style.display = suggestions[i].innerText.toUpperCase().indexOf(filter) > -1 ? 'block' : 'none';
-          suggestions[i].style.width = width;
-        }
-      })
-
+    function parent(elm, type) {
+      if(elm.parentElement.tagName === type) {
+        return elm.parentElement
+      } else {
+        return parent(elm.parentElement, type);
+      }
     }
+
+    function addDeleteBtnEvent(context) {
+      var deleteBtn = context.querySelector("#btn-supprimer-arome");
+      deleteBtn.addEventListener('click', function() {
+        var curLi = parent(this, 'LI');
+        curLi.parentElement.removeChild(curLi);
+      });
+    }
+
+    var addBtn = document.getElementById("btn-ajouter-arome");
+    addBtn.addEventListener('click', function() {
+        var curLi = parent(this, 'LI');
+        var clone = curLi.cloneNode(true);
+        var innerAddBtn = clone.querySelector("#btn-ajouter-arome");
+        innerAddBtn.parentElement.removeChild(innerAddBtn);
+
+        addDeleteBtnEvent(clone);
+
+        curLi.parentElement.insertBefore(clone, curLi);
+    });
+
+    addDeleteBtnEvent(document);
+
   }
 })();

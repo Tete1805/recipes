@@ -1,19 +1,24 @@
 extends ../layout
-
+block extend_head
+  link(rel='stylesheet', href='/stylesheets/login.css')
 block content
 
-  h1 Inscription
+  .center
 
-  form(method="POST")
-    ul
-      li
-        label Pseudo
-        input(name="pseudo")
-      li
-        label Password
-        input(type="password", name="password")
-      li
-        input(type="submit", value="Signup!")
-        input(type="hidden" name="_csrf" value=csrfToken)
-      li
-        a(href="/users/login") Déjà enregistré ? Se connecter
+    h1 Inscription
+
+    form(method="POST")
+      br
+      label Pseudo
+      br
+      input(name="pseudo")
+      br
+      label Password
+      br
+      input(type="password", name="password")
+      br
+      input(type="submit", value="Signup!")
+      input(type="hidden" name="_csrf" value=csrfToken)
+      br
+      br
+      a(href="/users/login") Déjà enregistré ? Se connecter

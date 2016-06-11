@@ -17,12 +17,12 @@ block content
           .col-10
             label Nom de la recette
           .col-90
-            input(name="nom", placeholder="#{ recette.nom }")
+            input(name="nom", placeholder="#{ recette.nom }", required)
         li
           .col-10
             label Maturation
           .col-90
-            input(name="maturation", type="number" placeholder="Combien de jours avant de déguster la recette")
+            input(name="maturation", type="number" placeholder="Combien de jours avant de déguster la recette", required, min="0", max="180")
         li
           .col-10
             label Notes
@@ -36,6 +36,38 @@ block content
     br
     div
       .title.center
+        b Bases
+      ul
+        li
+          .col-10
+            label Base 1
+          .col-90.arome-container
+            .col-10.padded-right
+              span.short-label Ratio PG / VG
+            .col-10
+              select(name="base1-ratio", required)
+                - var i = 0
+                while i < 11
+                  option(value= i*10 + '/' + (10-i)*10) #{ i*10 + '/' + (10-i)*10 }
+                  - i++
+            .col-10.padded-right
+              span.short-label Taux de Nicotine
+            .col-10
+              input(name="base1-nicotine", type="number", required, min="0", max="100")
+            .col-10
+              span mg
+            .col-10
+              input(name="arome1-pourcentage", type="number", placeholder="Pourcentage", required, min="0", max="100")
+            .col-10
+              span %
+            .col-30
+              .col-50.padded-right
+                input#btn-supprimer-base(type="button", value="Supprimer")
+              .col-50.padded-right
+                input#btn-ajouter-base(type="button", value="Ajouter une base")
+    br
+    div
+      .title.center
         b Arômes
       ul
         li
@@ -43,17 +75,19 @@ block content
             label Arôme 1
           .col-90.arome-container
             .col-20.padded-right
-              input(name="arome1-marque", type="text", placeholder="Marque de l'arôme")
-            .col-30.padded-right
-              input(name="arome1-nom", type="text", placeholder="Nom de l'arôme")
-            .col-20.padded-right
-              input(name="arome1-percentage", type="number", placeholder="Pourcentage")
+              input(name="arome1-marque", type="text", placeholder="Marque / Fabricant", required)
+            .col-40.padded-right
+              input(name="arome1-nom", type="text", placeholder="Nom", required)
+            .col-10.padded-right
+              .col-90
+                input(name="arome1-pourcentage", type="number", placeholder="Pourcentage", required, min="0", max="100")
+              .col-10
+                span %
             .col-30
               .col-50.padded-right
-                input#btn-ajouter-arome(type="button", value="Ajouter un arôme")
-              .col-50.padded-right
                 input#btn-supprimer-arome(type="button", value="Supprimer")
-
+              .col-50.padded-right
+                input#btn-ajouter-arome(type="button", value="Ajouter un arôme")                  
     div
       input(type="submit", value="Enregistrer")
       input(type="hidden" name="_csrf" value=csrfToken)
