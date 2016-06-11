@@ -4,7 +4,6 @@ var Recette = require('../models/recette');
 
 router.get(['/', '/all'], function(req, res, next) {
   Recette.find().populate('auteur').limit(10).exec(function(err, results) {
-    console.log(results);
     res.render('recettes/all', {
      title: 'Toutes les recettes',
      recettes: results
@@ -39,7 +38,7 @@ router.post('/new', function(req, res, next) {
 })
 
 router.get('/my', function(req, res, next) {
-  Recette.find({ auteur: req.user._id }).exec(function(err, results) {
+  Recette.find({ auteur: req.user }).exec(function(err, results) {
     res.render('recettes/my', {
      title: 'Toutes mes recettes',
      recettes: results

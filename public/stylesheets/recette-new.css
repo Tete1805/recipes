@@ -1,0 +1,38 @@
+.recette {
+  width: 100%;
+  text-align: left;
+}
+
+.recette .title {
+  background-color: #09d;
+  color: white;
+  font-size: 1.1em;
+  padding: 8px;
+}
+
+.recette label {
+  border-bottom: 1px solid #ccc;
+  display: block;
+  height: 100%;
+  margin: 10px 10px 0 10px;
+  padding: 4px;
+  text-decoration: italic;
+}
+
+.recette input, .recette textarea {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  display: block;
+  margin-right: 10px;
+  width: 100%;
+}
+
+.recette .arome {
+  border: 1px solid #ccc; 
+  display: inline-block;
+  width: 50%;
+}
+
+.recette .arome > input {
+  width: 100%;
+}

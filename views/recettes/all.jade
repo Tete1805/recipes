@@ -6,8 +6,8 @@ block content
   ul.recettes
     each recette in recettes
       li
-        .recette
-          b #{ recette.nom }
+        .recette-container
+          b.title #{ recette.nom }
           br
           span Ajoutée le #{ recette.ajoute.toISOString().substr(0, 10) }
           br
@@ -19,4 +19,4 @@ block content
             span.plus 10
             span.minus 5
 
-        a(href="detail/" + recette._id) Détail
+          a(href="detail/" + recette._id) Détail

@@ -1,25 +1,59 @@
 extends ../layout
+block extend_head
+  link(rel='stylesheet', href='/stylesheets/recette-new.css')
+  script(src="../javascripts/app/recettes/new.js")
 block content
+
 
   h1 #{ title }
 
-  form(method="POST")
-    ul.recette
-      li
-        label Nom de la recette
-        input(name="nom", placeholder="#{ recette.nom }")
-      li
-        label Arôme 1
-        input(name="arome1", placeholder="Un arôme dans la liste ou un autre")
-      li
-        label Maturation
-        input(name="maturation", type="number" placeholder="Combien de jours avant de déguster la recette")
-      li
-        label Notes
-        input(name="notes", placeholder="Gourmande ? Manque de punch sur la fin ? Irait bien avec des noisettes ?")
-      li
-        label Tags
-        input(name="tags", placeholder="#custard #2diy4")
+  form.recette(method="POST")
 
-    input(type="submit", value="Enregistrer")
-    input(type="hidden" name="_csrf" value=csrfToken)
+    div
+      .title.center
+        b Infos
+      ul
+        li
+          .col-10
+            label Nom de la recette
+          .col-90
+            input(name="nom", placeholder="#{ recette.nom }")
+        li
+          .col-10
+            label Maturation
+          .col-90
+            input(name="maturation", type="number" placeholder="Combien de jours avant de déguster la recette")
+        li
+          .col-10
+            label Notes
+          .col-90
+            textarea(name="notes", rows="8", placeholder="Gourmande ? Manque de punch sur la fin ? Irait bien avec des noisettes ?")
+        li
+          .col-10
+            label Tags
+          .col-90
+            input(name="tags", placeholder="#custard #2diy4")
+    br
+    div
+      .title.center
+        b Arômes
+      ul
+        li
+          .col-10
+            label Arôme 1
+          .col-90.arome-container
+            .col-20.padded-right
+              input(name="arome1-marque", type="text", placeholder="Marque de l'arôme")
+            .col-30.padded-right
+              input(name="arome1-nom", type="text", placeholder="Nom de l'arôme")
+            .col-20.padded-right
+              input(name="arome1-percentage", type="number", placeholder="Pourcentage")
+            .col-30
+              .col-50.padded-right
+                input#btn-ajouter-arome(type="button", value="Ajouter un arôme")
+              .col-50.padded-right
+                input#btn-supprimer-arome(type="button", value="Supprimer")
+
+    div
+      input(type="submit", value="Enregistrer")
+      input(type="hidden" name="_csrf" value=csrfToken)
