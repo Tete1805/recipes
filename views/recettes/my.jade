@@ -10,6 +10,8 @@ block content
           b.title #{ recette.nom }
           br
           span Ajoutée le #{ recette.ajoute.toISOString().substr(0, 10) }
+          br
+          span par #{ recette.auteur ? recette.auteur.local.pseudo : '' }
           ul.tags
             each tag in recette.hashtags
               li #{ tag }

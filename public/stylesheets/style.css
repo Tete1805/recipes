@@ -16,48 +16,148 @@ h1 {
   color: #09d;
 }
 
-.padded-right {
-  padding-right: 20px;
+@media screen and (min-width: 1000px) {
+  .padded-right {
+    padding-right: 20px;
+  }
+  .col-10 {
+    display: inline-block;
+    width: 10%;
+  }
+  .col-20 {
+    display: inline-block;
+    width: 20%;
+  }
+  .col-30 {
+    display: inline-block;
+    width: 30%;
+  }
+  .col-40 {
+    display: inline-block;
+    width: 40%;
+  }
+  .col-50 {
+    display: inline-block;
+    width: 50%;
+  }
+  .col-60 {
+    display: inline-block;
+    width: 60%;
+  }
+  .col-70 {
+    display: inline-block;
+    width: 70%;
+  }
+  .col-80 {
+    display: inline-block;
+    width: 80%;
+  }
+  .col-90 {
+    display: inline-block;
+    width: 90%;
+  }
+  .col-100 {
+    display: inline-block;
+    width: 100%;
+  }
 }
-.col-10 {
-  display: inline-block;
-  width: 10%;
+
+@media screen and (min-width: 800px) and (max-width: 1000px) {
+  .padded-right {
+    padding-right: 10px;
+  }
+  .col-10 {
+    display: inline-block;
+    width: 20%;
+  }
+  .col-20 {
+    display: inline-block;
+    width: 20%;
+  }
+  .col-30 {
+    display: inline-block;
+    width: 100%;
+  }
+  .col-40 {
+    display: inline-block;
+    width: 50%;
+  }
+  .col-50 {
+    display: inline-block;
+    width: 50%;
+  }
+  .col-60 {
+    display: inline-block;
+    width: 50%;
+  }
+  .col-70 {
+    display: inline-block;
+    width: 100%;
+  }
+  .col-80 {
+    display: inline-block;
+    width: 80%;
+  }
+  .col-90 {
+    display: inline-block;
+    width: 80%;
+  }
+  .col-100 {
+    display: inline-block;
+    width: 100%;
+  }
 }
-.col-20 {
-  display: inline-block;
-  width: 20%;
-}
-.col-30 {
-  display: inline-block;
-  width: 30%;
-}
-.col-40 {
-  display: inline-block;
-  width: 40%;
-}
-.col-50 {
-  display: inline-block;
-  width: 50%;
-}
-.col-60 {
-  display: inline-block;
-  width: 60%;
-}
-.col-70 {
-  display: inline-block;
-  width: 70%;
-}
-.col-80 {
-  display: inline-block;
-  width: 80%;
-}
-.col-90 {
-  display: inline-block;
-  width: 90%;
-}
-.col-100 {
-  display: inline-block;
-  width: 100%;
+
+@media screen and (max-width: 800px) {
+
+  * { 
+    margin: 5px 0;
+    text-align: center !important;
+  }
+
+  .padded-right {
+    padding-right: 0;
+  }
+  .col-10 {
+    display: inline-block;
+    width: 100%;
+  }
+  .col-20 {
+    display: inline-block;
+    width: 100%;
+  }
+  .col-30 {
+    display: inline-block;
+    width: 100%;
+  }
+  .col-40 {
+    display: inline-block;
+    width: 100%;
+  }
+  .col-50 {
+    display: inline-block;
+    width: 100%;
+  }
+  .col-60 {
+    display: inline-block;
+    width: 100%;
+  }
+  .col-70 {
+    display: inline-block;
+    width: 100%;
+  }
+  .col-80 {
+    display: inline-block;
+    width: 100%;
+  }
+  .col-90 {
+    display: inline-block;
+    width: 100%;
+  }
+  .col-100 {
+    display: inline-block;
+    width: 100%;
+  }
 }
 
 .inline-block {
@@ -91,7 +191,7 @@ textarea {
 
 input[type="submit"] {
   border: none;
-  background-color: #09f;
+  background-color: #6d6;
   color: white;
   cursor: pointer;
   font-weight: bold;
@@ -102,13 +202,23 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
   border: none;
-  background-color: #0af;
+  background-color: #4d4;
   color: white;
   cursor: pointer;
   font-weight: bold;
   font-size: 1.3em;
   margin-top: 25px;
   padding: 10px 20px;
+}
+
+input[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+input[disabled]:hover {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 footer {

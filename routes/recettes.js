@@ -12,7 +12,7 @@ router.get(['/', '/all'], function(req, res, next) {
 });
 
 router.get('/all/:page', function(req, res, next) {
-  Recette.find().skip((req.query.page || 0) * 10).limit(10).exec(function(err, results) {
+  Recette.find().populate('auteur').skip((req.query.page || 0) * 10).limit(10).exec(function(err, results) {
     res.render('recettes/all', {
      title: 'Toutes les recettes',
      recettes: results
@@ -31,14 +31,15 @@ router.post('/new', function(req, res, next) {
     notes: req.body.notes,
     hashtags:req.body.tags.replace(/[^a-zA-Z0-9\#\s]*/g, '').split(' ').filter(function(elm) { return elm.length > 0 ? true : false })
   });
-  recette.save(function(err) {
-    if (err) { console.log('error while saving recette: ' + err); }
-  })
+  console.log(recette, req.body);
+  // recette.save(function(err) {
+  //   if (err) { console.log('error while saving recette: ' + err); }
+  // })
   res.redirect('/recettes/all');
 })
 
 router.get('/my', function(req, res, next) {
-  Recette.find({ auteur: req.user }).exec(function(err, results) {
+  Recette.find({ auteur: req.user }).populate('auteur').exec(function(err, results) {
     res.render('recettes/my', {
      title: 'Toutes mes recettes',
      recettes: results
