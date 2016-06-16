@@ -231,6 +231,11 @@ footer {
   width: 100%;
 }
 
+footer span {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
 .autocomplete {
   border: 1px solid #ccc;
   display: none;

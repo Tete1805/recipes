@@ -17,13 +17,13 @@ block content
           .col-10
             label Nom de la recette
           .col-90
-            input(name="nom", placeholder="Nom", required, value="#{ recette.nom }")
+            input(name="nom", placeholder="Nom", required, value=recette.nom)
         li
           .col-10
             label Maturation
           .col-90
             input(name="maturation", type="number" placeholder="Combien de jours avant de déguster la recette", required, min="0", max="180",
-              value="#{ parseFloat(recette.maturation) || 0 }")
+              value=recette.maturation)
         li
           .col-10
             label Notes
@@ -33,61 +33,64 @@ block content
           .col-10
             label Tags
           .col-90
-            input(name="hashtags", placeholder="#custard #2diy4", value="#{ recette.hashtags.join(' ') }")
+            input(name="hashtags", placeholder="#custard #2diy4", value=recette.hashtags.join(' '))
     br
     div
       .title.center
         b Bases
       ul.recette-bases
-        li
-          .col-10
-            label Base 1
-          .col-90.arome-container
-            .col-10.padded-right
-              span.short-label Ratio PG / VG
+        for base in recette.bases
+          li
             .col-10
-              select(name="base-ratio", required)
-                - var i = 0
-                while i < 11
-                  option(value= i*10 + '/' + (10-i)*10) #{ i*10 + '/' + (10-i)*10 }
-                  - i++
-            .col-10.padded-right
-              span.short-label Taux de Nicotine
-            .col-10
-              input.nicotine(name="base-nicotine", type="number", required, min="0", max="100")
-            .col-10
-              span mg
-            .col-10
-              input.pourcentage(name="base-pourcentage", type="number", placeholder="Pourcentage", required, min="0", max="100")
-            .col-10
-              span %
-            .col-30
-              .col-50.padded-right
-                input.btn-supprimer(type="button", value="Supprimer")
-              .col-50.padded-right
-                input.btn-ajouter(type="button", value="Ajouter une base")
+              label Base 1
+            .col-90.arome-container
+              .col-10.padded-right
+                span.short-label Ratio PG / VG
+              .col-10
+                select(name="base-ratio", required)
+                  - var i = 0, val = ''
+                  while i < 11
+                    - val = i*10 + '/' + (10-i)*10;
+                    option(value=val, selected=(base.ratio === val ? 'selected' : null))= val
+                    - i++
+              .col-10.padded-right
+                span.short-label Taux de Nicotine
+              .col-10
+                input.nicotine(name="base-nicotine", type="number", required, min="0", max="100", value=base.nicotine)
+              .col-10
+                span mg
+              .col-10
+                input.pourcentage(name="base-pourcentage", type="number", placeholder="Pourcentage", required, min="0", max="100", value=base.pourcentage)
+              .col-10
+                span %
+              .col-30
+                .col-50.padded-right
+                  input.btn-supprimer(type="button", value="Supprimer")
+                .col-50.padded-right
+                  input.btn-ajouter(type="button", value="Ajouter une base")
     br
     div
       .title.center
         b Arômes
       ul.recette-aromes
-        li
-          .col-10
-            label Arôme 1
-          .col-90.arome-container
-            .col-20.padded-right
-              input(name="arome-marque", type="text", placeholder="Marque / Fabricant", required)
-            .col-30.padded-right
-              input(name="arome-nom", type="text", placeholder="Nom", required)
+        each arome in recette.aromes
+          li
             .col-10
-                input.pourcentage(name="arome-pourcentage", type="number", placeholder="Pourcentage", required, min="0", max="100")
-            .col-10
-              span %
-            .col-30
-              .col-50.padded-right
-                input.btn-supprimer(type="button", value="Supprimer")
-              .col-50.padded-right
-                input.btn-ajouter(type="button", value="Ajouter un arôme")
+              label Arôme 1
+            .col-90.arome-container
+              .col-20.padded-right
+                input(name="arome-marque", type="text", placeholder="Marque / Fabricant", required, value=arome.marque)
+              .col-30.padded-right
+                input(name="arome-nom", type="text", placeholder="Nom", required, value=arome.nom)
+              .col-10
+                  input.pourcentage(name="arome-pourcentage", type="number", placeholder="Pourcentage", required, min="0", max="100", value=arome.pourcentage)
+              .col-10
+                span %
+              .col-30
+                .col-50.padded-right
+                  input.btn-supprimer(type="button", value="Supprimer")
+                .col-50.padded-right
+                  input.btn-ajouter(type="button", value="Ajouter un arôme")
     br
     div
       .title.center

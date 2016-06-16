@@ -36,6 +36,7 @@ router.post('/new', function(req, res, next) {
     nom: req.body.nom,
     auteur: req.user,
     notes: req.body.notes,
+    maturation: req.body.maturation,
     hashtags:req.body.hashtags.replace(/[^a-zA-Z0-9\#\s]*/g, '').split(' ').filter(function(elm) { return elm.length > 0 ? true : false })
   });
 
