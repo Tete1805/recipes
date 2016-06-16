@@ -9,15 +9,16 @@ var recetteSchema = mongoose.Schema({
     auteur: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     bases: [
         {
-            pg: Number,
-            vg: Number,
-            taux: Number,
+            ratio: String,
+            nicotine: Number,
             pourcentage: Number
         }
     ],
     aromes: [
         {
-            nom: { type: mongoose.Schema.Types.ObjectId, ref: 'Arome' },
+            // nom: { type: mongoose.Schema.Types.ObjectId, ref: 'Arome' },
+            marque: String,
+            nom: String,
             pourcentage: Number
         }
     ],

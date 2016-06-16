@@ -20,21 +20,63 @@ router.get('/all/:page', function(req, res, next) {
   });
 });
 
+router.get('/detail/:id', function(req, res, next) {
+  Recette.findOne({ "_id": req.params.id }).exec((err, results) => {
+    res.render('recettes/detail', { title: 'Nouvelle recette', recette: results });  
+  })  
+});
+
 router.get('/new', function(req, res, next) {
   res.render('recettes/new', { title: 'Nouvelle recette', recette: { nom: 'Nom de la nouvelle recette' }});
 });
 
 router.post('/new', function(req, res, next) {
+
   var recette = new Recette({
     nom: req.body.nom,
     auteur: req.user,
     notes: req.body.notes,
-    hashtags:req.body.tags.replace(/[^a-zA-Z0-9\#\s]*/g, '').split(' ').filter(function(elm) { return elm.length > 0 ? true : false })
+    hashtags:req.body.hashtags.replace(/[^a-zA-Z0-9\#\s]*/g, '').split(' ').filter(function(elm) { return elm.length > 0 ? true : false })
   });
-  console.log(recette, req.body);
-  // recette.save(function(err) {
-  //   if (err) { console.log('error while saving recette: ' + err); }
-  // })
+
+  var multiplesBases = typeof req.body['base-ratio'] !== 'string';
+  var multiplesAromes = typeof req.body['arome-marque'] !== 'string';
+
+  if (multiplesBases) {
+    for (var i = 0; i < req.body['base-ratio'].length; i++) {
+      recette.bases.push({
+        ratio: req.body['base-ratio'][i],
+        nicotine: req.body['base-nicotine'][i],
+        pourcentage: req.body['base-pourcentage'][i]
+      })
+    }
+  } else {
+      recette.bases.push({
+        ratio: req.body['base-ratio'],
+        nicotine: req.body['base-nicotine'],
+        pourcentage: req.body['base-pourcentage']
+      })
+  }
+
+  if (multiplesAromes) {
+    for (var i = 0; i < req.body['arome-marque'].length; i++) {
+      recette.aromes.push({
+        marque: req.body['arome-marque'][i],
+        nom: req.body['arome-nom'][i],
+        pourcentage: req.body['arome-pourcentage'][i]
+      })
+    }
+  } else {
+      recette.aromes.push({
+        marque: req.body['arome-marque'],
+        nom: req.body['arome-nom'],
+        pourcentage: req.body['arome-pourcentage']
+      });
+  }
+
+  recette.save(function(err) {
+    if (err) { console.log('error while saving recette: ' + err); }
+  })
   res.redirect('/recettes/all');
 })
 

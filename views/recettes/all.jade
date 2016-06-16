@@ -13,8 +13,8 @@ block content
           br
           span par #{ recette.auteur ? recette.auteur.local.pseudo : '' }
           ul.tags
-            each tag in recette.hashtags
-              li #{ tag }
+            each hashtag in recette.hashtags
+              li #{ hashtag }
           div.likes
             span.plus 10
             span.minus 5
