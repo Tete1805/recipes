@@ -1,0 +1,59 @@
+.recettes {
+  display: inline-block;
+  padding: 0;
+}
+
+.recettes > li {
+  border-radius: 5px;
+  background: white;
+  display: inline-block;
+  list-style: none;
+  margin: 10px;
+  padding: 4px;
+  box-shadow: 1px 2px 4px 2px rgba(0, 0, 0, 0.2);
+}
+
+.recette-container {
+  background-color: white;
+  border-radius: 5px;
+  height: 100%;
+  padding: 15px;
+}
+
+.tags {
+  list-style: none;
+  padding: 15px;
+}
+
+.tags > li {
+  background-color: #3af;
+  color: white;
+  display: inline-block;
+  margin: 5px;
+  padding: 5px 10px;
+}
+
+.likes {
+  text-align: right;
+}
+
+.likes > * {
+  border-radius: 8px;
+  color: white;
+  padding: 5px 15px;
+}
+
+.likes > .plus {
+  background-color: #2A2;
+  margin-right: 5px;
+}
+
+.likes > .minus {
+  background-color: #F73;
+}
+
+.hashtag {
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+}

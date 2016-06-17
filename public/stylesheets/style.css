@@ -130,6 +130,7 @@ h1 {
 
 .jumbo > img {
   width: 100%;
+  margin-top: -8%;
 }
 
 input, textarea, select {
@@ -155,14 +156,8 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-  border: none;
   background-color: #4d4;
   color: white;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 1.3em;
-  margin-top: 25px;
-  padding: 10px 20px;
 }
 
 input[disabled] {
@@ -217,58 +212,4 @@ footer span {
 
 .title {
   color: #09d;
-}
-
-.recettes {
-  display: inline-block;
-  padding: 0;
-}
-
-.recettes > li {
-  border-radius: 5px;
-  background: white;
-  display: inline-block;
-  list-style: none;
-  margin: 10px;
-  padding: 4px;
-  box-shadow: 1px 2px 4px 2px rgba(0, 0, 0, 0.2);
-}
-
-.recette-container {
-  background-color: white;
-  border-radius: 5px;
-  height: 100%;
-  padding: 15px;
-}
-
-.tags {
-  list-style: none;
-  padding: 15px;
-}
-
-.tags > li {
-  background-color: #3af;
-  color: white;
-  display: inline-block;
-  margin: 5px;
-  padding: 10px;
-}
-
-.likes {
-  text-align: right;
-}
-
-.likes > * {
-  border-radius: 8px;
-  color: white;
-  padding: 5px 21px;
-}
-
-.likes > .plus {
-  background-color: #2A2;
-  margin-right: 5px;
-}
-
-.likes > .minus {
-  background-color: #F73;
 }

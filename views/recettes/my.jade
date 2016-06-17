@@ -1,4 +1,6 @@
-extends ../layout
+extends ../site/layout
+block extend_head
+  link(rel='stylesheet', href='/stylesheets/recettes.css')
 block content
 
   h1 #{ title }
@@ -13,10 +15,13 @@ block content
           br
           span par #{ recette.auteur ? recette.auteur.local.pseudo : '' }
           ul.tags
-            each tag in recette.hashtags
-              li #{ tag }
-          div.likes
-            span.plus 10
-            span.minus 5
-
-          a(href="detail/" + recette._id) Détail
+            each hashtag in recette.hashtags
+              li 
+                a.hashtag(href='/recettes/search/hashtag/' + hashtag.substr(1, hashtag.length - 1)) #{ hashtag }
+          div
+            .col-50
+              a(href="detail/" + recette._id) Détail            
+            .col-50
+              .likes
+                span.plus 10
+                span.minus 5
