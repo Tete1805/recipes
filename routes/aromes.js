@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Arome = require('../models/arome');
+var authRequired = require('./authRequired');
 
 router.get(['/', '/all'], function(req, res, next) {
   Arome.find().limit(10).exec(function(err, results) {
@@ -20,11 +21,11 @@ router.get('/all/:page', function(req, res, next) {
   });
 });
 
-router.get('/new', function(req, res, next) {
+router.get('/new', authRequired, function(req, res, next) {
   res.render('aromes/new', { title: 'Nouvel arôme '});
 });
 
-router.post('/new', function(req, res, next) {
+router.post('/new', authRequired, function(req, res, next) {
   var arome = new Arome();
   arome.marque = req.body.marque;
   arome.nom = req.body.nom;
@@ -37,7 +38,7 @@ router.post('/new', function(req, res, next) {
   res.redirect('/aromes/all');
 })
 
-router.get('/my', function(req, res, next) {
+router.get('/my', authRequired, function(req, res, next) {
   res.render('aromes/my', { title: 'Tous mes arômes '});
 });
 

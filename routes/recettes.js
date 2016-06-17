@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Recette = require('../models/recette');
+var authRequired = require('./authRequired');
 
 router.get(['/', '/all'], function(req, res, next) {
   Recette.find().populate('auteur').limit(10).exec(function(err, results) {
@@ -20,7 +21,7 @@ router.get('/detail/:id', function(req, res, next) {
   })  
 });
 
-router.post('/detail/:id', function(req, res, next) {
+router.post('/detail/:id', authRequired, function(req, res, next) {
   Recette.findOne({ "_id" : req.params.id }).exec((err, result) => {
      result.parse(req).save((err) => {
       if (err) { console.log('error while saving recette: ' + err); }
@@ -29,11 +30,11 @@ router.post('/detail/:id', function(req, res, next) {
   });
 })
 
-router.get('/new', function(req, res, next) {
-  res.render('recettes/new', { title: 'Nouvelle recette', recette: { nom: 'Nom de la nouvelle recette' }});
+router.get('/new', authRequired, function(req, res, next) {
+  res.render('recettes/new', { title: 'Nouvelle recette', recette: { nom: 'Nom de la nouvelle recette' }});   
 });
 
-router.post('/new', function(req, res, next) {
+router.post('/new', authRequired, function(req, res, next) {
   var recette = new Recette();
   recette.parse(req).save(function(err) {
     if (err) { console.log('error while saving recette: ' + err); }
@@ -41,7 +42,7 @@ router.post('/new', function(req, res, next) {
   res.redirect('/recettes/all');
 })
 
-router.get('/my', function(req, res, next) {
+router.get('/my', authRequired, function(req, res, next) {
   Recette.find({ auteur: req.user }).populate('auteur').exec(function(err, results) {
     res.render('recettes/my', { title: 'Toutes mes recettes', recettes: results });
   });

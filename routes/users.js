@@ -1,6 +1,7 @@
 var express  = require('express');
 var router   = express.Router();
 var passport = require('passport');
+var authRequired = require('./authRequired');
 
 router.get('/login', function(req, res, next) {
   res.render('users/login');
@@ -27,17 +28,8 @@ router.get('/logout', function(req, res, next) {
   res.redirect('/');
 });
 
-router.get('/profile', isAuthenticated, function(req, res, next) {
+router.get('/profile', authRequired, function(req, res, next) {
     res.render('users/profile');
 });
-
-function isAuthenticated(req, res, next) {
-      // if user is authenticated in the session, carry on
-    if (req.isAuthenticated())
-        return next();
-
-    // if they aren't redirect them to the home page
-    res.redirect('/users/login');
-}
 
 module.exports = router;
