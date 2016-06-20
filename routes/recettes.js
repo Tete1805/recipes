@@ -2,7 +2,7 @@ const express = require('express'),
       router = express.Router(),
       Recette = require('../models/recette'),
       authRequired = require('./authRequired'),
-      Bitly = require('bitly');
+      bitly = require('../config/bitly');
 
 router.get(['/', '/all', '/all/:page'], (req, res, next) => {
   Recette.find().populate('auteur').skip((req.query.page || 0) * 10).limit(10).exec((err, results) => {
@@ -30,31 +30,31 @@ router.get('/fork/:id', authRequired, (req, res, next) => {
   Recette.findOne({ "_id": req.params.id }).exec((err, result) => {
     result.auteur = req.user;
     result._id = null;
-    res.render('recettes/new', { title: 'Détail de la recette', recette: result });  
+    res.render('recettes/edit', { title: 'Modifiez la recette', recette: result });  
   })  
 });
 
-router.get('/edit/:id', (req, res, next) => {
+router.get('/edit/:id', authRequired, (req, res, next) => {
   Recette.findOne({ "_id": req.params.id }).exec((err, result) => {
     res.render('recettes/edit', { title: 'Modifiez la recette', recette: result });  
   })  
 });
 
 router.post('/edit/:id', authRequired, (req, res, next) => {
-  bitly = new Bitly('cee54271ec940460096c29dfb72644a5f3ad7be4');
-  bitly.shorten('http://diyrecipes.herokuapp.com/recettes' + req.url)
-    .then(function(result) {
-      req.shortUrl = result.data.url;
-    })
-    .then(function() {
-      Recette.findOne({ "_id" : req.params.id }).exec((err, result) => {
+  Recette.findOne({ "_id": req.params.id }).exec((err, result) => {
+    if (err) { result = new Recette() }
+    bitly.shorten('http://diyrecipes.herokuapp.com/recettes/detail/' + result._id)
+      .then((result) => {
+        req.shortUrl = result.data.url;
+      })
+      .then(function() {
         result.parse(req).save((err) => {
           if (err) { console.log('error while saving recette: ' + err); }
           res.redirect('/recettes/all');
         });
       });
-    })
-})
+    });
+});
 
 router.get('/new', authRequired, (req, res, next) => {
   res.render('recettes/new', { title: 'Nouvelle recette', recette: { nom: 'Nom de la nouvelle recette' }});   
@@ -62,11 +62,17 @@ router.get('/new', authRequired, (req, res, next) => {
 
 router.post('/new', authRequired, (req, res, next) => {
   var recette = new Recette();
-  recette.parse(req).save(function(err) {
-    if (err) { console.log('error while saving recette: ' + err); }
-  });
-  res.redirect('/recettes/all');
-})
+  bitly.shorten('http://diyrecipes.herokuapp.com/recettes/detail/' + recette._id)
+    .then((result) => {
+      req.shortUrl = result.data.url;
+    })
+    .then(function() {
+      recette.parse(req).save(function(err) {
+        if (err) { console.log('error while saving recette: ' + err); }
+      });
+      res.redirect('/recettes/all');
+    });
+});
 
 router.get('/my', authRequired, (req, res, next) => {
   Recette.find({ auteur: req.user }).populate('auteur').exec((err, results) => {
