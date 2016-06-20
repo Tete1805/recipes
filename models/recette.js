@@ -24,6 +24,7 @@ var recetteSchema = mongoose.Schema({
     ],
     maturation: Number,
     notes: String,
+    shortUrl: String,
     hashtags: [String]
 
 });
@@ -37,6 +38,7 @@ recetteSchema.methods.parse = function(req) {
     this.hashtags = req.body.hashtags.replace(/[^a-zA-Z0-9\#\s]*/g, '').split(' ').filter(function(elm) { return elm.length > 0 ? true : false })
     this.aromes = [];
     this.bases = [];
+    this.shortUrl = req.shortUrl;
 
     var basesRatio = [].concat(req.body['base-ratio']);
     var basesNicotine = [].concat(req.body['base-nicotine']);

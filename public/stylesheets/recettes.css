@@ -17,19 +17,22 @@
   background-color: white;
   border-radius: 5px;
   height: 100%;
+  min-width: 300px;
   padding: 15px;
 }
 
 .tags {
   list-style: none;
-  padding: 15px;
+  margin: 20px 0;
+  padding: 0;
 }
 
 .tags > li {
   background-color: #3af;
   color: white;
   display: inline-block;
-  margin: 5px;
+  margin-right: 5px;
+  margin-left: 0;
   padding: 5px 10px;
 }
 
@@ -55,5 +58,62 @@
 .hashtag {
   color: white;
   font-weight: bold;
+  text-decoration: none;
+}
+
+.recette-icon {
+  background-color: #09d;
+  border-radius: 5px;
+  display: inline-block;
+  margin-right: 4px;
+  padding: 4px 8px;
+  position: relative;
+}
+
+.recette-icon > a > i {
+  background: transparent 0 0 no-repeat;
+  display: inline-block;
+  height: 18px;
+  margin: 0 2px;
+  position: relative;
+  top: 2px;
+  width: 18px;
+}
+
+.recette-icon > a > span {
+  background-color: #47535F;
+  display: inline-block;
+  height: 0;
+  left: 0;
+  margin-top: 5px;
+  opacity: 0;
+  padding: 5px 10px;
+  position: absolute;
+  top: 100%;
+}
+
+.recette-icon > a:hover > span {
+  height: auto;
+  opacity: 1;
+  transition: opacity 300ms;
+}
+
+.recette-icon > a > i.twitter {
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2072%2072%22%3E%3Cpath%20fill%3D%22none%22%20d%3D%22M0%200h72v72H0z%22%2F%3E%3Cpath%20class%3D%22icon%22%20fill%3D%22%23fff%22%20d%3D%22M68.812%2015.14c-2.348%201.04-4.87%201.744-7.52%202.06%202.704-1.62%204.78-4.186%205.757-7.243-2.53%201.5-5.33%202.592-8.314%203.176C56.35%2010.59%2052.948%209%2049.182%209c-7.23%200-13.092%205.86-13.092%2013.093%200%201.026.118%202.02.338%202.98C25.543%2024.527%2015.9%2019.318%209.44%2011.396c-1.125%201.936-1.77%204.184-1.77%206.58%200%204.543%202.312%208.552%205.824%2010.9-2.146-.07-4.165-.658-5.93-1.64-.002.056-.002.11-.002.163%200%206.345%204.513%2011.638%2010.504%2012.84-1.1.298-2.256.457-3.45.457-.845%200-1.666-.078-2.464-.23%201.667%205.2%206.5%208.985%2012.23%209.09-4.482%203.51-10.13%205.605-16.26%205.605-1.055%200-2.096-.06-3.122-.184%205.794%203.717%2012.676%205.882%2020.067%205.882%2024.083%200%2037.25-19.95%2037.25-37.25%200-.565-.013-1.133-.038-1.693%202.558-1.847%204.778-4.15%206.532-6.774z%22%2F%3E%3C%2Fsvg%3E");
+}
+
+.recette-icon > a > i.detail {
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201024%201024%22%3E%3Cpath%20fill%3D%22white%22%20d%3D%22M992.262%20871.396l-242.552-206.294c-25.074-22.566-51.89-32.926-73.552-31.926%2057.256-67.068%2091.842-154.078%2091.842-249.176%200-212.078-171.922-384-384-384-212.076%200-384%20171.922-384%20384s171.922%20384%20384%20384c95.098%200%20182.108-34.586%20249.176-91.844-1%2021.662%209.36%2048.478%2031.926%2073.552l206.294%20242.552c35.322%2039.246%2093.022%2042.554%20128.22%207.356s31.892-92.898-7.354-128.22zM384%20640c-141.384%200-256-114.616-256-256s114.616-256%20256-256%20256%20114.616%20256%20256-114.614%20256-256%20256z%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E");
+}
+
+.recette-icon > a > i.fork {
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20550%20300%22%3E%20%3Cg%3E%0A%20%20%3Cellipse%20fill-opacity%3D%220%22%20fill%3D%22%230f0f00%22%20stroke-width%3D%2238.5%22%20cx%3D%2271.181776%22%20cy%3D%22227.830552%22%20id%3D%22svg_1%22%20rx%3D%2250.499971%22%20ry%3D%2250.499971%22%20stroke%3D%22%23fff%22%2F%3E%0A%20%20%3Cpath%20fill-opacity%3D%220%22%20fill%3D%22%230f0f00%22%20stroke-width%3D%2238.5%22%20d%3D%22m125.661949%2C232.574267c34.830131%2C-2.177326%2062.830825%2C17.418608%2090.148575%2C-64.231118c27.31775%2C-81.649726%2059.416107%2C-92.536356%20124.295763%2C-91.447693%22%20id%3D%22svg_6%22%20stroke%3D%22%23ffffff%22%2F%3E%0A%20%20%3Cline%20stroke%3D%22%23ffffff%22%20fill%3D%22none%22%20stroke-width%3D%2238.5%22%20x1%3D%22122.681752%22%20y1%3D%22234.603283%22%20x2%3D%22419.683086%22%20y2%3D%22234.603283%22%20id%3D%22svg_8%22%20stroke-linejoin%3D%22null%22%20stroke-linecap%3D%22null%22%2F%3E%0A%20%20%3Cellipse%20fill-opacity%3D%220%22%20fill%3D%22%230f0f00%22%20stroke-width%3D%2238.5%22%20cx%3D%22372.911594%22%20cy%3D%2274.83844%22%20id%3D%22svg_11%22%20rx%3D%2250.499971%22%20ry%3D%2250.499971%22%20stroke%3D%22%23fff%22%2F%3E%0A%20%20%3Cellipse%20fill-opacity%3D%220%22%20fill%3D%22%230f0f00%22%20stroke-width%3D%2238.5%22%20cx%3D%22476.950342%22%20cy%3D%22228.410968%22%20id%3D%22svg_12%22%20rx%3D%2250.499971%22%20ry%3D%2250.499971%22%20stroke%3D%22%23fff%22%2F%3E%0A%20%3C%2Fg%3E%3C%2Fsvg%3E");
+  margin-right: 3px;
+  margin-bottom: -5px;
+  width: 20px;
+}
+
+.recette-icon > a {
+  color: white;
   text-decoration: none;
 }

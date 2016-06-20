@@ -17,10 +17,21 @@ block content
           ul.tags
             each hashtag in recette.hashtags
               li
-                a.hashtag(href='/recettes/search/hashtag/' + hashtag.substr(1, hashtag.length - 1)) #{ hashtag }
+                a.hashtag(href='/recettes/search/hashtags/' + hashtag.substr(1, hashtag.length - 1)) #{ hashtag }
           div
             .col-50
-              a(href="detail/" + recette._id) Détail            
+              .recette-icon
+                a(href="/recettes/detail/" + recette._id)
+                  i.detail
+                  span Détail
+              .recette-icon
+                a(href="https://twitter.com/intent/tweet?text=D%C3%A9couvrez%20la%20recette%20" + recette.nom + "%20:%20"+ recette.shortUrl)
+                  i.twitter
+                  span Tweet
+              .recette-icon
+                a(href='/recettes/fork/' + recette._id)
+                  i.fork
+                  span Fork
             .col-50
               .likes
                 span.plus 10
