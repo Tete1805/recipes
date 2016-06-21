@@ -28,7 +28,7 @@ block content
                 a(href="https://twitter.com/intent/tweet?text=D%C3%A9couvrez%20la%20recette%20" + recette.nom + "%20:%20"+ recette.shortUrl)
                   i.twitter
                   span Tweet
-              if (recette.auteur.toString() !== user.toString())
+              if (user && recette.auteur.toString() !== user.toString())
                   .recette-icon
                     a(href='/recettes/fork/' + recette._id)
                       i.fork
