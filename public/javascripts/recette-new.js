@@ -89,6 +89,7 @@
     attachAddEvents();
     attachDeleteEvents();
     attachTotalEvents();
+    rebuildNumbers();
     total();
 
   }

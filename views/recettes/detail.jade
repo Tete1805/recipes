@@ -1,6 +1,7 @@
 extends ../site/layout
 block extend_head
   link(rel='stylesheet', href='/stylesheets/recette-new.css')
+  script(src="../../javascripts/recette-new.js")    
 block content
 
   h1 #{ title }
@@ -80,7 +81,10 @@ block content
     br
     div
       if (user && user._id.toString() == recette.auteur.toString())
-        a(href='/recettes/edit/' + recette._id) Éditer
+        .recette-button
+          a(href='/recettes/edit/' + recette._id)
+            i.edit
+            span Modifier
       else
         .recette-button
           a(href='/recettes/fork/' + recette._id)
