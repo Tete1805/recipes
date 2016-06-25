@@ -21,7 +21,7 @@ block content
           div
             .col-50
               .recette-icon
-                a(href="/recettes/detail/" + recette._id)
+                a(href='/recette/' + recette._id + '/detail')
                   i.detail
                   span Détail
               .recette-icon
@@ -30,7 +30,7 @@ block content
                   span Tweet
               if (user && recette.auteur.toString() !== user.toString())
                   .recette-icon
-                    a(href='/recettes/fork/' + recette._id)
+                    a(href='/recette/' + recette._id + '/fork')
                       i.fork
                       span Fork
             .col-50

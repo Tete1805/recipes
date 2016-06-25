@@ -1,6 +1,5 @@
 // app/models/recette.js
-var mongoose = require('mongoose'),
-    bitly = require('../config/bitly');
+var mongoose = require('mongoose');
 
 // define the schema for our model
 var recetteSchema = mongoose.Schema({
@@ -49,6 +48,7 @@ recetteSchema.methods.parse = function(req) {
     this.maturation = req.body.maturation;
     this.aromes = [];
     this.bases = [];
+    this.shortUrl = req.shortUrl;
 
     // Les hashtags ne peuvent contenir que des lettres, des chiffres, des # (qu'on supprime) et des espaces entre eux
     this.hashtags = req.body.hashtags
@@ -79,17 +79,6 @@ recetteSchema.methods.parse = function(req) {
         nom: aromes.nom[i],
         pourcentage: aromes.pourcentage[i]
       })
-    }
-
-    if (!this.shortUrl) {
-        bitly
-            .shorten('http://diyrecipes.herokuapp.com/recette/' + this._id + '/detail')
-            .then((result) => { 
-                this.shortUrl = result.data.url; 
-                this.save((err) => {
-                    console.log('Erreur en sauvant la recette: ', this._id)
-                });
-            });
     }
 
     return this;

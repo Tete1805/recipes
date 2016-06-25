@@ -15,7 +15,6 @@ router.get('/search/:searchType/:searchItem', (req, res, next) => {
   recettes.populate('auteur').skip((req.query.page || 0) * 10).limit(10).exec((err, results) => {
     res.render('recettes/all', { title: 'Toutes les recettes contenant ' + req.params.searchItem, recettes: results });
   });
-
 });
 
 router.get('/detail/:id', (req, res, next) => {
@@ -58,16 +57,10 @@ router.get('/new', authRequired, (req, res, next) => {
 
 router.post('/new', authRequired, (req, res, next) => {
   var recette = new Recette();
-  bitly.shorten('http://diyrecipes.herokuapp.com/recettes/detail/' + recette._id)
-    .then((result) => {
-      req.shortUrl = result.data.url;
-    })
-    .then(() => {
-      recette.parse(req).save(function(err) {
-        if (err) { console.log('error while saving recette: ' + err); }
-      });
-      res.redirect('/recettes/all');
-    });
+  recette.parse(req).save(function(err) {
+    if (err) { console.log('error while saving recette: ' + err); }
+  });
+  res.redirect('/recettes/all');
 });
 
 router.post('/comment/:id', authRequired, (req, res, next) => {
@@ -79,7 +72,6 @@ router.post('/comment/:id', authRequired, (req, res, next) => {
     });
   });
 });
-
 
 router.get('/my', authRequired, (req, res, next) => {
   Recette.find({ auteur: req.user }).populate('auteur').exec((err, results) => {

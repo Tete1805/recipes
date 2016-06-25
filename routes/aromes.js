@@ -32,7 +32,7 @@ router.post('/new', authRequired, function(req, res, next) {
   arome.description = req.body.description;
   arome.save(function(err) {
     if(err) { 
-      console.log('error while saving arome'); 
+      req.flash("Je n'ai pas réussi à sauvegarder l'arôme. =/"); 
     }
   });
   res.redirect('/aromes/all');

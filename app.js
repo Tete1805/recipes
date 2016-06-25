@@ -13,11 +13,12 @@ var passport      = require('passport');
 var flash         = require('connect-flash');
 var csurf         = require('csurf');
 
-var routes        = require('./routes/index');
+var index        = require('./routes/index');
 var users         = require('./routes/users');
 var recettes      = require('./routes/recettes');
-var groupes       = require('./routes/groupes');
+var recette       = require('./routes/recette');
 var aromes        = require('./routes/aromes');
+var admin        = require('./routes/admin');
 
 // Où est stockée la chaîne de connexion
 var configDb      = require('./config/database.js');
@@ -63,15 +64,16 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use('/', routes);
+app.use('/', index);
 app.use('/recettes', recettes);
+app.use('/recette', recette);
 app.use('/aromes', aromes);
 app.use('/users', users);
-// app.use('/groupes', groupes);
+app.use('/admin', admin);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Je ne sais pas où vous avez essayé d\'aller, mais je n\'ai rien trouvé ici...');
+  var err = new Error("Je ne sais pas où vous avez essayé d'aller, mais je n'ai rien trouvé ici...");
   err.status = 404;
   next(err);
 });

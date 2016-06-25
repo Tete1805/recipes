@@ -7,7 +7,7 @@ block content
 
   h1 #{ title }
 
-  form.recette(method="POST", action="/recettes/edit/" + recette._id)
+  form.recette(method="POST", action='/recette/' + recette._id + '/edit')
 
     input(name="edit", type="hidden", value="false")
     input(name="_id", type="hidden", value=recette._id || null)

@@ -82,11 +82,11 @@ block content
     div
       if (user && user._id.toString() == recette.auteur.toString())
         .recette-button
-          a(href='/recettes/edit/' + recette._id)
+          a(href='/recettes/' + recette._id + '/edit')
             i.edit
             span Modifier
       else
         .recette-button
-          a(href='/recettes/fork/' + recette._id)
+          a(href='/recettes/' + recette._id + '/fork')
             i.fork
             span Fork
