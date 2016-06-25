@@ -25,46 +25,74 @@ var recetteSchema = mongoose.Schema({
     maturation: Number,
     notes: String,
     shortUrl: String,
-    hashtags: [String]
+    hashtags: [String],
+    comments: [
+        {
+            auteur: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+            ajoute: { type: Date, default: Date.now },
+            corps: String
+        }
+    ],
+    score: { type: Number, default: 0 },
+    upVoters: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    downVoters: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
 
 });
 
 recetteSchema.methods.parse = function(req) {
 
+    // On récupère les éléments de la recette passés dans la requêtes ou le corps de la requête
     this.nom = req.body.nom;
     this.auteur = req.user;
     this.notes = req.body.notes;
     this.maturation = req.body.maturation;
-    this.hashtags = req.body.hashtags.replace(/[^a-zA-Z0-9\#\s]*/g, '').split(' ').filter(function(elm) { return elm.length > 0 ? true : false })
     this.aromes = [];
     this.bases = [];
     this.shortUrl = req.shortUrl;
 
-    var basesRatio = [].concat(req.body['base-ratio']);
-    var basesNicotine = [].concat(req.body['base-nicotine']);
-    var basesPourcentage = [].concat(req.body['base-pourcentage']);
+    // Les hashtags ne peuvent contenir que des lettres, des chiffres, des # (qu'on supprime) et des espaces entre eux
+    this.hashtags = req.body.hashtags
+        .replace(/[^a-zA-Z0-9\s]*/g, '')
+        .split(' ');
 
-    for (var i = 0; i < basesRatio.length; i++) {
+    //On remet le # devant chaque hashtag
+    this.hashtags = [].map.call(this.hashtags, (e) => '#' + e);
+        
+
+    var bases = {};
+    ['ratio', 'nicotine', 'pourcentage'].forEach((e) => { bases[e] = [].concat(req.body['base-' + e])});
+
+    for (var i = 0; i < bases.ratio.length; i++) {
       this.bases.push({
-        ratio: basesRatio[i],
-        nicotine: basesNicotine[i],
-        pourcentage: basesPourcentage[i]
+        ratio: bases.ratio[i],
+        nicotine: bases.nicotine[i],
+        pourcentage: bases.pourcentage[i]
       })
     }
 
-    var aromesMarque = [].concat(req.body['arome-marque']);
-    var aromesNom = [].concat(req.body['arome-nom']);
-    var aromesPourcentage = [].concat(req.body['arome-pourcentage']);    
+    var aromes = {};
+    ['marque', 'nom', 'pourcentage'].forEach((e) => { aromes[e] = [].concat(req.body['arome-' + e])});
 
-    for (var i = 0; i < aromesMarque.length; i++) {
+    for (var i = 0; i < aromes.marque.length; i++) {
       this.aromes.push({
-        marque: aromesMarque[i],
-        nom: aromesNom[i],
-        pourcentage: aromesPourcentage[i]
+        marque: aromes.marque[i],
+        nom: aromes.nom[i],
+        pourcentage: aromes.pourcentage[i]
       })
     }
 
     return this;
+}
+
+recetteSchema.methods.comment = function(user, corps) {
+    var fields = {
+      auteur: user,
+      corps: corps
+    };
+    // L'opérateur de mise à jour [`$push`](http://docs.mongodb.org/manual/reference/operator/update/push/#up._S_push)
+    // permet l'ajout à une propriété tableau. Rappel : l`appel de `.exec()` sans argument sur un objet `Query` de
+    // Mongoose le transforme en promesse.
+    return this.update({ $push: { comments: fields } }).exec();
 }
 
 // create the model and expose it to our app

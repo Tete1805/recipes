@@ -65,9 +65,9 @@ app.use(function(req, res, next) {
 
 app.use('/', routes);
 app.use('/recettes', recettes);
-app.use('/groupes', groupes);
 app.use('/aromes', aromes);
 app.use('/users', users);
+// app.use('/groupes', groupes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
