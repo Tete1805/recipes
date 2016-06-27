@@ -5,112 +5,91 @@ block extend_head
 
 block content
 
-  h1 #{ title }
-
-  form.recette(method="POST", action='/recette/' + recette._id + '/edit')
-
-    input(name="edit", type="hidden", value="false")
-    input(name="_id", type="hidden", value=recette._id || null)
+  form.recette(method="POST")
+    h1
+      input.h1(name="nom", type="text", placeholder="Nom", required, value=recette.nom)
+    div
+      h2 Informations
+    ul.recette-informations
+      li
+        label
+          b.col-20 Maturation recommandée : 
+        .col-30.padded-right
+          input(name="maturation", type="number" placeholder="Combien de jours avant de déguster la recette", required, min="0", max="180", value=recette.maturation) 
+        span.col-10 jours
+      li
+        label
+          b.col-20 Tags :
+        .col-30.padded-right
+          input(name="hashtags", placeholder="#custard #2diy4", value=recette.hashtags.join(' '))
+      li
+        label 
+          b.col-20 Notes : 
+        .col-30.padded-right
+          textarea(name="notes", rows="4", placeholder="Gourmande ? Manque de punch sur la fin ? Irait bien avec des noisettes ?")=recette.notes
 
     div
-      .title.center
-        b Infos
-      ul
-        li
-          .col-10
-            label Nom de la recette
-          .col-90
-            input(name="nom", placeholder="Nom", required, value=recette.nom)
-        li
-          .col-10
-            label Maturation
-          .col-90
-            input(name="maturation", type="number" placeholder="Combien de jours avant de déguster la recette", required, min="0", max="180",
-              value=recette.maturation)
-        li
-          .col-10
-            label Notes
-          .col-90
-            textarea(name="notes", rows="8", placeholder="Gourmande ? Manque de punch sur la fin ? Irait bien avec des noisettes ?") #{ recette.notes }
-        li
-          .col-10
-            label Tags
-          .col-90
-            input(name="hashtags", placeholder="#custard #2diy4", value=recette.hashtags.join(' '))
-    br
+      h2 Ingrédients
+
     div
-      .title.center
-        b Bases
+      h3#bases Bases :
       ul.recette-bases
-        for base in recette.bases.length ? recette.bases : [{}]
+        for base in recette.bases && recette.bases.length ? recette.bases : [{ ratio: '0/100', nicotine: null, pourcentage: null}]
+          li
+            .col-10.padded-right
+              input.pourcentage(name="base-pourcentage", type="number", placeholder="Pourcentage", required, min="0", max="100", value=base.pourcentage)
+            span % de base en 
+            .col-10.padded-right
+              input.nicotine(name="base-nicotine", type="number", required, min="0", max="100", value=base.nicotine)
+            span mg de nicotine avec un ratio PG/VG de 
+            .col-10.padded-right
+              select(name="base-ratio", required)
+                - var i = 0, val = ''
+                while i < 11
+                  - val = i*10 + '/' + (10-i)*10;
+                  option(value=val, selected=(base.ratio === val ? 'selected' : null))= val
+                  - i++
+            .col-10
+              .recette-button
+                a#btn-supprimer(href="#bases")
+                  i.remove
           li
             .col-10
-              label Base 1
-            .col-90.arome-container
-              .col-10.padded-right
-                span.short-label Ratio PG / VG
-              .col-10
-                select(name="base-ratio", required)
-                  - var i = 0, val = ''
-                  while i < 11
-                    - val = i*10 + '/' + (10-i)*10;
-                    option(value=val, selected=(base.ratio === val ? 'selected' : null))= val
-                    - i++
-              .col-10.padded-right
-                span.short-label Taux de Nicotine
-              .col-10
-                input.nicotine(name="base-nicotine", type="number", required, min="0", max="100", value=base.nicotine)
-              .col-10
-                span mg
-              .col-10
-                input.pourcentage(name="base-pourcentage", type="number", placeholder="Pourcentage", required, min="0", max="100", value=base.pourcentage)
-              .col-10
-                span %
-              .col-30
-                .col-50.padded-right
-                  input.btn-supprimer(type="button", value="Supprimer")
-                .col-50.padded-right
-                  input.btn-ajouter(type="button", value="Ajouter une base")
-    br
+              .recette-button
+                a#btn-ajouter(href="#bases")
+                  i.add
     div
-      .title.center
-        b Arômes
+      h3#aromes Arômes :
       ul.recette-aromes
-        each arome in recette.aromes.length ? recette.aromes : [{}]
+        for arome in recette.aromes && recette.aromes.length ? recette.aromes : [{ marque: null, nom: null, pourcentage: null}]
+          li
+            .col-10.padded-right
+              input.pourcentage(name="arome-pourcentage", type="number", placeholder="Pourcentage", required, min="0", max="100", value=arome.pourcentage)
+            span % de 
+            .col-20.padded-right
+              input(name="arome-nom", type="text", placeholder="Nom", required, value=arome.nom)
+            span de chez 
+            .col-20.padded-right
+              input(name="arome-marque", type="text", placeholder="Marque / Fabricant", required, value=arome.marque)
+            .col-10
+              .recette-button
+                a#btn-supprimer(href="#aromes")
+                  i.remove
           li
             .col-10
-              label Arôme 1
-            .col-90.arome-container
-              .col-20.padded-right
-                input(name="arome-marque", type="text", placeholder="Marque / Fabricant", required, value=arome.marque)
-              .col-30.padded-right
-                input(name="arome-nom", type="text", placeholder="Nom", required, value=arome.nom)
-              .col-10
-                  input.pourcentage(name="arome-pourcentage", type="number", placeholder="Pourcentage", required, min="0", max="100", value=arome.pourcentage)
-              .col-10
-                span %
-              .col-30
-                .col-50.padded-right
-                  input.btn-supprimer(type="button", value="Supprimer")
-                .col-50.padded-right
-                  input.btn-ajouter(type="button", value="Ajouter un arôme")
+              .recette-button
+                a#btn-ajouter(href="#aromes")
+                  i.add
     br
     div
-      .title.center
-        b Total
-      ul
-        li
-          .col-10
-            label Total
-          .col-90.arome-container
-            .col-30 &nbsp;
-            .col-10.center
-              span#total-nicotine 0
-            .col-10 mg
-            .col-10.center
-              span#total-pourcentage 0
-            .col-10 %
+      h2 Total
+
+      span#total-pourcentage 0
+      span % pour un dosage de 
+      span#total-nicotine 0
+      span mg de nicotine
+        
 
     div
-      input(type="submit", value="Enregistrer")
+      input(type="submit", disabled, value="Enregistrer")
       input(type="hidden" name="_csrf" value=csrfToken)

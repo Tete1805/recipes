@@ -1,6 +1,8 @@
 .recette {
-  width: 100%;
+  border-left: 2px dashed #ccc;
+  padding-left: 30px;
   text-align: left;
+  width: 100%;
 }
 
 .recette .title {
@@ -10,21 +12,18 @@
   padding: 8px;
 }
 
-.recette label {
-  border-bottom: 1px solid #ccc;
-  display: block;
-  height: 100%;
-  margin: 10px 10px 0 10px;
-  padding: 4px;
-  text-decoration: italic;
-}
-
 .recette input, .recette textarea, .recettte select {
   border: none;
   border-bottom: 1px solid #ccc;
-  display: block;
+  font: 19px 'Handlee', cursive !important;
+  font-weight: bold !important;
   margin-right: 10px;
   width: 100%;
+}
+
+input.h1 {
+  color: #09d;
+  font-size: 2em !important;
 }
 
 .recette .arome {
@@ -45,11 +44,7 @@
 
 .recette-button {
   display: inline-block;
-  margin-right: 4px;
-  padding: 4px 8px;
-  position: relative;
   font-size: 25px;
-  width: 100%;
 }
 
 .recette-button > a > i {
@@ -76,15 +71,41 @@
   background-image: url("data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20550%20550%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%3Cg%3E%0A%20%20%3Cg%20id%3D%22svg_2%22%3E%0A%20%20%20%3Cellipse%20stroke%3D%22%23fff%22%20ry%3D%2250.49997%22%20rx%3D%2250.49997%22%20id%3D%22svg_1%22%20cy%3D%22351.24232%22%20cx%3D%2271.18178%22%20stroke-width%3D%2238.5%22%20fill%3D%22%230f0f00%22%20fill-opacity%3D%220%22%2F%3E%0A%20%20%20%3Cpath%20stroke%3D%22%23ffffff%22%20id%3D%22svg_6%22%20d%3D%22m125.66195%2C355.98603c34.83013%2C-2.17733%2062.83082%2C17.4186%2090.14857%2C-64.23112c27.31775%2C-81.64973%2059.41611%2C-92.53636%20124.29577%2C-91.44769%22%20stroke-width%3D%2238.5%22%20fill%3D%22%230f0f00%22%20fill-opacity%3D%220%22%2F%3E%0A%20%20%20%3Cline%20stroke-linecap%3D%22null%22%20stroke-linejoin%3D%22null%22%20id%3D%22svg_8%22%20y2%3D%22358.01505%22%20x2%3D%22419.68309%22%20y1%3D%22358.01505%22%20x1%3D%22122.68175%22%20stroke-width%3D%2238.5%22%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%2F%3E%0A%20%20%20%3Cellipse%20stroke%3D%22%23fff%22%20ry%3D%2250.49997%22%20rx%3D%2250.49997%22%20id%3D%22svg_11%22%20cy%3D%22198.2502%22%20cx%3D%22372.91159%22%20stroke-width%3D%2238.5%22%20fill%3D%22%230f0f00%22%20fill-opacity%3D%220%22%2F%3E%0A%20%20%20%3Cellipse%20stroke%3D%22%23fff%22%20ry%3D%2250.49997%22%20rx%3D%2250.49997%22%20id%3D%22svg_12%22%20cy%3D%22351.82273%22%20cx%3D%22476.95034%22%20stroke-width%3D%2238.5%22%20fill%3D%22%230f0f00%22%20fill-opacity%3D%220%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%3C%2Fg%3E%0A%3C%2Fsvg%3E");
 }
 
+.recette-button > a > i.remove {
+  background-image: url("data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20400%20400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%3Cg%3E%0A%20%20%3Cline%20stroke-width%3D%2254.5%22%20x1%3D%2227.5%22%20y1%3D%2228.49999%22%20x2%3D%22372.49999%22%20y2%3D%22372.50001%22%20id%3D%22svg_1%22%20stroke%3D%22%23fff%22%2F%3E%0A%20%20%3Cline%20stroke-width%3D%2254.5%22%20x1%3D%22373.49998%22%20y1%3D%2229.5%22%20x2%3D%2229.50001%22%20y2%3D%22372.50001%22%20id%3D%22svg_2%22%20stroke%3D%22%23fff%22%2F%3E%0A%20%3C%2Fg%3E%0A%3C%2Fsvg%3E");
+  height: 25px;
+  top: 5px;
+  transform: scale(0.5);
+  width: 25px;
+}
+
+.recette-button > a > i.add {
+  background-image: url("data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20400%20400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%3Cg%3E%0A%20%20%3Cline%20stroke-width%3D%2254.5%22%20x1%3D%2227.5%22%20y1%3D%2228.49999%22%20x2%3D%22372.49999%22%20y2%3D%22372.50001%22%20id%3D%22svg_1%22%20stroke%3D%22%23fff%22%2F%3E%0A%20%20%3Cline%20stroke-width%3D%2254.5%22%20x1%3D%22373.49998%22%20y1%3D%2229.5%22%20x2%3D%2229.50001%22%20y2%3D%22372.50001%22%20id%3D%22svg_2%22%20stroke%3D%22%23fff%22%2F%3E%0A%20%3C%2Fg%3E%0A%3C%2Fsvg%3E");
+  height: 25px;
+  top: 5px;
+  transform: scale(0.5) rotate(45deg);
+  width: 25px;
+}
+
+
 .recette-button > a {  
   background-color: #09d;
   color: white;
   display: inline-block;
   text-decoration: none;
   text-align: center;
-  width: 100%;
 }
 
 .recette-button > a:hover {
   background-color: #0ae;
 }  
+
+#btn-ajouter {
+  margin-top: 20px;
+}
+
+@media all and (max-width: 900px) {
+  label {
+    display: block;
+  }
+}

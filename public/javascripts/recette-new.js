@@ -11,29 +11,15 @@
         return Array.prototype.slice.call(this, 0)
     }
 
-    function rebuildNumbers() {
-
-      document.querySelectorAll('.recette-aromes, .recette-bases')
-        .forEach((ul) => {
-          var i = 1;
-          ul.querySelectorAll('LI')
-            .forEach((li) => {
-              var t = li.children[0].children[0];
-              t.innerText = t.innerText.replace(/\s[0-9]*/, ' ' + i);
-              i++;
-            })
-        })
-    }
-
     function attachDeleteEvents() {
       // Supprime le li container du bouton appelant
-      document.querySelectorAll('.btn-supprimer')
+      document.querySelectorAll('#btn-supprimer')
         .forEach((input) => {
           input.addEventListener('click', (e) => {
-            if (parent(e.currentTarget, 'UL').children.length > 1) {
+            console.log(parent(e.currentTarget, 'UL').children.length );
+            if (parent(e.currentTarget, 'UL').children.length > 2) {
               var curLi = parent(e.currentTarget, 'LI');
               curLi.parentElement.removeChild(curLi);
-              rebuildNumbers();
             }
           })
         })
@@ -41,25 +27,21 @@
 
     // Clone le li en cours, supprime le bouton d'ajout de ligne,
     // vide les inputs de la li en cours, insère le clone en amont
-    // et réécrit l'ordonnancement des éléments
 
     function attachAddEvents() {
-      document.querySelectorAll('.btn-ajouter')
+      document.querySelectorAll('#btn-ajouter')
         .forEach((input) => {
           input.addEventListener('click', (e) => {
-            var curLi = parent(e.currentTarget, 'LI');
+            var curLi = parent(e.currentTarget, 'LI').previousSibling;
             var clone = curLi.cloneNode(true);
             curLi.querySelectorAll("input[type='text'], input[type='number']")
               .forEach((input) => {
                 input.value = null;
               });
-            var innerAddBtn = clone.querySelector(".btn-ajouter");
-            innerAddBtn.parentElement.removeChild(innerAddBtn);
             curLi.parentElement.insertBefore(clone, curLi);
 
             attachDeleteEvents();
             attachTotalEvents();
-            rebuildNumbers();
           })
         })
     }
@@ -89,7 +71,6 @@
     attachAddEvents();
     attachDeleteEvents();
     attachTotalEvents();
-    rebuildNumbers();
     total();
 
   }

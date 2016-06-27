@@ -1,21 +1,37 @@
 body {
-  font: 15px "Roboto" !important;
+  color: #444;
+  font: 1.3em 'Handlee', cursive;
   margin: 0;
   overflow-x: hidden;
   padding: 0;
+}
+
+main {
+  animation: fadeIn 300ms ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    margin-left: 10px;
+    opacity: 0;
+  } to {
+    margin-left: 0;
+    opacity: 1;
+  }
 }
 
 nav {
   background-color: #09d;
   color: white;
   display: flex;
-  font-size: 20px;
+  font-size: 1.3em;
   font-weight: bold;
-  height: 60px;
+  height: 70px;
   margin: 0;
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 9999;
 }
 
 nav * {
@@ -28,20 +44,42 @@ nav a {
 }
 
 .brand-icon {
-  font-size: 35px;
+  font: 45px 'Grand Hotel', cursive;
   margin-left: 20px;
 }
 
-.search-bar > label {
-  margin-right: 10px;
+.search-bar {
+  display: flex;
 }
 
-.search-bar > input + input {
-  margin: 0;
-  margin-left: 10px;
+.search-bar * {
+  align-items: flex-start;
+  display: inline-block;
+  font-size: 32px;
+}
+
+.search-bar > label {
+  margin-right: 25px;
+}
+
+.search-bar > input {
+  border: none;
+  height: 33px;
+  margin: auto;
+}
+
+.search-bar > input[type="text"] {
+  font: 19px 'Handlee', cursive !important;
+  font-weight: bold !important;
+}
+
+.search-bar > input[type="submit"] {
   background-color: #00B7AF;
-  padding: 4px 16px;
-  font-size: 0.9em;
+  color: white;
+  font-size: 22px;
+  font-weight: bold !important;
+  margin-left: 15px;
+  padding: 0 16px;
 }
 
 nav > .menu {
@@ -81,7 +119,7 @@ nav > .menu > li:hover ul > li > a {
   background-color: #8df;
   border: 1px solid white;
   display: inline-block;
-  font-size: 18px;
+  font-size: 0.8em;
   padding: 4px 8px;
   width: 100%;
 }
@@ -107,6 +145,7 @@ main {
   height: 100%;
   padding: 20px;
   padding-top: 80px;
+  padding-bottom: 50px;
 }
 
 

@@ -4,7 +4,7 @@ nav
   div.search-bar
     label(for="search-bar", placeholder="#custard, Strawberry, Fraise, Gourmand...") Search
     input(name="search-bar" type="text")
-    input(type="submit", value="GO")
+    input(type="submit", value="➜")
   ul.menu
     li
       span Recettes
@@ -12,18 +12,18 @@ nav
           li
             a(href='/recettes/all') Toutes les recettes
           li
-            a(href='/recettes/new') Nouvelle recette
+            a(href='/recette/new/edit') Nouvelle recette
           li
             a(href='/recettes/my') Mes recettes
-    li
-      span Arômes
-        ul
-          li
-            a(href="/aromes/all") Tous les arômes
-          li
-            a(href="/aromes/new") Nouvel arôme
-          li
-            a(href="/aromes/my") Mes arômes
+    //- li
+    //-   span Arômes
+    //-     ul
+    //-       li
+    //-         a(href="/aromes/all") Tous les arômes
+    //-       li
+    //-         a(href="/aromes/new") Nouvel arôme
+    //-       li
+    //-         a(href="/aromes/my") Mes arômes
     //- li
     //-   span Groupes
     //-     ul

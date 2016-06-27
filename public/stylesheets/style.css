@@ -12,7 +12,7 @@ a {
   color: #00B7FF;
 }
 
-h1 {
+h1, h2 {
   color: #09d;
 }
 
@@ -122,6 +122,14 @@ h1 {
   text-align: center;
 }
 
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+}
+
 .jumbo {
   margin: -20px;
   overflow: hidden;
@@ -144,7 +152,13 @@ textarea {
   border-width: 1px;
 }
 
-input[type="submit"] {
+input[type="text"], input[type="number"], textarea, select, option {
+  border-left: none;
+  border-right: none;
+  border-top: none;
+}
+
+main input[type="submit"] {
   border: none;
   background-color: #6d6;
   color: white;
@@ -155,17 +169,17 @@ input[type="submit"] {
   padding: 10px 20px;
 }
 
-input[type="submit"]:hover {
+main input[type="submit"]:hover {
   background-color: #4d4;
   color: white;
 }
 
-input[disabled] {
+main input[disabled] {
   background-color: #ccc;
   cursor: not-allowed;
 }
 
-input[disabled]:hover {
+main input[disabled]:hover {
   background-color: #ccc;
   cursor: not-allowed;
 }
