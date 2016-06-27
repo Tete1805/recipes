@@ -12,8 +12,12 @@ a {
   color: #00B7FF;
 }
 
-h1, h2 {
-  color: #09d;
+h1, h2, .h1 {
+  color: #09d !important;
+}
+
+h1, .h1 {
+  font-size: 55px !important;
 }
 
 @media screen and (max-width: 900px) {
@@ -156,6 +160,10 @@ input[type="text"], input[type="number"], textarea, select, option {
   border-left: none;
   border-right: none;
   border-top: none;
+}
+
+input[type="number"] {
+  text-align: right;
 }
 
 main input[type="submit"] {

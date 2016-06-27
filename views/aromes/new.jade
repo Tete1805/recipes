@@ -1,15 +1,17 @@
 extends ../site/layout
 block extend_head
   script(src="../javascripts/arome-new.js")
+  link(rel='stylesheet', href='/stylesheets/recette-new.css')
 block content
 
   h1 #{ title }
 
-  form(method="POST")
+  form.recette(method="POST")
     ul
       li
-        label Marque
-        input(name="marque", placeholder="Le fabricant ou la marque (Ex : Capella)")
+        label.col-10 Marque
+        .col-20
+          input(name="marque", type="texte", placeholder="Le fabricant ou la marque (Ex : Capella)")
         ul.autocomplete(for="marque")
           li Capella
           li TPA / TFA (The Perfumer's Apprentice / The Flavor Apprentice)
@@ -17,11 +19,12 @@ block content
           li Tasty Puff
           li Solubarôme
       li
-        label Nom
-        input(name="nom", placeholder="Le nom de l'arôme donné par le fabricant")
-      li
-        label Description
-        input(name="description", placeholder="Une courte description de l'arôme")
+        label.col-10 Nom
+        .col-20
+          input(name="nom", type="texte", placeholder="Le nom de l'arôme donné par le fabricant")
+      //- li
+      //-   label.col-10 Description
+      //-   input(name="description", type="texte", placeholder="Une courte description de l'arôme")
 
     input(type="hidden" name="_csrf" value=csrfToken)
     input(type="submit" value="Enregistrer")

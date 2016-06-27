@@ -15,15 +15,11 @@
 .recette input, .recette textarea, .recettte select {
   border: none;
   border-bottom: 1px solid #ccc;
-  font: 19px 'Handlee', cursive !important;
-  font-weight: bold !important;
+  font-family: 'Handlee', cursive;
+  font-size: 19px;
+  font-weight: bold;
   margin-right: 10px;
   width: 100%;
-}
-
-input.h1 {
-  color: #09d;
-  font-size: 2em !important;
 }
 
 .recette .arome {

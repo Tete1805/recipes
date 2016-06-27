@@ -6,7 +6,9 @@ block content
   ul.aromes
     each arome in aromes
       li
-        span #{ arome.marque + ' - ' + arome.nom + ' - ' + arome.description }
-          input(type='hidden', value=arome._id)
+        .col-40
+          span #{ arome.marque + ' - ' + arome.nom }
+            input(type='hidden', value=arome._id)
+        .col-40
           label(for='iGotIt') Je l'ai
           input(name='iGotIt', type='checkbox')
