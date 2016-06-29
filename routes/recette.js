@@ -1,8 +1,8 @@
-var express = require('express'),
-      router = express.Router(),
-      Recette = require('../models/recette'),
-      Arome = require('../models/arome'),
-      authRequired = require('./authRequired');
+var express         = require('express'),
+      router        = express.Router(),
+      Recette       = require('../models/recette'),
+      Arome         = require('../models/arome'),
+      authRequired  = require('./authRequired');
 
 router.use('/:id', (req, res, next) => {
   Recette.findOne({ "_id": req.params.id }).populate('auteur').exec((err, result) => {
