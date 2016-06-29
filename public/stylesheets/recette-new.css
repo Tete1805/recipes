@@ -12,16 +12,6 @@
   padding: 8px;
 }
 
-.recette input, .recette textarea, .recettte select {
-  border: none;
-  border-bottom: 1px solid #ccc;
-  font-family: 'Handlee', cursive;
-  font-size: 19px;
-  font-weight: bold;
-  margin-right: 10px;
-  width: 100%;
-}
-
 .recette .arome {
   border: 1px solid #ccc; 
   display: inline-block;
