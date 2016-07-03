@@ -1,20 +1,23 @@
 nav
-  span.brand-icon
-    a(href="/") Recipes
-  div.search-bar
-    label(for="search-bar", placeholder="#custard, Strawberry, Fraise, Gourmand...") Search
-    input(name="search-bar" type="text")
-    input(type="submit", value="➜")
+  
+  .brand-icon.col-20.left
+      a(href="/") Recipes
+  .col-30
+    .search-bar
+      label(for="search-bar", placeholder="#custard, Strawberry, Fraise, Gourmand...") Search
+      input(name="search-bar" type="text")
+      input(type="submit", value="➜")
   ul.menu
     li
       span Recettes
         ul
           li
-            a(href='/recettes/all') Toutes les recettes
+            a(href='/recettes/all/1') Toutes les recettes
           li
             a(href='/recette/new/edit') Nouvelle recette
-          li
-            a(href='/recettes/my') Mes recettes
+          if (user)
+            li
+              a(href='/recettes/search/auteur/' + user.local.pseudo) Mes recettes
     li
       span Arômes
         ul

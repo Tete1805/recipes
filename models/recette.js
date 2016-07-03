@@ -7,7 +7,7 @@ var recetteSchema = mongoose.Schema({
 
     nom: String,
     ajoute: { type: Date, default: Date.now },
-    auteur: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    auteur: String,
     bases: [
         {
             ratio: String,
@@ -44,7 +44,7 @@ recetteSchema.methods.parse = function(req) {
 
     // On récupère les éléments de la recette passés dans la requêtes ou le corps de la requête
     this.nom = req.body.nom;
-    this.auteur = req.user;
+    this.auteur = req.user.local.pseudo;
     this.notes = req.body.notes;
     this.maturation = req.body.maturation;
     this.aromes = [];

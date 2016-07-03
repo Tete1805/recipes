@@ -8,7 +8,7 @@ block content
     h1= recette.nom
   .col-20
     div.right
-      if (user && user._id.toString() === recette.auteur._id.toString())
+      if (user && user.local.pseudo.toString() === recette.auteur.toString())
         .recette-button
           a(href='/recette/' + recette._id + '/edit')
             i.edit
@@ -17,7 +17,9 @@ block content
           a(href='/recette/' + recette._id + '/fork')
             i.fork
 
-  em= 'postée par ' + recette.auteur.local.pseudo + ' le ' + recette.ajoute.toISOString().substr(0, 10)
+  em= 'postée par '
+  a(href="/recettes/search/auteur/" + recette.auteur +'/1')= recette.auteur
+  span=' le ' + recette.ajoute.toISOString().substr(0, 10)
 
   form.recette(method="POST")
     div
@@ -29,7 +31,7 @@ block content
       li
         b Tags :
         each tag in recette.hashtags
-          a(href="/recettes/search/hashtags/" + tag.substr(1))= tag
+          a(href="/recettes/hashtags/" + tag.substr(1))= tag
           span &nbsp;
       li
         b Notes : 
@@ -38,14 +40,29 @@ block content
     div
       h2 Ingrédients
 
-    div
-      h3 Bases :
-      ul
-        for base in recette.bases.length ? recette.bases : [{}]
-          li #{ base.pourcentage }% de base en #{ base.nicotine }mg de nicotine avec un ratio PG/VG de #{ base.ratio }
+    if (recette.bases && recette.bases.length > 0)
+      div
+        h3 Bases :
+        ul
+          for base in recette.bases
+            li #{ base.pourcentage }% de base en #{ base.nicotine }mg de nicotine avec un ratio PG/VG de #{ base.ratio }
+
+    if (recette.aromes && recette.aromes.length > 0)
+      div
+        h3 Arômes :
+        ul
+          for arome in recette.aromes
+            li #{ arome.pourcentage }% de #{ arome.nom } (#{ arome.marque })
 
     div
-      h3 Arômes :
-      ul
-        for arome in recette.aromes.length ? recette.aromes : [{}]
-          li #{ arome.pourcentage }% de #{ arome.nom } (#{ arome.marque })
+      h3 Commentaires :
+      if (recette.commentaires && recette.commentaires.length > 0)
+        ul
+          for commentaire in recette.commentaires
+            li
+              div
+                span posté par 
+                a(href="/users/" + commentaire.user)= commentaire.auteur 
+                span le 
+                span= commentaire.poste.toISOString().substr(0, 10)
+      form(method="POST", action="")

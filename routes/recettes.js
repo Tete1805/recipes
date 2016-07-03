@@ -1,27 +1,48 @@
-var express = require('express'),
-      router = express.Router(),
-      Recette = require('../models/recette'),
-      Arome = require('../models/arome'),
-      authRequired = require('./authRequired'),
-      bitly = require('../config/bitly');
+var express       = require('express'),
+    router        = express.Router(),
+    authRequired  = require('./authRequired'),
+    Recette       = require('../models/recette'); 
 
-router.get(['/', '/all', '/all/:page'], (req, res, next) => {
-  Recette.find().populate('auteur').skip((req.query.page || 0) * 10).limit(10).exec((err, results) => {
-    res.render('recettes/all', { title: 'Toutes les recettes', recettes: results });
-  });
-});
+router.get(['/', '/all/:page'], (req, res, next) => {
 
-router.get('/search/:searchType/:searchItem', (req, res, next) => {
-  var recettes = Recette.find({ "$or": [{ "hashtags" : "#" + req.params.searchItem }, { "aromes.nom": req.params.searchItem }]});
-  recettes.populate('auteur').skip((req.query.page || 0) * 10).limit(10).exec((err, results) => {
-    res.render('recettes/all', { title: 'Toutes les recettes contenant ' + req.params.searchItem, recettes: results });
-  });
-});
+  Recette.find().skip(10 * (parseInt(req.params.page, 10) - 1 || 0)).limit(10).exec((err, results) => {
+      res.render('recettes/all', { recettes: results, page: req.params.page })
+    });  
+})
 
-router.get('/my', authRequired, (req, res, next) => {
-  Recette.find({ auteur: req.user }).populate('auteur').exec((err, results) => {
-    res.render('recettes/my', { title: 'Toutes mes recettes', recettes: results });
-  });
+router.get(['/search/:searchField/:searchString/', '/search/:searchField/:searchString/:page'], (req, res, next) => {
+
+  var search = {};
+
+  if (!(req.params.searchField && req.params.searchString)) {
+    throw new Error("Vous devez spécifier des valeurs de recherche ! :) Et d'ailleurs... Mais comment êtes-vous arrivés ici ?")
+  }
+
+  if (req.params.searchField !== "all") {
+    
+    search[req.params.searchField] = { $regex: req.params.searchString, $options: 'gi' };
+
+  } else {
+
+    search = { "$or": 
+      [
+        { hashtags : { $regex: req.params.searchString, $options: 'gi' }},
+        { "aromes.nom": { $regex: req.params.searchString, $options: 'gi' }},
+        { "aromes.marque": { $regex: req.params.searchString, $options: 'gi' }},
+        { "base.marque": { $regex: req.params.searchString, $options: 'gi' }},
+        { notes: { $regex: req.params.searchString, $options: 'gi' }},
+        { auteur : { $regex: req.params.searchString, $options: 'gi' }}
+      ]
+    }
+  }
+
+  Recette
+      .find(search)
+      .skip(10 * (parseInt(req.params.page, 10) - 1 || 0))
+      .limit(10)
+      .exec((err, results) => {
+        res.render('recettes/all', { recettes: results, page: req.params.page })
+      });  
 });
 
 module.exports = router;

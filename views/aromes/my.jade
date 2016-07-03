@@ -3,7 +3,11 @@ block content
 
   h1 #{ title }
 
-  ul.aromes
-    each arome in aromes
-      li
-        span #{ arome.marque + ' - ' + arome.nom + ' - ' + arome.description }
+  if (aromes)
+    ul.aromes
+      each arome in aromes
+        li
+          span #{ arome.marque + ' - ' + arome.nom + ' - ' + arome.description }
+  else
+    h3 Vous n'avez soumis aucun arôme pour le moment. :'-(
+    a(href='/recette/new/edit') Créez-en un !
