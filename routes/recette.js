@@ -4,7 +4,7 @@ var express         = require('express'),
       Arome         = require('../models/arome'),
       authRequired  = require('./authRequired');
 
-router.use('/:id', (req, res, next) => {
+router.use('/:id/*', (req, res, next) => {
   Recette.findOne({ "_id": req.params.id }).exec((err, result) => {
     req.recette = err ? new Recette() : result;
     next();

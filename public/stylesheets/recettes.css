@@ -23,23 +23,27 @@
   padding-left: 25px;
 }
 
-.recette-container > title {
-  font-size: 1.1 em;
+.recette-container > .title {
+  display: block;
+  font-size: 1.1em;
+  margin-bottom: 10px;
 }
 
 .tags {
   list-style: none;
-  margin: 20px 0;
+  margin: 10px 0;
+  margin-bottom: 20px;
   padding: 0;
 }
 
 .tags > li {
-  background-color: #3af;
-  color: white;
   display: inline-block;
-  margin-right: 5px;
+  margin-right: 8px;
   margin-left: 0;
-  padding: 5px 10px;
+}
+
+.tags > li > a {
+  color: #3af;
 }
 
 .likes {
@@ -112,8 +116,14 @@
   background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201024%201024%22%3E%3Cpath%20fill%3D%22white%22%20d%3D%22M992.262%20871.396l-242.552-206.294c-25.074-22.566-51.89-32.926-73.552-31.926%2057.256-67.068%2091.842-154.078%2091.842-249.176%200-212.078-171.922-384-384-384-212.076%200-384%20171.922-384%20384s171.922%20384%20384%20384c95.098%200%20182.108-34.586%20249.176-91.844-1%2021.662%209.36%2048.478%2031.926%2073.552l206.294%20242.552c35.322%2039.246%2093.022%2042.554%20128.22%207.356s31.892-92.898-7.354-128.22zM384%20640c-141.384%200-256-114.616-256-256s114.616-256%20256-256%20256%20114.616%20256%20256-114.614%20256-256%20256z%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E");
 }
 
+.recette-icon > a > i.facebook {
+  background-image: url("data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20260%20400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%3Cline%20stroke%3D%22%23ffffff%22%20id%3D%22svg_5%22%20y2%3D%22187.5%22%20x2%3D%22231.51036%22%20y1%3D%22187.5%22%20x1%3D%2221.5%22%20fill-opacity%3D%22null%22%20stroke-width%3D%2260%22%20fill%3D%22none%22%2F%3E%0A%20%20%3Cpath%20stroke%3D%22%23ffffff%22%20id%3D%22svg_6%22%20d%3D%22m122.5%2C384.5c-1%2C-36.77047%20-1%2C-243.97578%20-1%2C-285.99254c0%2C-42.01675%2065%2C-49.07553%2078%2C-49.02729c13%2C0.04824%2017%2C0.06964%2040.5%2C0.58035%22%20stroke-width%3D%2260%22%20fill%3D%22none%22%2F%3E%0A%3C%2Fsvg%3E");
+  transform: scale(1.2) translate(2px, 1px);
+}
+
 .recette-icon > a > i.fork {
   background-image: url("data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20550%20550%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%3Cg%3E%0A%20%20%3Cg%20id%3D%22svg_2%22%3E%0A%20%20%20%3Cellipse%20stroke%3D%22%23fff%22%20ry%3D%2250.49997%22%20rx%3D%2250.49997%22%20id%3D%22svg_1%22%20cy%3D%22351.24232%22%20cx%3D%2271.18178%22%20stroke-width%3D%2238.5%22%20fill%3D%22%230f0f00%22%20fill-opacity%3D%220%22%2F%3E%0A%20%20%20%3Cpath%20stroke%3D%22%23ffffff%22%20id%3D%22svg_6%22%20d%3D%22m125.66195%2C355.98603c34.83013%2C-2.17733%2062.83082%2C17.4186%2090.14857%2C-64.23112c27.31775%2C-81.64973%2059.41611%2C-92.53636%20124.29577%2C-91.44769%22%20stroke-width%3D%2238.5%22%20fill%3D%22%230f0f00%22%20fill-opacity%3D%220%22%2F%3E%0A%20%20%20%3Cline%20stroke-linecap%3D%22null%22%20stroke-linejoin%3D%22null%22%20id%3D%22svg_8%22%20y2%3D%22358.01505%22%20x2%3D%22419.68309%22%20y1%3D%22358.01505%22%20x1%3D%22122.68175%22%20stroke-width%3D%2238.5%22%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%2F%3E%0A%20%20%20%3Cellipse%20stroke%3D%22%23fff%22%20ry%3D%2250.49997%22%20rx%3D%2250.49997%22%20id%3D%22svg_11%22%20cy%3D%22198.2502%22%20cx%3D%22372.91159%22%20stroke-width%3D%2238.5%22%20fill%3D%22%230f0f00%22%20fill-opacity%3D%220%22%2F%3E%0A%20%20%20%3Cellipse%20stroke%3D%22%23fff%22%20ry%3D%2250.49997%22%20rx%3D%2250.49997%22%20id%3D%22svg_12%22%20cy%3D%22351.82273%22%20cx%3D%22476.95034%22%20stroke-width%3D%2238.5%22%20fill%3D%22%230f0f00%22%20fill-opacity%3D%220%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%3C%2Fg%3E%0A%3C%2Fsvg%3E");
+  transform: scale(1.3) ;
 }
 
 .recette-icon > a {

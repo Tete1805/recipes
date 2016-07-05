@@ -6,7 +6,7 @@ block extend_head
 
 block content
 
-  form.recette(method="POST" action="/recette/" + recette._id + "/fork")
+  form.recette(method="POST")
     h1
       input.h1(name="nom", type="text", placeholder="Nom", required, value=recette.nom)
     div
@@ -97,4 +97,4 @@ block content
       input(type="hidden" name="_csrf" value=csrfToken)
 
 block extend_body
-  script(src="../../javascripts/autocomplete.min.js")
+  //- script(src="../../javascripts/autocomplete.min.js")

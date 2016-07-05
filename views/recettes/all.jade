@@ -10,7 +10,6 @@ block content
       li
         .recette-container
           b.title #{ recette.nom }
-          br
           span Ajoutée le #{ recette.ajoute.toISOString().substr(0, 10) }
           br
           span par #{ recette.auteur }
@@ -28,6 +27,10 @@ block content
                 a(href="https://twitter.com/intent/tweet?text=D%C3%A9couvrez%20la%20recette%20" + recette.nom + "%20:%20"+ recette.shortUrl)
                   i.twitter
                   span Tweet
+              .recette-icon
+                a(href="https://www.facebook.com/sharer/sharer.php?u=" + recette.shortUrl)
+                  i.facebook
+                  span Share               
               if (user && recette.auteur.toString() !== user.local.pseudo.toString())
                   .recette-icon
                     a(href='/recette/' + recette._id + '/fork')
