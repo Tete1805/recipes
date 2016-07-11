@@ -10,7 +10,7 @@ block content
       li
         .recette-container
           b.title #{ recette.nom }
-          span Ajoutée le #{ recette.ajoute.toISOString().substr(0, 10) }
+          span Ajoutée le #{ formatDate(recette.ajoute) }
           br
           span par #{ recette.auteur }
           ul.tags
@@ -38,5 +38,6 @@ block content
                       span Fork
             .col-50
               .likes
-                span.plus 10
-                span.minus 5
+                form(method="POST", action='/recette/' + recette._id + '/like')
+                  input(type="button").like
+                  span=recettes.likes ? recette.likes.length : 0

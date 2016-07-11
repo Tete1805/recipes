@@ -35,8 +35,8 @@ router.get('/:id/fork', authRequired, (req, res, next) => {
 });
 
 router.post('/:id/comment', authRequired, (req, res, next) => {
-  req.recette.update({ $push: { comments: { auteur: req.user, corps: req.body.commentaire }}}).exec((err) => {
-    if (err) { req.flash('error', 'error while saving comment for recette: ' + err); }
+  req.recette.update({ $push: { comments: { auteur: req.user.local.pseudo, corps: req.body.comment }}}).exec((err) => {
+    if (err) { req.flash('error', 'error while saving comment for recette: ' + err); console.log(err)}
     res.redirect('/recette/' + req.params.id + '/detail');
   });
 });

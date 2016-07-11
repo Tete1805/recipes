@@ -29,15 +29,12 @@ var recetteSchema = mongoose.Schema({
     hashtags: [String],
     comments: [
         {
-            auteur: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+            auteur: String,
             ajoute: { type: Date, default: Date.now },
             corps: String
         }
     ],
-    score: { type: Number, default: 0 },
-    upVoters: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    downVoters: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
-
+    likes: [String]
 });
 
 recetteSchema.methods.parse = function(req) {
