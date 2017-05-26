@@ -18,11 +18,13 @@ router.get(['/search/:searchField/:searchString/', '/search/:searchField/:search
     throw new Error("Vous devez spécifier des valeurs de recherche ! :) Et d'ailleurs... Mais comment êtes-vous arrivés ici ?")
   }
 
-  if (req.params.searchField !== "all") {
-    
+  if (req.params.searchField === 'auteur') {
+    search[req.params.searchField] = req.params.searchString;
+  }
+
+  else if (req.params.searchField !== "all") {
     search[req.params.searchField] = { $regex: req.params.searchString, $options: 'gi' };
-    console.log(req.params.searchString)
-    
+
   } else {
     search = { "$or": 
       [
