@@ -17,7 +17,8 @@ block content
     br
     | Marquez les arômes que vous possédez et découvrez quelles recettes y sont associées.
 
-  p.center 
-    a.login(href='/users/signup') S'enregistrer
-    span &nbsp;
-    a.login(href='/users/login') Se connecter
+  if (!user)
+    p.center 
+      a.login(href='/users/signup') S'enregistrer
+      span &nbsp;
+      a.login(href='/users/login') Se connecter
