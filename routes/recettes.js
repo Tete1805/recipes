@@ -21,16 +21,16 @@ router.get(['/search/:searchField/:searchString/', '/search/:searchField/:search
   if (req.params.searchField !== "all") {
     
     search[req.params.searchField] = { $regex: req.params.searchString, $options: 'gi' };
-
+    console.log(req.params.searchString)
+    
   } else {
-
     search = { "$or": 
       [
         { hashtags : { $regex: req.params.searchString, $options: 'gi' }},
         { "aromes.nom": { $regex: req.params.searchString, $options: 'gi' }},
         { "aromes.marque": { $regex: req.params.searchString, $options: 'gi' }},
         { notes: { $regex: req.params.searchString, $options: 'gi' }},
-        { auteur : { $regex: req.params.searchString, $options: 'gi' }}
+        { auteur : req.params.searchString }
       ]
     }
   }

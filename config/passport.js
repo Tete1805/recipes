@@ -45,38 +45,35 @@ module.exports = function(passport) {
         // User.findOne wont fire unless data is sent back
         process.nextTick(function() {
 
-        // find a user whose pseudo is the same as the forms email
-        // we are checking to see if the user trying to login already exists
-        User.findOne({ 'local.pseudo' :  pseudo }, function(err, user) {
-            // if there are any errors, return the error
-            if (err)
-                return done(err);
+            // find a user whose pseudo is the same as the forms email
+            // we are checking to see if the user trying to login already exists
+            User.findOne({ 'local.pseudo' :  pseudo }, function(err, user) {
+                // if there are any errors, return the error
+                if (err)
+                    return done(err);
 
-            // check to see if theres already a user with that email
-            if (user) {
-                return done(null, false, req.flash('signupMessage', 'Ce pseudo est déjà pris. Sorry! =/'));
-            } else {
+                // check to see if theres already a user with that email
+                if (user) {
+                    return done(null, false, req.flash('signupMessage', 'Ce pseudo est déjà pris. Sorry! =/'));
+                } else {
 
-                // if there is no user with that pseudo
-                // create the user
-                var newUser            = new User();
+                    // if there is no user with that pseudo
+                    // create the user
+                    var newUser            = new User();
 
-                // set the user's local credentials
-                newUser.local.pseudo    = pseudo;
-                newUser.local.password = newUser.generateHash(password);
+                    // set the user's local credentials
+                    newUser.local.pseudo   = pseudo;
+                    newUser.local.password = newUser.generateHash(password);
 
-                // save the user
-                newUser.save(function(err) {
-                    if (err)
-                        throw err;
-                    return done(null, newUser);
-                });
-            }
-
-        });    
-
+                    // save the user
+                    newUser.save(function(err) {
+                        if (err)
+                            throw err;
+                        return done(null, newUser);
+                    });
+                }
+            });
         });
-
     }));
 
     // =========================================================================
@@ -95,23 +92,30 @@ module.exports = function(passport) {
 
         // find a user whose email is the same as the forms email
         // we are checking to see if the user trying to login already exists
+
         User.findOne({ 'local.pseudo' :  pseudo }, function(err, user) {
+
             // if there are any errors, return the error before anything else
-            if (err)
+            if (err) {
                 return done(err);
+            }
 
             // if no user is found, return the message
-            if (!user)
-                return done(null, false, req.flash('loginMessage', "Je n'ai pas souvenir de t'avoir rencontré. Tu es sûr de ton login ?")); // req.flash is the way to set flashdata using connect-flash
+            if (!user) {                
+                return done(null, false,
+                    req.flash('loginMessage',
+                    "Je n'ai pas souvenir de t'avoir rencontré. Tu es sûr de ton login ?")); // req.flash is the way to set flashdata using connect-flash
+            }
 
             // if the user is found but the password is wrong
-            if (!user.validPassword(password))
-                return done(null, false, req.flash('loginMessage', 'Oops! Tu es sûr du mot de passe ?')); // create the loginMessage and save it to session as flashdata
+            if (!user.validPassword(password)) {
+                return done(null, false,
+                    req.flash('loginMessage', 'Oops! Tu es sûr du mot de passe ?'));
+            }
 
             // all is well, return successful user
             return done(null, user);
+
         });
-
     }));
-
 };

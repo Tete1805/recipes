@@ -31,7 +31,7 @@ block content
                 a(href="https://www.facebook.com/sharer/sharer.php?u=" + recette.shortUrl)
                   i.facebook
                   span Share               
-              if (user && recette.auteur.toString() !== user.local.pseudo.toString())
+              if (user && user.local && recette.auteur.toString() !== user.local.pseudo.toString())
                   .recette-icon
                     a(href='/recette/' + recette._id + '/fork')
                       i.fork
@@ -39,5 +39,8 @@ block content
             .col-50
               .likes
                 form(method="POST", action='/recette/' + recette._id + '/like')
-                  input(type="button").like
+                  if user && user.local && recette.likes.indexOf(user.local.pseudo)
+                    input(type="button").like
+                  else
+                    input(type="button").liked
                   span=recettes.likes ? recette.likes.length : 0

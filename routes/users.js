@@ -14,12 +14,17 @@ router.get('/login', function(req, res, next) {
   }
 });
 
-router.post('/login', passport.authenticate('local-login'), (req, res, next) => {
+router.post('/login', (req, res, next) => {
+
   // Quand l'utilisateur s'authentifie, on le renvoie vers la page de retour calculée dans le get initial
   var redirectTo = req.session.redirectTo || '/login';
   delete req.session.redirectTo;
-  res.redirect(redirectTo);
-});
+  passport.authenticate('local-login',
+    { successRedirect: redirectTo,
+    failureRedirect: '/users/login',
+    failureFlash: true }
+  )(req, res, next)
+})
 
 router.get('/signup', function(req, res, next) {
   // Si l'utilisateur arrive ici déjà authentifié pour une raison ou une autre, on le renvoie vers son profil
