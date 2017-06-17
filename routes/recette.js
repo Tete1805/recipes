@@ -22,10 +22,17 @@ router.get('/:id/edit', authRequired, (req, res, next) => {
 router.post(['/:id/edit', '/:id/fork'], authRequired, (req, res, next) => {
   Arome.updateWithReq(req);
   req.recette.parse(req).save((err) => {
-      if (err) { req.flash('error', "Je n'ai pas réussi à sauver la recette. =/")}
+      if (err) { req.flash('error', "Je n'ai pas réussi à sauver la recette. =/") };
       res.redirect('/recettes/search/auteur/' + req.user.local.pseudo + '/1');
     } 
   );
+});
+
+router.post('/:id/like', (req, res, next) => {
+  req.recette.like(req.user.local.pseudo)
+    .save((err) => {
+      res.status(200).send('Merci !');
+    })
 });
 
 router.get('/:id/fork', authRequired, (req, res, next) => {

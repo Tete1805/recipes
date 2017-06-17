@@ -1,6 +1,7 @@
 extends ../site/layout
 block extend_head
   link(rel='stylesheet', href='/stylesheets/recettes.css')
+  script(src="../../javascripts/recette.js")    
 block content
 
   h1 #{ title }
@@ -9,7 +10,8 @@ block content
     each recette in recettes
       li
         .recette-container
-          b.title #{ recette.nom }
+          a(href='/recette/' + recette._id + '/detail').title
+            b #{ recette.nom }
           span Ajoutée le #{ formatDate(recette.ajoute) }
           br
           span par #{ recette.auteur }
@@ -19,10 +21,6 @@ block content
                 a.hashtag(href='/recettes/search/hashtags/' + hashtag.substr(1, hashtag.length - 1)) #{ hashtag }
           div
             .col-50
-              .recette-icon
-                a(href='/recette/' + recette._id + '/detail')
-                  i.detail
-                  span Détail
               .recette-icon
                 a(href="https://twitter.com/intent/tweet?text=D%C3%A9couvrez%20la%20recette%20" + recette.nom + "%20:%20"+ recette.shortUrl)
                   i.twitter
@@ -39,8 +37,11 @@ block content
             .col-50
               .likes
                 form(method="POST", action='/recette/' + recette._id + '/like')
-                  if user && user.local && recette.likes.indexOf(user.local.pseudo)
-                    input(type="button").like
+                  if (user && user.local && recette.likes && recette.likes.indexOf(user.local.pseudo) === -1)
+                    input(type="button", recette-id=recette._id, csrf-token=csrfToken).like
                   else
-                    input(type="button").liked
-                  span=recettes.likes ? recette.likes.length : 0
+                    if !user || !user.local
+                      input(type="button").unlikeable
+                    else
+                      input(type="button").liked
+                  span(recette-id=recette._id)=recette.likes.length

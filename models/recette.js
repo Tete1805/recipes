@@ -46,6 +46,7 @@ recetteSchema.methods.parse = function(req) {
     this.maturation = req.body.maturation;
     this.aromes = [];
     this.bases = [];
+    this.likes = [];
 
     // Les hashtags ne peuvent contenir que des lettres, des chiffres, des # (qu'on supprime) et des espaces entre eux
     this.hashtags = req.body.hashtags
@@ -101,6 +102,18 @@ recetteSchema.methods.comment = function(user, corps) {
     // permet l'ajout à une propriété tableau. Rappel : l`appel de `.exec()` sans argument sur un objet `Query` de
     // Mongoose le transforme en promesse.
     return this.update({ $push: { comments: fields } }).exec();
+}
+
+recetteSchema.methods.like = function(user) {
+    // L'opérateur de mise à jour [`$push`](http://docs.mongodb.org/manual/reference/operator/update/push/#up._S_push)
+    // permet l'ajout à une propriété tableau. Rappel : l`appel de `.exec()` sans argument sur un objet `Query` de
+    // Mongoose le transforme en promesse.
+    this.likes = this.likes || [];
+    if (!this.likes.indexOf(user) > -1) {
+        console.log(this.likes);
+        this.likes.push(user);
+    }
+    return this;
 }
 
 // create the model and expose it to our app
