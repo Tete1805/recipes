@@ -1,0 +1,100 @@
+extends ../site/layout
+block extend_head
+  link(rel='stylesheet', href='/stylesheets/recette-new.css')
+  link(rel='stylesheet', href='/stylesheets/autocomplete.min.css')
+  script(src="../../javascripts/recette-new.js")
+
+block content
+
+  form.recette(method="POST")
+    h1
+      input.h1(name="nom", type="text", placeholder="Nom", required, value=recette.nom)
+    div
+      h2 Informations
+    ul.recette-informations
+      li
+        label
+          b.col-20 Maturation recommandée : 
+        .col-30.padded-right
+          input(name="maturation", type="number" placeholder="Combien de jours avant de déguster la recette", required, min="0", max="180", value=recette.maturation) 
+        span.col-10 jours
+      li
+        label
+          b.col-20 Tags :
+        .col-30.padded-right
+          input(name="hashtags", type="text", placeholder="#custard #2diy4", value=recette.hashtags.join(' '))
+      li
+        label 
+          b.col-20 Notes : 
+        .col-30.padded-right
+          textarea(name="notes", rows="4", placeholder="Gourmande ? Manque de punch sur la fin ? Irait bien avec des noisettes ?")=recette.notes
+
+    div
+      h2 Ingrédients
+
+    div
+      h3#bases Bases :
+      ul.recette-bases
+        for base in recette.bases && recette.bases.length ? recette.bases : [{ ratio: '0/100', nicotine: null, pourcentage: null}]
+          li
+            .col-10.padded-right
+              input.pourcentage(name="base-pourcentage", type="number", placeholder="Pourcentage", required, min="0", max="100", value=base.pourcentage)
+            span % de base en 
+            .col-10.padded-right
+              input.nicotine(name="base-nicotine", type="number", required, min="0", max="100", value=base.nicotine)
+            span mg de nicotine avec un ratio PG/VG de 
+            .col-10.padded-right
+              select(name="base-ratio", required)
+                - var i = 0, val = ''
+                while i < 11
+                  - val = i*10 + '/' + (10-i)*10;
+                  option(value=val, selected=(base.ratio === val ? 'selected' : null))= val
+                  - i++
+            .col-10
+              .recette-button
+                a#btn-supprimer(href="#bases")
+                  i.remove
+        li
+          .col-10
+            .recette-button
+              a#btn-ajouter(href="#bases")
+                i.add
+    div
+      h3#aromes Arômes :
+      ul.recette-aromes
+        for arome in recette.aromes && recette.aromes.length ? recette.aromes : [{ marque: null, nom: null, pourcentage: null}]
+          li
+            .col-10.padded-right
+              input.pourcentage(name="arome-pourcentage", type="number", placeholder="Pourcentage", required, min="0", max="100", value=arome.pourcentage)
+            span % de 
+            .col-20.padded-right
+              input(name="arome-nom", type="text", placeholder="Nom", required, value=arome.nom, my-autocomplete='{ "list": ["Absinthe","Absinthe Concentrate","Absinthe Ii","Acai","Almond Amaretto","Almond","Apple (Tart Granny Smith)","Apple Candy","Apple","Apple Pie","Apricot","Banana Cream","Banana","Banana Nut Bread","Bananas Foster","Bavarian Cream","Berry Cereal","Bittersweet Chocolate","Black Cherry","Black Currant","Black Honey","Black Tea Deluxe","Black Tea","Blackberry","Blueberry (Wild)","Blueberry Candy (Pg)","Blueberry Candy (Triacetin)","Blueberry (Extra)","Bourbon","Boysenberry Deluxe","Boysenberry","Brandy","Brown Sugar","Bubblegum (Fruity)","Bubblegum","Butter","Butterscotch","Cantaloupe","Cappuccino","Caramel (Original)","Caramel Candy","Caramel Cappuccino","Caramel","Chai Tea","Chai Tea Ii","Champagne Type (Pg)","Cheesecake (Graham Crust)","Cheesecake","Cherry Blossom (Pg)","Cherry Extract","Chicken And Waffle","Chocolate Coconut Almond Candy Bar","Chocolate","Cinnamon Danish","Cinnamon","Cinnamon Red Hot (Pg)","Cinnamon Red Hot","Cinnamon Spice","Cinnamon Sugar Cookie","Citrus Punch","Citrus Punch Ii","Clove","Cocoa Rounds,","Coconut Candy","Coconut Extra","Coconut","Coffee (Kona)","Coffee","Coffee Extra (Clear)","Cola Cherry","Cola","Cola Soda","Cola Syrup","Cotton Candy (Circus)","Cotton Candy","Cranberry","Cranberry Sauce","Cream Soda","Creme De Menthe","Creme De Menthe Ii","Crunchy Cereal","Crunchy Cereal,","Cubano Type","Cucumber","Dairy/Milk","Dark Rum","Dk Tobacco Base","Dk Tobacco Ii","Double Chocolate (Clear)","Double Chocolate (Dark)","Dr. Pop","Dragonfruit","Dulce De Leche Caramel","Dulce De Leche","Dx Banana Cream","Dx Bananas Foster","Dx Bavarian Cream","Dx Brown Sugar","Dx Butterscotch","Dx Caramel Original","Dx Cinnamon Danish","Dx Coconut Candy","Dx Coconut","Dx Frosted Donut","Dx Hazelnut","Dx Jamaican Rum","Dx Marshmallow","Dx Milk Chocolate","Dx Milk","Dx Peach (Juicy)","Dx Peanut Butter","Dx Pralines And Cream","Dx Red Velvet","Dx Sweet Cream","Dx Vanilla Cupcake","Earl Grey Tea","Earl Grey Tea Ii","Egg Nog","Elderberry","Energy Drink","English Toffee","Espresso","French Vanilla Creme","French Vanilla Deluxe","French Vanilla","French Vanilla Ii","Frosted Donut","Fruit Circles","Fruit Circles,","Fruit Circles With Milk","Fruit Circles With Milk,","Fruity Stick Gum","Fudge Brownie","Ginger Ale (Nf)","Ginger Ale","Gingerbread Cookie","Gingerbread Extra Ginger","Gingerbread","Graham Cracker Clear","Graham Cracker","Grape Candy","Grape Juice","Greek Yogurt","Green Apple","Green Tea","Guava","Gummy Candy (Pg)","Gummy Candy","Hawaiian Drink","Hazelnut","Hazelnut Praline","Hibiscus","Hickory Smoke","Holiday Spice","Honey Circles Cereal","Honey","Honeydew","Honeydew Ii","Honeysuckle (Pg)","Horchata","Horchata Smooth","Horehound","Hpno Ii","Hpno Type","Huckleberry","Irish Cream","Irish Cream Ii","Jackfruit","Jamaican Rum","Kalua And Cream","Kentucky Bourbon","Kettle Corn","Key Lime","Key Lime Pie","Kiwi (Double)","Koolada 10 Pg","Lemon (Water Soluble)","Lemon Ii","Lemon Lime","Lemon Lime Ii","Lime (Essential Oil)","Lucky Leprechaun Cereal","Lychee","M Type Premium","Madagascar Bourbon Vanilla","Malted Milk (Conc)","Mango","Maple Deluxe","Maple","Maple Syrup","Maraschino Cherry (Pg)","Marshmallow","Mary Jane","Menthol Liquid (Pg)","Meringue","Mexican Coffee","Mexican Liqueur","Mild Black","Milk Chocolate","Mint Candy","Mocha","Mojito","Mojito Havana","Molasses","Musk Candy","Nectarine","Oatmeal Cookie","Orange Cream Bar","Orange Cream","Orange Mandarin","Pancake","Papaya","Passion Fruit","Peach (Juicy)","Peach","Peanut Butter","Pear Candy","Pear","Pecan","Peppermint","Philippine Mango","Pie Crust","Pina Colada","Pineapple","Pineapple Juicy","Pistachio","Pizza","Plum (Pg)","Pomegranate Deluxe","Pomegranate","Popcorn Air Popped","Popcorn","Popcorn Movie Theater","Pralines And Cream","Pumpkin","Pumpkin Spice","Quince","Rainbow Drops (Nf)","Rainbow Drops","Raisin","Raspberry (Sweet)","Raspberry","Red Licorice","Red Oak","Red Type Blend","Red Type Ii Blend","Red Velvet Cake","Rice Crunchies","Ripe Banana","Root Beer (Nf)","Root Beer (Pg)","Root Beer (Tri)","Root Beer Float","Rose Candy","Ry4 Asian","Ry4 Double","Ry4 Type","Silly Rabbit Cereal","Slim Mint Cookie","Smooth","Sour","Spearmint","Strawberries And Cream","Strawberry (Ripe)","Strawberry","Swedish Gummy","Sweet And Tart","Sweet Cream","Sweet Tea","Sweetener","Taro","Tiramisu","Toasted Almond","Toasted Marshmallow","Tobacco","Turkish","Tutti Frutti Deluxe","Tutti-Frutti","Vanilla Bean Gelato","Vanilla Bean Ice Cream","Vanilla Cupcake","Vanilla Custard","Vanilla Swirl","Vanillin 10 (Pg)","Violet Candy","Waffle (Belgian)","Waffle","Watermelon Candy","Watermelon","Western","Whipped Cream","White Chocolate","Wintergreen","Yam"], "maxItems": 10, "markItems": true }')
+            span de chez 
+            .col-20.padded-right
+              input(name="arome-marque", type="text", placeholder="Marque / Fabricant", required, value=arome.marque, my-autocomplete='{ "list": ["Capella", "Flavour Art", "Revolute", "SolubArome", "Tasty Puff", "THJ", "TPA"], "maxItems": 10, "markItems": true }')
+            .col-10
+              .recette-button
+                a#btn-supprimer(href="#aromes")
+                  i.remove
+        li
+          .col-10
+            .recette-button
+              a#btn-ajouter(href="#aromes")
+                i.add
+    br
+    div
+      h2 Total
+
+      span#total-pourcentage 0
+      span % pour un dosage de 
+      span#total-nicotine 0
+      span mg de nicotine
+        
+
+    div
+      input(type="submit", disabled, value="Enregistrer")
+      input(type="hidden" name="_id" value=recette._id)
+      input(type="hidden" name="_csrf" value=csrfToken)
+
+block extend_body
+  //- script(src="../../javascripts/autocomplete.min.js")

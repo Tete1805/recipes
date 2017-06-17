@@ -1,0 +1,38 @@
+extends ../site/layout
+block extend_head
+  link(rel='stylesheet', href='/stylesheets/recettes.css')
+block content
+
+  h1 #{ title }
+
+  if (recettes.length)
+    ul.recettes
+      each recette in recettes
+        li
+          .recette-container
+            b.title #{ recette.nom }
+            br
+            span Ajoutée le #{ recette.ajoute.toISOString().substr(0, 10) }
+            br
+            span par #{ recette.auteur ? recette.auteur.local.pseudo : '' }
+            ul.tags
+              each hashtag in recette.hashtags
+                li 
+                  a.hashtag(href='/recettes/search/hashtags/' + hashtag.substr(1, hashtag.length - 1)) #{ hashtag }
+            div
+              .col-50
+                .recette-icon
+                  a(href='/recette/' + recette._id + '/detail')
+                    i.detail
+                    span Détail
+                .recette-icon
+                  a(href="https://twitter.com/intent/tweet?text=D%C3%A9couvrez%20la%20recette%20" + recette.nom + "%20:%20"+ recette.shortUrl)
+                    i.twitter
+                    span Tweet
+              .col-50
+                .likes
+                  span.plus 10
+                  span.minus 5
+  else
+    h3 Vous n'avez soumis aucune recette pour le moment. :'-(
+    a(href='/recette/new/edit') Créez-en une !

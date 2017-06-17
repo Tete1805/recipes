@@ -1,0 +1,79 @@
+extends ../site/layout
+block extend_head
+  link(rel='stylesheet', href='/stylesheets/recette-new.css')
+  script(src="../../javascripts/recette-new.js")    
+block content
+
+  .col-80
+    h1= recette.nom
+  .col-20
+    div.right
+      if (user && user.local.pseudo.toString() === recette.auteur.toString())
+        .recette-button
+          a(href='/recette/' + recette._id + '/edit')
+            i.edit
+      else
+        .recette-button
+          a(href='/recette/' + recette._id + '/fork')
+            i.fork
+
+  em= 'postée par '
+  a(href="/recettes/search/auteur/" + recette.auteur +'/1')= recette.auteur
+  span=' le ' + formatDate(recette.ajoute)
+
+  .recette
+    div
+      h2 Informations
+    ul.recette-informations
+      li
+        b Maturation recommandée : 
+        span #{ recette.maturation } jours
+      li
+        b Tags :
+        each tag in recette.hashtags
+          a(href="/recettes/hashtags/" + tag.substr(1))= tag
+          span &nbsp;
+      li
+        b Notes : 
+        span #{ recette.notes }
+
+    div
+      h2 Ingrédients
+
+    if (recette.bases && recette.bases.length > 0)
+      div
+        h3 Bases :
+        ul
+          for base in recette.bases
+            li #{ base.pourcentage }% de base en #{ base.nicotine }mg de nicotine avec un ratio PG/VG de #{ base.ratio }
+
+    if (recette.aromes && recette.aromes.length > 0)
+      div
+        h3 Arômes :
+        ul
+          for arome in recette.aromes
+            li #{ arome.pourcentage }% de #{ arome.nom } (#{ arome.marque })
+
+    div
+      h3 Commentaires :
+      if (recette.comments && recette.comments.length > 0)
+        ul.commentaires
+          for comment in recette.comments
+            li
+              span posté par 
+              a(href="/users/" + comment.auteur)= comment.auteur 
+              span &nbsp;le 
+              span= formatDate(comment.ajoute, 'dateTime')
+              br
+              br
+              div= comment.corps
+      else
+        div Soyez le premier à commenter cette recette !
+        br
+      if (user && user.local.pseudo)
+        form(action="/recette/" + recette._id + '/comment', method="POST")
+          .col-50.padded-right
+            label(for="comment") Votre commentaire
+            textarea(name="comment", rows=4, placeholder="Super recette !")
+          .col-50
+            input(type="submit", value="✔")

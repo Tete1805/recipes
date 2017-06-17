@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  .jumbo
+    img(src="http://res.cloudinary.com/eveetalex/image/upload/c_scale,w_1141/v1465578526/recipes/static/jumbo.jpg")
+
+  br
+
+  h1.center Bienvenue sur Recipes
+
+  p.center
+    | Le site pour stocker vos recettes de D.I.Y.
+  p.center
+    | Enregistrez vos propres recettes et choisissez de les partager avec le reste de la communauté !
+    br
+    | Forkez les recettes des autres membres dans votre profil pour en faire vos propres versions.
+    br
+    | Marquez les arômes que vous possédez et découvrez quelles recettes y sont associées.
+
+  if (!user)
+    p.center 
+      a.login(href='/users/signup') S'enregistrer
+      span &nbsp;
+      a.login(href='/users/login') Se connecter

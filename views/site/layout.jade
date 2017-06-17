@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    title= title
+    link(href='https://fonts.googleapis.com/css?family=Grand+Hotel|Handlee', rel='stylesheet')
+    link(rel='stylesheet', href='/stylesheets/layout.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/icons.css')
+    meta(name="viewport", content="width=device-width, initial-scale=1.0, shrink-to-fit=no")
+    block extend_head
+  body
+    include menu
+    main
+      include flashes
+      block content
+    include footer
+    block extend_body

@@ -1,0 +1,25 @@
+extends ../site/layout
+block extend_head
+  link(rel='stylesheet', href='/stylesheets/login.css')
+block content
+
+  .center
+
+    h1 Connexion
+
+    .col-30
+      form(method="POST")
+        br
+        label Pseudo
+        br
+        input(name="pseudo", type="text")
+        br
+        label Password
+        br
+        input(type="password", name="password")
+        br
+        input(type="submit", value="Login!")
+        input(type="hidden" name="_csrf" value=csrfToken)
+        br
+        br
+        a(href="/users/signup") Pas encore inscrit ? S'enregistrer
