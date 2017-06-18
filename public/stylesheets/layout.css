@@ -152,7 +152,7 @@ main {
 }
 
 .drawer-btn {
-  border: 2px solid white;
+  border: 3px solid white;
   border-radius: 6px;
   display: inline-block;
   padding: 2px 3px !important;
@@ -189,11 +189,11 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]:checked + .drawer-btn hr {
-  background-color: #888;  
-  color: #888;
+  background-color: #ccc;  
+  color: #ccc;
 }
 input[type="checkbox"]:checked + .drawer-btn {
-  border-color: #888;
+  border-color: #ccc;
 }
 
 input[type="checkbox"]:checked + .drawer-btn + .drawer-frame .drawer-menu {
@@ -212,6 +212,7 @@ input[type="checkbox"]:checked + .drawer-btn + .drawer-frame + .brand-icon {
   padding-right: 16px;
   padding-top: 50px;
   transition: margin-left 0.2s;
+  width: 250px;
 }
 
 .drawer-menu .separator {
@@ -220,7 +221,7 @@ input[type="checkbox"]:checked + .drawer-btn + .drawer-frame + .brand-icon {
   height: 2px;
   margin-bottom: 20px;
   margin-top: 20px;
-  width: 200px;
+  width: 90%;
 }
 
 .drawer-menu .title {
