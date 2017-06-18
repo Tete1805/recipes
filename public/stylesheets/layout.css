@@ -108,6 +108,7 @@ nav a {
 .search-bar > input[type="submit"] {
   background-color: #00B7AF;
   color: white;
+  cursor: pointer;
   font-size: 22px;
   font-weight: bold !important;
   margin-left: 15px;
@@ -123,18 +124,6 @@ main {
 
 
 @media all and (max-width: 900px) {
-  nav {
-    display: block;
-    height: auto;
-    margin: 0;
-    position: relative;
-  }
-
-  nav > * {
-    margin-bottom: 10px;
-    margin-top: 10px;
-    padding: 0;
-  }
 
   html, body, main, footer {
     margin: 0;
@@ -146,14 +135,39 @@ main {
     position: relative !important;
   }
 
-  .search-bar {
+  nav, .brand-icon {
     display: block;
   }
+
+  nav {
+    height: 130px;
+  }
+
+  main {
+    padding-top: 150px;
+  }
+
+  .search-bar {
+    margin-left: 10px;
+    margin-right: 20px;
+  }
+
+  ul.recettes > li {
+    margin-right: 0;
+  }
+
+  .recette-container {
+    margin: 0 !important;
+    min-width: 95vw !important;
+    width: 95vw !important;
+  }
+
 }
 
 .drawer-btn {
   border: 3px solid white;
   border-radius: 6px;
+  cursor: pointer;
   display: inline-block;
   padding: 2px 3px !important;
   position: fixed;
