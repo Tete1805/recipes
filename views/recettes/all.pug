@@ -45,3 +45,8 @@ block content
                     else
                       input(type="button").liked
                   span(recette-id=recette._id)=recette.likes.length
+
+  if page > 1
+    a(href="http://localhost:3000/recettes/all/" + (page - 1)) Page précédente
+  if recettes.length === 10
+    a(href="http://localhost:3000/recettes/all/" + (page + 1)) Page suivante
