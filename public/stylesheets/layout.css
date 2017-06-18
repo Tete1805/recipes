@@ -31,21 +31,27 @@ nav {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 9999;
+  z-index: 999;
 }
 
 nav * {
-  margin: auto;
+  margin-bottom: auto;
+  margin-top: auto;
 }
 
 nav a {
-  color: white !important;
   text-decoration: none;
 }
 
 .brand-icon {
   font: 45px 'Grand Hotel', cursive;
-  margin-left: 20px;
+  margin-left: 85px;
+  margin-top: 3px;
+  transition: margin-left 0.2s;
+}
+
+.brand-icon a {
+  color: #fff !important;
 }
 
 .brand-icon a:hover {
@@ -75,6 +81,7 @@ nav a {
 
 .search-bar {
   display: flex;
+  margin-right: 50px;
 }
 
 .search-bar * {
@@ -107,65 +114,6 @@ nav a {
   padding: 0 16px;
 }
 
-nav > .menu {
-  height: 100%;
-  list-style: none;
-}
-
-nav > .menu > li {
-  color: white;
-  cursor: pointer;
-  display: flex;
-  float: left;
-  height: 100%;
-  padding: 0 10px;
-  position: relative;
-  vertical-align: center;
-}
-
-nav > .menu > li:hover {
-  background-color: #8df;
-}
-
-nav > .menu > li:hover ul {
-  display: block;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  padding: 0;
-  width: 250px;
-}
-
-nav > .menu > li:hover ul > li {
-  padding: 0;
-}
-
-nav > .menu > li:hover ul > li > a {
-  background-color: #8df;
-  border: 1px solid white;
-  display: inline-block;
-  font-size: 0.8em;
-  padding: 4px 8px;
-  width: 100%;
-}
-
-nav > .menu > li:hover ul > li:hover > a {
-  background-color: white;
-  border: 1px solid #8df;
-  color: #8df !important;
-}
-
-
-nav > .menu > li {
-  display: flex;
-  height: 100%;
-}
-
-nav > .menu ul {
-  display: none;
-  list-style: none;
-}
-
 main {
   height: 100%;
   padding: 20px;
@@ -188,25 +136,6 @@ main {
     padding: 0;
   }
 
-  nav > .menu {
-    display: block;
-  }
-
-  nav > .menu > li {
-    display: block;
-    float: none;
-    padding: 0;
-  }
-
-  nav > .menu > li:hover ul {
-    display: block;
-    position: relative;
-    top: 100%;
-    left: 0;
-    padding: 0;
-    width: 100%;
-  }
-
   html, body, main, footer {
     margin: 0;
     padding: 0;
@@ -220,4 +149,84 @@ main {
   .search-bar {
     display: block;
   }
+}
+
+.drawer-btn {
+  border: 2px solid white;
+  border-radius: 6px;
+  display: inline-block;
+  padding: 2px 4px !important;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+}
+
+.drawer-btn > hr {
+  height: 4px;
+  width: 25px;
+  margin: 5px;
+  background-color: #fff;
+}
+
+.drawer-frame {
+  background-color: #fff;
+  box-shadow: 1px 0px 5px #888;
+  display: inline-block;
+  float: left;
+  height: 100vh;
+}
+
+.drawer-frame * {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+input[type="checkbox"] {
+  display: none
+}
+
+input[type="checkbox"]:checked + .drawer-btn hr {
+  background-color: #888;  
+  color: #888;
+}
+input[type="checkbox"]:checked + .drawer-btn {
+  border-color: #888;
+}
+
+input[type="checkbox"]:checked + .drawer-btn + .drawer-frame .drawer-menu {
+  margin-left: 0;
+  transition: all 0.2s;
+}
+
+input[type="checkbox"]:checked + .drawer-btn + .drawer-frame + .brand-icon {
+  margin-left: 15px;
+  transition: all 0.2s;
+}
+
+.drawer-menu {
+  margin-left: -250px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 50px;
+  transition: margin-left 0.2s;
+}
+
+.drawer-menu .separator {
+  background-color: #ddd;
+  display: block;
+  height: 2px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  width: 200px;
+}
+
+.drawer-menu .title {
+  color: #aaa;
+  font-size: 24px;
+}
+
+.drawer-menu a {
+  color: #5cb5d8;
+  font-size: 20px;
 }
