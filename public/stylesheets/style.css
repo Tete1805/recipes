@@ -32,19 +32,19 @@ h1, .h1 {
   }
   .col-10 {
     display: inline-block;
-    width: 40%;
+    width: 100%;
   }
   .col-20 {
     display: inline-block;
-    width: 40%;
+    width: 100%;
   }
   .col-30 {
     display: inline-block;
-    width: 40%;
+    width: 100%;
   }
   .col-40 {
     display: inline-block;
-    width: 40%;
+    width: 100%;
   }
   .col-50 {
     display: inline-block;
@@ -52,19 +52,19 @@ h1, .h1 {
   }
   .col-60 {
     display: inline-block;
-    width: 60%;
+    width: 100%;
   }
   .col-70 {
     display: inline-block;
-    width: 60%;
+    width: 100%;
   }
   .col-80 {
     display: inline-block;
-    width: 60%;
+    width: 100%;
   }
   .col-90 {
     display: inline-block;
-    width: 60%;
+    width: 100%;
   }
   .col-100 {
     display: inline-block;

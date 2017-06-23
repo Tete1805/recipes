@@ -51,12 +51,12 @@ block content
                   option(value=val, selected=(base.ratio === val ? 'selected' : null))= val
                   - i++
             .col-10
-              .recette-button
+              .recette-button.recette-action
                 a#btn-supprimer(href="#bases")
                   i.remove
         li
           .col-10
-            .recette-button
+            .recette-button.recette-action
               a#btn-ajouter(href="#bases")
                 i.add
     div
@@ -73,12 +73,12 @@ block content
             .col-20.padded-right
               input(name="arome-marque", type="text", placeholder="Marque / Fabricant", required, value=arome.marque, my-autocomplete='{ "list": ["Capella", "Flavour Art", "Revolute", "SolubArome", "Tasty Puff", "THJ", "TPA"], "maxItems": 10, "markItems": true }')
             .col-10
-              .recette-button
+              .recette-button.recette-action
                 a#btn-supprimer(href="#aromes")
                   i.remove
         li
           .col-10
-            .recette-button
+            .recette-button.recette-action
               a#btn-ajouter(href="#aromes")
                 i.add
     br

@@ -82,6 +82,56 @@
   label {
     display: block;
   }
+  main {
+   margin: 10px !important;
+ }
+
+ h1 {
+  font-size: 45px !important;
+  margin: 0;
+ }
+
+ h2 {
+  margin: 20px 0;
+ }
+
+.recette {
+  padding: 10px;
+}
+
+ ul{
+  padding-left: 0;
+  list-style: none;
+ }
+
+.recette * {
+  text-align: left !important;
+ }
+
+ .recette-button {
+  display: block;
+  margin: 10px 10px 30px 10px;
+ }
+
+ .recette-button > a {
+  display: block;
+  text-align: center !important;
+ }
+
+ .recette-action {
+   margin: 0 10px
+ }
+
+ main input[type="submit"] {
+  display: block;
+  width: 100%;
+  text-align: center !important;
+ }
+
+ #btn-ajouter {
+  margin-top: 0;
+ }
+
 }
 
 .commentaires {
