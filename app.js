@@ -23,6 +23,9 @@ var admin        = require('./routes/admin');
 // Où est stockée la chaîne de connexion
 var configDb      = require('./config/database.js');
 
+// Permet de spécifier un autre moteur de promesses que mPromise
+ mongoose.Promise = global.Promise;
+
 // Connexion à la base de données
 mongoose.connect(configDb.url, function(err) {
   if (err) {
@@ -57,7 +60,7 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 
 app.use(function(req, res, next) {  
   //res.locals.csrfToken = req.csrfToken();
-  res.locals.flash     = req.flash();
+  res.locals.flash  = req.flash();
   if (req.isAuthenticated()) {
     res.locals.user = req.user;
   };
