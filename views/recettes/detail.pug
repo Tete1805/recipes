@@ -29,12 +29,12 @@ block content
         b Maturation recommandée : 
         span #{ recette.maturation } jours
       li
-        b Tags :
+        b Tags&nbsp;: 
         each tag in recette.hashtags
           a(href="/recettes/hashtags/" + tag.substr(1))= tag
           span &nbsp;
       li
-        b Notes : 
+        b Notes&nbsp;:
         span #{ recette.notes }
 
     div
@@ -42,20 +42,20 @@ block content
 
     if (recette.bases && recette.bases.length > 0)
       div
-        h3 Bases :
+        h3 Bases&nbsp;:
         ul
           for base in recette.bases
             li #{ base.pourcentage }% de base en #{ base.nicotine }mg de nicotine avec un ratio PG/VG de #{ base.ratio }
 
     if (recette.aromes && recette.aromes.length > 0)
       div
-        h3 Arômes :
+        h3 Arômes&nbsp;:
         ul
           for arome in recette.aromes
             li #{ arome.pourcentage }% de #{ arome.nom } (#{ arome.marque })
 
     div
-      h3 Commentaires :
+      h3 Commentaires&nbsp;:
       if (recette.comments && recette.comments.length > 0)
         ul.commentaires
           for comment in recette.comments
