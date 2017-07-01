@@ -279,7 +279,7 @@ footer span {
 .pushable:active {
   background-color: #ffd38a;
   transform: translate(2px, 2px);
-  box-shadow: none;
+  box-shadow: none !important;
   transition: all 0.2s;
 }
 

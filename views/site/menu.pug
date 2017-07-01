@@ -8,7 +8,9 @@ nav
   .drawer-frame
     ul.drawer-menu
       li.separator
-      li.title Recettes
+      li.title
+        i.recette
+        span Recettes
       li
         a(href='/recettes/all/1') Toutes les recettes
       li
@@ -21,7 +23,9 @@ nav
             a(href='/admin/recettes') Admin
 
       li.separator
-      li.title Arômes
+      li.title
+        i.arome
+        span Arômes
       li
         a(href="/aromes/all") Tous les arômes
       li
@@ -40,7 +44,9 @@ nav
       //-   a(href="/groupes/my") Mes groupes 
 
       li.separator
-      li.title Profil
+      li.title
+        i.user
+        span Profil
       if (!user)
         li
           a(href='/users/login') Connexion
