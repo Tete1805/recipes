@@ -14,7 +14,7 @@ block content
       each user in users
         tr
           td= user.local.pseudo
-          td= user.ajoute
+          td= formatDate(user.ajoute, "dateTime")
           td= user.level
           td
             a(href='/user/' + user._id + '/delete') Supprimer
