@@ -208,6 +208,7 @@ main input[type="submit"] {
   font-size: 1.3em;
   margin-top: 25px;
   padding: 10px 20px;
+  width: 100%;
 }
 
 main input[type="submit"]:hover {
@@ -280,4 +281,10 @@ footer span {
   transform: translate(2px, 2px);
   box-shadow: none;
   transition: all 0.2s;
+}
+
+@media all and (min-width: 900px) {
+  .btn-small {
+    width: auto !important;
+  }
 }
