@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var aromeSchema = mongoose.Schema({
 
     marque: String,
+    ajoute: { type: Date, default: Date.now },
     nom: String,
     description: String
 

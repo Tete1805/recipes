@@ -4,7 +4,7 @@ var Arome = require('../models/arome');
 var authRequired = require('./authRequired');
 
 router.get(['/', '/all'], function(req, res, next) {
-  Arome.find().limit(10).exec(function(err, results) {
+  Arome.find().sort('marque').limit(50).exec(function(err, results) {
     res.render('aromes/all', {
      title: 'Tous les arômes',
      aromes: results
@@ -13,7 +13,7 @@ router.get(['/', '/all'], function(req, res, next) {
 });
 
 router.get('/all/:page', function(req, res, next) {
-  Arome.find().skip((req.query.page || 0) * 10).limit(10).exec(function(err, results) {
+  Arome.find().sort('marque').skip((req.query.page || 0) * 50).limit(50).exec(function(err, results) {
     res.render('aromes/all', {
      title: 'Tous les arômes',
      aromes: results

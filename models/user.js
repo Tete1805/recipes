@@ -27,7 +27,9 @@ var userSchema = mongoose.Schema({
         token        : String,
         email        : String,
         name         : String
-    }
+    },
+    ajoute: { type: Date, default: Date.now },
+    level: { type: String, default: "cherry"}
 
 });
 
