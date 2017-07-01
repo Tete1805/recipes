@@ -4,22 +4,31 @@ block content
 
   h1 Bienvenue #{ user.local.pseudo }
 
+  //- div 
+  //-   b Mon profil
+  //- div Login
+  //- div Email
+  //- div Mon avatar
+  //- hr
   div 
-    b Mon profil
-  div Login
-  div Email
-  div Mon avatar
-  hr
-  div 
-    b Mon activité
-  div Nombre de recettes postées
-  div Nombre de recettes suivies
-  div Nombre d'arômes dans ma besace
+    h3 Mon activité
+  div Nombre de recettes postées : #{ recettes.length || 0 }
+  //- div Nombre de recettes suivies : 
+  div Nombre d'arômes dans ma besace : #{ aromes.length || 0 }
   hr
   div
-    b Mon statut dans la communauté
-  div Nombre de followers
-  div Likes reçus
-  div Dislikes reçus
-  div Likes donnés
-  div Dislikes donnés
+    h3 Mon statut dans la communauté
+  //- div Nombre de followers :
+  div Likes reçus : #{ recettes.reduce(function(count, recette) { return count += recette.likes.length }, 0) || 0}
+  div Mes recettes les plus likées :
+  div
+    ul
+      -var total = recettes.reduce((count, recette) => count += recette.likes.length > 0, 0)
+      -var sum = recettes.reduce((count, recette) => count += recette.likes.length, 0)
+      -var tops = recettes.filter((recette) => recette.likes.length >= sum / total)
+      each recette in tops
+        li
+          a(href="/recette/" + recette._id + "/detail")= recette.nom
+          span= " (" + recette.likes.length + ")"
+
+  div Likes donnés : #{ liked.length || 0 }

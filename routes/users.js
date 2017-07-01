@@ -29,7 +29,7 @@ router.post('/login', (req, res, next) => {
 router.get('/signup', function(req, res, next) {
   // Si l'utilisateur arrive ici déjà authentifié pour une raison ou une autre, on le renvoie vers son profil
   if (req.isAuthenticated()) {
-    res.render('users/profile');
+    res.redirect('profile');
   } else {
     res.render('users/signup');
   }
@@ -47,7 +47,7 @@ router.get('/logout', function(req, res, next) {
 });
 
 router.get('/profile', authRequired, function(req, res, next) {
-    res.render('users/profile');
+    res.redirect('/user/profile/' + req.user.local.pseudo)
 });
 
 module.exports = router;

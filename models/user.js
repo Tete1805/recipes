@@ -36,7 +36,7 @@ var userSchema = mongoose.Schema({
         type         : String,
         default      : "cherry"
     }
-
+    
 });
 
 // methods ======================

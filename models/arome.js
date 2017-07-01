@@ -4,10 +4,14 @@ var mongoose = require('mongoose');
 // define the schema for our model
 var aromeSchema = mongoose.Schema({
 
-    marque: String,
-    ajoute: { type: Date, default: Date.now },
-    nom: String,
-    description: String
+    marque        : String,
+    ajoute        : {
+      type        : Date,
+      default     : Date.now
+    },
+    nom           : String,
+    description   : String,
+    users         : [String]
 
 });
 
