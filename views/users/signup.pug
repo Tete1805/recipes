@@ -7,19 +7,16 @@ block content
 
     h1 Inscription
 
-    .col-30
-      form(method="POST")
-        br
-        label Pseudo
-        br
+    form(method="POST")
+        label
+            i.user
+            span Ton pseudo
         input(name="pseudo", type="text")
         br
-        label Password
-        br
+        label
+            i.password
+            span Ton mot de passe
         input(type="password", name="password")
-        br
         input.pushable(type="submit", value="C'est parti !")
         input(type="hidden" name="_csrf" value=csrfToken)
-        br
-        br
         a(href="/users/login") Déjà enregistré ? Se connecter
