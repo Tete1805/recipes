@@ -1,5 +1,7 @@
 extends ../site/layout
 block extend_head
+  link(rel='stylesheet', href='/stylesheets/admin.css')
+  script(src="/javascripts/admin.js")  
 block content
 
   h1 #{ title }
@@ -18,4 +20,5 @@ block content
           td= user.level
           td
             a(href='/user/' + user._id + '/delete') Supprimer
+          td
             a(href='/user/' + user._id + '/edit') Modifier

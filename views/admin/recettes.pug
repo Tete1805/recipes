@@ -1,7 +1,8 @@
 extends ../site/layout
 block extend_head
+  link(rel='stylesheet', href='/stylesheets/admin.css')
+  script(src="/javascripts/admin.js")  
 block content
-
   h1 #{ title }
 
   table
@@ -10,7 +11,6 @@ block content
         th Nom
         th Ajoutée
         th Auteur
-        th Actions
     tbody
       each recette in recettes
         tr
@@ -19,4 +19,5 @@ block content
           td= recette.auteur
           td
             a(href='/recette/' + recette._id + '/delete') Supprimer
+          td
             a(href='/recette/' + recette._id + '/edit') Modifier

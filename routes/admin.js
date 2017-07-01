@@ -12,7 +12,7 @@ router.get('/recettes', authRequired, function(req, res, next) {
 });
 
 router.get('/users', authRequired, function(req, res, next) {
-  User.find().sort('local.pseudo').exec((err, results) => {
+  User.find().sort('level').sort('ajoute').exec((err, results) => {
     res.render('admin/users', { title: 'Admin users', users: results });
   })
 });

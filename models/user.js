@@ -28,8 +28,14 @@ var userSchema = mongoose.Schema({
         email        : String,
         name         : String
     },
-    ajoute: { type: Date, default: Date.now },
-    level: { type: String, default: "cherry"}
+    ajoute           : {
+        type         : Date,
+        default      : Date.now
+    },
+    level            : {
+        type         : String,
+        default      : "cherry"
+    }
 
 });
 
