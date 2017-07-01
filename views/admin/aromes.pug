@@ -1,0 +1,21 @@
+extends ../site/layout
+block extend_head
+block content
+
+  h1 #{ title }
+
+  table
+    thead
+      tr
+        th Marque
+        th Nom
+        th Description
+    tbody
+      each arome in aromes
+        tr
+          td= arome.marque
+          td= arome.nom
+          td= arome.description
+          td
+            a(href='/arome/' + arome._id + '/delete') Supprimer
+            a(href='/arome/' + arome._id + '/edit') Modifier

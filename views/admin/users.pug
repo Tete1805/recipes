@@ -1,0 +1,21 @@
+extends ../site/layout
+block extend_head
+block content
+
+  h1 #{ title }
+
+  table
+    thead
+      tr
+        th Nom
+        th Crée
+        th Niveau
+    tbody
+      each user in users
+        tr
+          td= user.local.pseudo
+          td= formatDate(user.ajoute, "dateTime")
+          td= user.level
+          td
+            a(href='/user/' + user._id + '/delete') Supprimer
+            a(href='/user/' + user._id + '/edit') Modifier
