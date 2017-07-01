@@ -54,7 +54,12 @@ nav a {
   color: #fff !important;
 }
 
+.brand-icon a:before {
+  height: 0 !important;
+}
+
 .brand-icon a:hover {
+  color: #fff !important;
   animation: giggle 600ms ;
 }
 
@@ -107,6 +112,7 @@ nav a {
 
 .search-bar > input[type="submit"] {
   background-color: #00B7AF;
+  box-shadow: 2px 2px 4px #555;
   color: white;
   cursor: pointer;
   font-size: 22px;
@@ -159,21 +165,6 @@ main {
 
   .search-bar > input[type="submit"] {
     margin-left: 5px;
-  }
-
-  ul.recettes > li {
-    margin-right: 0;
-    padding: 0;
-  }
-
-  .recette-container {
-    margin: 0 !important;
-    min-width: 95vw !important;
-    width: 95vw !important;
-  }
-
-  .recette {
-    padding-left: 0;
   }
 
 }
@@ -243,21 +234,18 @@ nav input[type="checkbox"]:checked + .drawer-btn + .drawer-frame + .brand-icon {
 }
 
 .drawer-menu > .title {
-  margin-left: 20px;
   margin-bottom: 5px;
 }
 .drawer-menu > .separator {
   margin: auto;
 }
 
-.drawer-menu > li > a  {
-  background-color: #fff;
-  display: block;
-  padding: 6px 20px;
+.drawer-menu > li {
+  padding: 0 20px;
 }
 
-.drawer-menu li > a:hover {
-  background-color: #eaeef3;
+.drawer-menu > li > a  {
+  background-color: #fff;
 }
 
 .drawer-menu .separator {
@@ -278,4 +266,8 @@ nav input[type="checkbox"]:checked + .drawer-btn + .drawer-frame + .brand-icon {
 .drawer-menu a {
   color: #5cb5d8;
   font-size: 20px;
+}
+
+footer a:after {
+  display: inline;
 }

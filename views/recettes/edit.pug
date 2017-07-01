@@ -52,12 +52,12 @@ block content
                   - i++
             .col-10
               .recette-button.recette-action
-                a#btn-supprimer(href="#bases")
+                a#btn-supprimer.pushable(no-border, href="#bases")
                   i.remove
         li
           .col-10
             .recette-button.recette-action
-              a#btn-ajouter(href="#bases")
+              a#btn-ajouter.pushable(no-border, href="#bases")
                 i.add
     div
       h3#aromes Arômes :
@@ -74,12 +74,12 @@ block content
               input(name="arome-marque", type="text", placeholder="Marque / Fabricant", required, value=arome.marque, my-autocomplete='{ "list": ["Capella", "Flavour Art", "Revolute", "SolubArome", "Tasty Puff", "THJ", "TPA"], "maxItems": 10, "markItems": true }')
             .col-10
               .recette-button.recette-action
-                a#btn-supprimer(href="#aromes")
+                a#btn-supprimer.pushable(no-border, href="#aromes")
                   i.remove
         li
           .col-10
             .recette-button.recette-action
-              a#btn-ajouter(href="#aromes")
+              a#btn-ajouter.pushable(no-border, href="#aromes")
                 i.add
     br
     div
@@ -92,7 +92,7 @@ block content
         
 
     div
-      input(type="submit", disabled, value="Enregistrer")
+      input.pushable(type="submit", disabled, value="Enregistrer")
       input(type="hidden" name="_id" value=recette._id)
       input(type="hidden" name="_csrf" value=csrfToken)
 

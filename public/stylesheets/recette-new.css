@@ -5,17 +5,14 @@
   width: 100%;
 }
 
-.recette .title {
-  background-color: #94ACC3;
-  color: white;
-  font-size: 1.1em;
-  padding: 8px;
-}
-
 .recette .arome {
   border: 1px solid #ccc; 
   display: inline-block;
   width: 50%;
+}
+
+ul > li {
+  margin: 10px 0;
 }
 
 .recette .arome > input {
@@ -62,7 +59,6 @@
 
 .recette-button > a {  
   background-color: #09d;
-  border-radius: 5px;
   color: white;
   display: inline-block;
   padding: 2px;
@@ -79,58 +75,60 @@
 }
 
 @media all and (max-width: 900px) {
+
   label {
     display: block;
   }
+
   main {
-   margin: 10px !important;
- }
+    margin: 10px !important;
+  }
 
- h1 {
-  font-size: 45px !important;
-  margin: 0;
- }
+  h1 {
+    font-size: 45px !important;
+    margin: 0;
+  }
 
- h2 {
-  margin: 20px 0;
- }
+  h2 {
+    margin: 2 0px 0;
+  }
 
-.recette {
-  padding: 10px;
-}
+  .recette {
+    padding: 10px;
+  }
 
- ul{
-  padding-left: 0;
-  list-style: none;
- }
+  ul{
+    padding-left: 0;
+    list-style: none;
+  }
 
-.recette * {
-  text-align: left !important;
- }
+  .recette * {
+    text-align: left !important;
+  }
 
- .recette-button {
-  display: block;
-  margin: 10px 10px 30px 10px;
- }
+  .recette-button {
+    display: block;
+    margin: 10px 10px 30px 10px;
+  }
 
- .recette-button > a {
-  display: block;
-  text-align: center !important;
- }
+  .recette-button > a {
+    display: block;
+    text-align: center !important;
+  }
 
- .recette-action {
+  .recette-action {
    margin: 0 10px
- }
+  }
 
- main input[type="submit"] {
-  display: block;
-  width: 100%;
-  text-align: center !important;
- }
+  main input[type="submit"] {
+    display: block;
+    width: 100%;
+    text-align: center !important;
+  }
 
- #btn-ajouter {
-  margin-top: 0;
- }
+  #btn-ajouter {
+    margin-top: 0;
+  }
 
 }
 

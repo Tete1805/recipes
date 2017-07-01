@@ -10,11 +10,11 @@ block content
     div.right
       if (user && user.local.pseudo.toString() === recette.auteur.toString())
         .recette-button
-          a(href='/recette/' + recette._id + '/edit')
+          a.pushable(no-border, href='/recette/' + recette._id + '/edit')
             i.edit
       else
         .recette-button
-          a(href='/recette/' + recette._id + '/fork')
+          a.pushable(no-border, href='/recette/' + recette._id + '/fork')
             i.fork
 
   em= 'postée par '
@@ -31,10 +31,10 @@ block content
       li
         b Tags&nbsp;: 
         each tag in recette.hashtags
-          a(href="/recettes/hashtags/" + tag.substr(1))= tag
+          a(href="/recettes/search/hashtags/" + tag.substr(1))= tag
           span &nbsp;
       li
-        b Notes&nbsp;:
+        b Notes&nbsp;: 
         span #{ recette.notes }
 
     div
@@ -76,4 +76,4 @@ block content
             label(for="comment") Votre commentaire
             textarea(name="comment", rows=4, placeholder="Super recette !")
           .col-50
-            input(type="submit", value="✔")
+            input.pushable(type="submit", value="✔")

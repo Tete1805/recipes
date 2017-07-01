@@ -10,10 +10,10 @@ block content
     each recette in recettes
       li
         .recette-container
-          a(href='/recette/' + recette._id + '/detail').title
-            b #{ recette.nom }
-          span Ajoutée le #{ formatDate(recette.ajoute) }
-          br
+          div
+            a(href='/recette/' + recette._id + '/detail').title
+              b #{ recette.nom }
+          div Ajoutée le #{ formatDate(recette.ajoute) }
           span par #{ recette.auteur }
           ul.tags
             each hashtag in recette.hashtags
@@ -21,17 +21,17 @@ block content
                 a.hashtag(href='/recettes/search/hashtags/' + hashtag.substr(1, hashtag.length - 1)) #{ hashtag }
           div
             .col-50
-              .recette-icon
-                a(href="https://twitter.com/intent/tweet?text=D%C3%A9couvrez%20la%20recette%20" + recette.nom + "%20:%20"+ recette.shortUrl)
+              .recette-icon.pushable
+                a(no-border, href="https://twitter.com/intent/tweet?text=D%C3%A9couvrez%20la%20recette%20" + recette.nom + "%20:%20"+ recette.shortUrl)
                   i.twitter
                   span Tweet
-              .recette-icon
-                a(href="https://www.facebook.com/sharer/sharer.php?u=" + recette.shortUrl)
+              .recette-icon.pushable
+                a(no-border, href="https://www.facebook.com/sharer/sharer.php?u=" + recette.shortUrl)
                   i.facebook
                   span Share               
               if (user && user.local && recette.auteur.toString() !== user.local.pseudo.toString())
-                  .recette-icon
-                    a(href='/recette/' + recette._id + '/fork')
+                  .recette-icon.pushable
+                    a(no-border, href='/recette/' + recette._id + '/fork')
                       i.fork
                       span Fork
             .col-50

@@ -16,6 +16,9 @@ nav
       if (user)
         li
           a(href='/recettes/search/auteur/' + user.local.pseudo) Mes recettes
+        if (user.local.pseudo === "Tete1805")
+          li
+            a(href='/admin/recettes') Admin
 
       li.separator
       li.title Arômes
@@ -50,13 +53,13 @@ nav
           a(href='/users/logout') Déconnexion
 
   .brand-icon.col-50.left
-      a(href="/") Recipes
+      a(no-border, href="/") Recipes
 
   .col-50.right
     .search-bar
       label(for="search-bar", placeholder="#custard, Strawberry, Fraise, Gourmand...") Search
       input(name="search-bar" type="text")
-      input(type="submit", value="➜")
+      input.pushable(type="submit", value="➜")
 
   //-     span Profil
   //-       ul

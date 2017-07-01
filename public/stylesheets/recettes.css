@@ -23,11 +23,12 @@
   padding-left: 25px;
 }
 
-.recette-container > .title {
-  display: block;
-  font-size: 1.1em;
-  margin-bottom: 10px;
-  text-decoration: none;
+.recette-container > div:first-of-type {
+  padding-bottom: 15px;
+}
+
+.recette-container .title {
+  font-size: 1.3em;
 }
 
 .tags {
@@ -43,10 +44,6 @@
   margin-left: 0;
 }
 
-.tags > li > a {
-  color: #3af;
-}
-
 .likes {
   text-align: right;
 }
@@ -58,19 +55,21 @@
 }
 
 .recette-icon {
-  background-color: #dec39a;
-  border-radius: 5px;
+  background-color: #ffc36a;
   display: inline-block;
+  height: 31px;
   margin-right: 4px;
-  padding: 4px 8px;
   position: relative;
+  width: 40px;
 }
 
 .recette-icon > a > i {
   height: 18px;
+  left: 50%;
   margin: 0 2px;
   position: relative;
-  top: 2px;
+  top: 50%;
+  transform: translate(-50%, -50%);
   width: 18px;
 }
 
@@ -94,5 +93,34 @@
 
 .recette-icon > a {
   color: white;
+  display: block;
+  height: 31px;
   text-decoration: none;
+  width: 40px;
+}
+
+@media all and (max-width: 900px){
+
+  ul.recettes > li {
+    margin-right: 0;
+    padding: 0;
+  }
+
+  .recette-container {
+    margin: 0 !important;
+    min-width: 95vw !important;
+    padding: 0 !important;
+    width: 95vw !important;
+  }
+
+  .recette {
+    padding-left: 0;
+  }
+
+  .recette-icon > a > i  {
+    left: 0;
+    top: 0;
+    transform: translate(0, 0);
+  }
+
 }
