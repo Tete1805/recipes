@@ -1,6 +1,12 @@
 extends layout
 
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+  div(style="text-align: center")
+    img(src="/images/mad-scientist.jpg", style="max-width: 700px; width: 100%")
+    h1| Oups
+    h2= message
+    p
+      if (env === "defvelopment")
+        span= error.stack
+      else
+        span= "Essayez de naviguer ailleurs pour voir. :)"

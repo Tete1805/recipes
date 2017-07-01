@@ -13,12 +13,12 @@ var passport      = require('passport');
 var flash         = require('connect-flash');
 var csurf         = require('csurf');
 
-var index        = require('./routes/index');
+var index         = require('./routes/index');
 var users         = require('./routes/users');
 var recettes      = require('./routes/recettes');
 var recette       = require('./routes/recette');
 var aromes        = require('./routes/aromes');
-var admin        = require('./routes/admin');
+var admin         = require('./routes/admin');
 
 // Où est stockée la chaîne de connexion
 var configDb      = require('./config/database.js');
@@ -83,27 +83,14 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-// error handlers
-
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('site/error', {
-      message: err.message,
-      error: err
-    });
-  });
-}
-
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
+  res.locals.env = app.get("env");
   res.status(err.status || 500);
   res.render('site/error', {
     message: err.message,
-    error: {}
+    error: err
   });
 });
 
