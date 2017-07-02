@@ -1,6 +1,8 @@
-(() => {
+(function() {
 
-  window.onload = () => {
+  window.onload = function() {
+
+    if(!NodeList.prototype.forEach) { NodeList.prototype.forEach = Array.prototype.forEach; }
 
     //Fonction recursive de remontée des neouds pour trouver un élément de type donnée
     function parent(elm, type) {
@@ -14,8 +16,8 @@
     function attachDeleteEvents() {
       // Supprime le li container du bouton appelant
       document.querySelectorAll('#btn-supprimer')
-        .forEach((input) => {
-          input.addEventListener('click', (e) => {
+        .forEach(function(input) {
+          input.addEventListener('click', function(e) {
             console.log(parent(e.currentTarget, 'UL').children.length );
             if (parent(e.currentTarget, 'UL').children.length > 2) {
               var curLi = parent(e.currentTarget, 'LI');
@@ -30,12 +32,12 @@
 
     function attachAddEvents() {
       document.querySelectorAll('#btn-ajouter')
-        .forEach((input) => {
-          input.addEventListener('click', (e) => {
+        .forEach(function(input) {
+          input.addEventListener('click', function(e) {
             var curLi = parent(e.currentTarget, 'LI').previousSibling;
             var clone = curLi.cloneNode(true);
             curLi.querySelectorAll("input[type='text'], input[type='number']")
-              .forEach((input) => {
+              .forEach(function(input) {
                 input.value = null;
               });
             curLi.parentElement.insertBefore(clone, curLi);
@@ -49,12 +51,13 @@
     function total() {
 
       var t = 0.00;
-      document.querySelectorAll('.pourcentage').forEach((input) => { t += parseFloat(input.value) || 0; });
+      document.querySelectorAll('.pourcentage').forEach(function(input) { t += parseFloat(input.value) || 0; });
       document.getElementById('total-pourcentage').innerText = t;
-      document.querySelector('input[value="Enregistrer"').disabled = t < 100;
+      var s = document.querySelector('input[value="Enregistrer"');
+      if (s) { s.disabled = t < 100 }
 
       t = 0.00;
-      document.querySelectorAll('.nicotine').forEach((input) => {
+      document.querySelectorAll('.nicotine').forEach(function(input) {
         t += (parseFloat(input.value) || 0) * (parseInt(parent(input, 'LI').querySelector('.pourcentage').value, 10) || 0) / 100;
       })
       document.getElementById('total-nicotine').innerText = t;
@@ -62,9 +65,9 @@
 
     function attachTotalEvents() {
       document.querySelectorAll('.pourcentage')
-        .forEach((input) => {
-          input.addEventListener('change', () => { total() })
-          input.addEventListener('keyup', () => { total() })
+        .forEach(function(input) {
+          input.addEventListener('change', function() { total() })
+          input.addEventListener('keyup', function() { total() })
         })
     }
 

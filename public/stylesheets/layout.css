@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Handlee";
+  src: url('../Handlee-Regular.ttf');
+}
+
 body {
   color: #666;
   font: 1.3em 'Handlee', cursive;

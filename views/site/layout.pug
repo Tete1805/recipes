@@ -2,11 +2,13 @@ doctype html
 html
   head
     title= title
-    link(href='https://fonts.googleapis.com/css?family=Grand+Hotel|Handlee', rel='stylesheet')
     link(rel='stylesheet', href='/stylesheets/layout.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='/stylesheets/icons.css')
     meta(name="viewport", content="width=device-width, initial-scale=1.0, shrink-to-fit=no")
+    script
+      |window.Promise || document.write('<script src="https://unpkg.com/es6-promise@3.2.1/dist/es6-promise.min.js"><\/script>');
+      |window.fetch || document.write('<script src="/javascripts/vendors/fetch.js"><\/script>');
     block extend_head
   body
     include menu

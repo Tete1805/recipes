@@ -54,6 +54,13 @@ block content
           for arome in recette.aromes
             li #{ arome.pourcentage }% de #{ arome.nom } (#{ arome.marque })
 
+    div(style="display: none")
+      h2 Total
+      span#total-pourcentage 0
+      span % pour un dosage de 
+      span#total-nicotine 0
+      span mg de nicotine
+
     div
       h3 Commentaires&nbsp;:
       if (recette.comments && recette.comments.length > 0)

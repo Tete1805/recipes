@@ -1,7 +1,9 @@
-(() => {
+(function() {
 
-  window.onload = () => {
-    
+  window.onload = function() {
+
+    if(!NodeList.prototype.forEach) { NodeList.prototype.forEach = Array.prototype.forEach; }
+
     function clickHandler(e) {
       var input = e.currentTarget;
       var form = new FormData(input.parentElement);
@@ -21,7 +23,7 @@
     }
 
     document.querySelectorAll('.like')
-      .forEach((input) => {
+      .forEach(function(input) {
         input.addEventListener('click', clickHandler)
       })
   }
