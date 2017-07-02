@@ -4,7 +4,7 @@
   
   function recette() {
 
-    //if(!NodeList.prototype.forEach) { NodeList.prototype.forEach = Array.prototype.forEach; }
+    if(!NodeList.prototype.forEach) { NodeList.prototype.forEach = Array.prototype.forEach; }
 
     //Fonction recursive de remontée des neouds pour trouver un élément de type donnée
     function parent(elm, type) {
