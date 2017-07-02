@@ -1,8 +1,10 @@
 (function() {
 
-  window.onload = function() {
+  window.addEventListener('load', recette, false)
+  
+  function recette() {
 
-    if(!NodeList.prototype.forEach) { NodeList.prototype.forEach = Array.prototype.forEach; }
+    //if(!NodeList.prototype.forEach) { NodeList.prototype.forEach = Array.prototype.forEach; }
 
     //Fonction recursive de remontée des neouds pour trouver un élément de type donnée
     function parent(elm, type) {
@@ -18,7 +20,6 @@
       document.querySelectorAll('#btn-supprimer')
         .forEach(function(input) {
           input.addEventListener('click', function(e) {
-            console.log(parent(e.currentTarget, 'UL').children.length );
             if (parent(e.currentTarget, 'UL').children.length > 2) {
               var curLi = parent(e.currentTarget, 'LI');
               curLi.parentElement.removeChild(curLi);
