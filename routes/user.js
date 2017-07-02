@@ -1,9 +1,9 @@
-var express = require('express');
-var router = express.Router();
-var Arome = require('../models/arome');
-var Recette = require('../models/recette');
-var User = require('../models/user');
-var authRequired = require('./authRequired');
+const express = require('express');
+const router = express.Router();
+const Arome = require('../models/arome');
+const Recette = require('../models/recette');
+const User = require('../models/user');
+const authRequired = require('./authRequired');
 
 router.get('/profile/:pseudo', authRequired, function(req, res, next) {
   Promise.all([

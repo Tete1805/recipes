@@ -1,14 +1,13 @@
-var express  = require('express');
-var router   = express.Router();
-var passport = require('passport');
-var authRequired = require('./authRequired');
+var express       = require('express');
+var router        = express.Router();
+var passport      = require('passport');
+var authRequired  = require('./authRequired');
 
 router.get('/login', function(req, res, next) {
   // Si l'utilisateur arrive ici déjà authentifié pour une raison ou une autre, on le renvoie vers son profil
   // Sinon, on stocke dans la session le referer pour le renvoyer après le post
-  if (req.isAuthenticated()) {
-    res.render('users/profile');
-  } else {
+  if (req.isAuthenticated()) { res.redirect('profile'); }
+  else {
     req.session.redirectTo = req.session.redirectTo || req.header("Referer") || '/users/profile';
     res.render('users/login');
   }
@@ -28,11 +27,8 @@ router.post('/login', (req, res, next) => {
 
 router.get('/signup', function(req, res, next) {
   // Si l'utilisateur arrive ici déjà authentifié pour une raison ou une autre, on le renvoie vers son profil
-  if (req.isAuthenticated()) {
-    res.redirect('profile');
-  } else {
-    res.render('users/signup');
-  }
+  if (req.isAuthenticated()) { res.redirect('profile'); }
+  else { res.render('users/signup'); }
 });
 
 router.post('/signup', passport.authenticate('local-signup', {

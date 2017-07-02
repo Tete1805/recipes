@@ -8,6 +8,7 @@ body {
 
 main {
   animation: fadeIn 300ms ease-in;
+  display: block;
 }
 
 @keyframes fadeIn {
@@ -27,6 +28,7 @@ nav {
   font-size: 1.3em;
   font-weight: bold;
   height: 70px;
+  line-height: 70px;
   margin: 0;
   position: fixed;
   top: 0;
@@ -118,7 +120,8 @@ nav a {
   font-size: 22px;
   font-weight: bold !important;
   margin-left: 15px;
-  padding: 0 16px;
+  padding: 0;
+  width: 80px;
 }
 
 main {
@@ -195,6 +198,7 @@ main {
   display: inline-block;
   float: left;
   height: 100vh;
+  line-height: normal;
 }
 
 .drawer-frame * {

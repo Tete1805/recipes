@@ -15,7 +15,7 @@ var csurf         = require('csurf');
 
 var index         = require('./routes/index');
 var users         = require('./routes/users');
-var user         = require('./routes/user');
+var user          = require('./routes/user');
 var recettes      = require('./routes/recettes');
 var recette       = require('./routes/recette');
 var aromes        = require('./routes/aromes');
@@ -77,6 +77,7 @@ app.use('/aromes', aromes);
 app.use('/users', users);
 app.use('/user', user);
 app.use('/admin', admin);
+app.use('/api', require('./api/index'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
