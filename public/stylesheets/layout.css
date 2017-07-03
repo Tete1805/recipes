@@ -3,6 +3,11 @@
   src: url('../Handlee-Regular.ttf');
 }
 
+@font-face {
+  font-family: "Grand Hotel";
+  src: url('../GrandHotel-Regular.ttf');
+}
+
 body {
   color: #666;
   font: 1.3em 'Handlee', cursive;
