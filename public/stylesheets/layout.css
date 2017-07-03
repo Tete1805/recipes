@@ -156,6 +156,7 @@ main {
 
   nav, .brand-icon {
     display: block;
+    line-height: initial;
   }
 
   nav {
