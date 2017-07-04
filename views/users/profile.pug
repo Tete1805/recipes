@@ -2,33 +2,44 @@ extends ../site/layout
 
 block content
 
-  h1 Bienvenue #{ user.local.pseudo }
+  form.recette(method="POST")
 
-  //- div 
-  //-   b Mon profil
-  //- div Login
-  //- div Email
-  //- div Mon avatar
-  //- hr
-  div 
-    h3 Mon activité
-  div Nombre de recettes postées : #{ recettes.length || 0 }
-  //- div Nombre de recettes suivies : 
-  div Nombre d'arômes dans ma besace : #{ aromes.length || 0 }
-  hr
-  div
-    h3 Mon statut dans la communauté
-  //- div Nombre de followers :
-  div Likes reçus : #{ recettes.reduce(function(count, recette) { return count += recette.likes.length }, 0) || 0}
-  div Mes recettes les plus likées :
-  div
-    ul
-      -var total = recettes.reduce((count, recette) => count += recette.likes.length > 0, 0)
-      -var sum = recettes.reduce((count, recette) => count += recette.likes.length, 0)
-      -var tops = recettes.filter((recette) => recette.likes.length >= sum / total)
-      each recette in tops
-        li
-          a(href="/recette/" + recette._id + "/detail")= recette.nom
-          span= " (" + recette.likes.length + ")"
+    if (user._id.toString() === userDetails._id.toString())
+      h1 Bienvenue #{ user.local.pseudo }
+    else
+      h1 Profil de #{ userDetails.local.pseudo }
 
-  div Likes donnés : #{ liked.length || 0 }
+    div 
+      b Profil
+    div Login : #{ userDetails.local.pseudo }
+    div
+      span Email
+      if (user._id.toString() === userDetails._id.toString())
+        input.inline-block(style="margin: 0 25px 5px 15px; width: 300px !important" name="email", type="text", value=userDetails.email)
+        input.pushable.btn-small(style="display: inline-block;" type="submit", value="Enregistrer")
+      else
+        span= userDetails.local.pseudo
+    //- div Mon avatar
+    hr
+    div 
+      h3 Activité
+    div Nombre de recettes postées : #{ recettes.length || 0 }
+    //- div Nombre de recettes suivies : 
+    div Nombre d'arômes dans la besace : #{ aromes.length || 0 }
+    hr
+    div
+      h3 Statut dans la communauté
+    //- div Nombre de followers :
+    div Likes reçus : #{ recettes.reduce(function(count, recette) { return count += recette.likes.length }, 0) || 0}
+    div Recettes les plus likées :
+    div
+      ul
+        -var total = recettes.reduce((count, recette) => count += recette.likes.length > 0, 0)
+        -var sum = recettes.reduce((count, recette) => count += recette.likes.length, 0)
+        -var tops = recettes.filter((recette) => recette.likes.length >= sum / total)
+        each recette in tops
+          li
+            a(href="/recette/" + recette._id + "/detail")= recette.nom
+            span= " (" + recette.likes.length + ")"
+
+    div Likes donnés : #{ liked.length || 0 }

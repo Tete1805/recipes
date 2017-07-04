@@ -285,6 +285,13 @@ footer span {
 
 @media all and (min-width: 900px) {
   .btn-small {
+    font-size: 1em !important;
+    padding: 5px 10px !important;
     width: auto !important;
   }
+}
+
+.inline-block {
+  display: inline-block;
+  width: initial !important;
 }

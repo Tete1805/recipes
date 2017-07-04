@@ -35,7 +35,8 @@ var userSchema = mongoose.Schema({
     level            : {
         type         : String,
         default      : "cherry"
-    }
+    },
+    email            : String
     
 });
 

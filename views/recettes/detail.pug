@@ -68,7 +68,7 @@ block content
           for comment in recette.comments
             li
               span posté par 
-              a(href="/users/" + comment.auteur)= comment.auteur 
+              a(href="/user/profile/" + comment.auteur)= comment.auteur 
               span &nbsp;le 
               span= formatDate(comment.ajoute, 'dateTime')
               br
