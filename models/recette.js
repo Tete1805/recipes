@@ -109,7 +109,7 @@ recetteSchema.methods.like = function(user) {
     // permet l'ajout à une propriété tableau. Rappel : l`appel de `.exec()` sans argument sur un objet `Query` de
     // Mongoose le transforme en promesse.
     this.likes = this.likes || [];
-    if (this.likes.indexOf(user) > -1) {
+    if (this.likes.indexOf(user) === -1) {
         this.likes.push(user);
     }
     return this;

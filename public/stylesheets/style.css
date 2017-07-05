@@ -171,7 +171,7 @@ h1, .h1 {
   margin-top: -8%;
 }
 
-input[type="text"], input[type="number"], input[type="password"], textarea, select {
+input:not([type="submit"]), textarea, select {
   border: none;
   border-bottom: 1px solid #ccc;
   color: #578;
