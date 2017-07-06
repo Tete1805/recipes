@@ -6,63 +6,64 @@ nav
     hr
     hr
   .drawer-frame
-    ul.drawer-menu
-      li.separator
-      li.title
-        i.recette
-        span Recettes
-      li
-        a(href='/recettes/all/1') Toutes les recettes
-      li
-        a(href='/recette/new/edit') Nouvelle recette
-      if (user)
+    div(style="overflow-y: auto; height: 100%;")
+      ul.drawer-menu
+        li.separator
+        li.title
+          i.recette
+          span Recettes
         li
-          a(href='/recettes/search/auteur/' + user.local.pseudo) Mes recettes
-        if (user.local.pseudo === "Tete1805")
+          a(href='/recettes/all/1') Toutes les recettes
+        li
+          a(href='/recette/new/edit') Nouvelle recette
+        if (user)
           li
-            a(href='/admin/recettes') Administration
+            a(href='/recettes/search/auteur/' + user.local.pseudo) Mes recettes
+          if (user.local.pseudo === "Tete1805")
+            li
+              a(href='/admin/recettes') Administration
 
-      li.separator
-      li.title
-        i.arome
-        span Arômes
-      li
-        a(href="/aromes/all") Tous les arômes
-      li
-        a(href="/aromes/new") Nouvel arôme
-      if (user)
+        li.separator
+        li.title
+          i.arome
+          span Arômes
         li
-          a(href='/aromes/my/') Mes arômes
-        if (user.local.pseudo === "Tete1805")
+          a(href="/aromes/all") Tous les arômes
+        li
+          a(href="/aromes/new") Nouvel arôme
+        if (user)
           li
-            a(href='/admin/aromes') Administration
+            a(href='/aromes/my/') Mes arômes
+          if (user.local.pseudo === "Tete1805")
+            li
+              a(href='/admin/aromes') Administration
 
-      //- li.separator
-      //- li.title Groupes
-      //- li 
-      //-   a(href="/groupes/all") Tous les groupes
-      //- li
-      //-   a(href="/groupes/new") Nouveau groupe
-      //- li
-      //-   a(href="/groupes/my") Mes groupes 
+        //- li.separator
+        //- li.title Groupes
+        //- li 
+        //-   a(href="/groupes/all") Tous les groupes
+        //- li
+        //-   a(href="/groupes/new") Nouveau groupe
+        //- li
+        //-   a(href="/groupes/my") Mes groupes 
 
-      li.separator
-      li.title
-        i.user
-        span Profil
-      if (!user)
-        li
-          a(href='/users/login') Connexion
-        li
-          a(href='/users/signup') Inscription
-      else
-        li
-          a(href='/users/profile') Mon profil
-        li
-          a(href='/users/logout') Déconnexion
-        if (user.local.pseudo === "Tete1805")
+        li.separator
+        li.title
+          i.user
+          span Profil
+        if (!user)
           li
-            a(href='/admin/users') Administration
+            a(href='/users/login') Connexion
+          li
+            a(href='/users/signup') Inscription
+        else
+          li
+            a(href='/users/profile') Mon profil
+          li
+            a(href='/users/logout') Déconnexion
+          if (user.local.pseudo === "Tete1805")
+            li
+              a(href='/admin/users') Administration
 
   .brand-icon.col-50.left
       a(no-border, href="/")

@@ -241,31 +241,6 @@ footer span {
   margin-right: 5px;
 }
 
-.autocomplete {
-  border: 1px solid #ccc;
-  display: none;
-  left: 180px;
-  margin-top: -11px;
-  position: absolute;
-  top: 100%;
-}
-
-.autocomplete > li {
-  background-color: white;
-  border: inherit;
-  border-bottom: none;
-  cursor: pointer;
-  display: block;
-  margin: 0;
-  padding: 4px 8px;
-  white-space: nowrap;
-  z-index: 1000;
-}
-
-.autocomplete > li:hover {
-  background-color: #E8F7FF;
-}
-
 .pushable {
   box-shadow: 2px 2px 3px #bba687;
   transition: all 0.2s;
