@@ -1,7 +1,6 @@
 extends ../site/layout
 block extend_head
-  link(rel='stylesheet', href='/stylesheets/recette-new.css')
-  script(src="../../javascripts/recette-new.js")    
+  link(rel='stylesheet', href='/stylesheets/recette-new.css') 
 block content
 
   .col-80
@@ -54,11 +53,13 @@ block content
           for arome in recette.aromes
             li #{ arome.pourcentage }% de #{ arome.nom } (#{ arome.marque })
 
-    div(style="display: none")
+    div
       h2 Total
-      span#total-pourcentage 0
-      span % pour un dosage de 
-      span#total-nicotine 0
+      -var totalA = recette.aromes.reduce(function(accumulateur, arome) { return accumulateur + arome.pourcentage }, 0)
+      span= totalA
+      span % d'arômes pour un dosage de 
+      -var totalN = recette.bases.reduce(function(accumulateur, base) { return accumulateur + base.pourcentage * base.nicotine / 100 }, 0)
+      span= totalN
       span mg de nicotine
 
     div

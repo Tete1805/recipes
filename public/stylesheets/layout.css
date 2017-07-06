@@ -3,11 +3,6 @@
   src: url('../Handlee-Regular.ttf');
 }
 
-@font-face {
-  font-family: "Grand Hotel";
-  src: url('../GrandHotel-Regular.ttf');
-}
-
 body {
   color: #666;
   font: 1.3em 'Handlee', cursive;
@@ -56,7 +51,6 @@ nav a {
 }
 
 .brand-icon {
-  font: 45px 'Grand Hotel', cursive;
   margin-left: 85px;
   margin-top: 3px;
   transition: margin-left 0.2s;
@@ -66,8 +60,12 @@ nav a {
   color: #fff !important;
 }
 
-.brand-icon a:before {
+.brand-icon a {
   height: 0 !important;
+}
+
+.brand-icon img {
+  margin-top: 10px;
 }
 
 .brand-icon a:hover {
@@ -138,7 +136,7 @@ main {
   height: 100%;
   padding: 20px;
   padding-top: 80px;
-  padding-bottom: 50px;
+  padding-bottom: 80px;
 }
 
 

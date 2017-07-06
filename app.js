@@ -7,6 +7,8 @@ var logger        = require('morgan');
 var cookieParser  = require('cookie-parser');
 var bodyParser    = require('body-parser');
 var session       = require('express-session');
+var minify        = require('express-minify');
+var compression   = require('compression')
 
 var mongoose      = require('mongoose');
 var passport      = require('passport');
@@ -50,6 +52,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(compression());
+app.use(minify());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Pour la session
