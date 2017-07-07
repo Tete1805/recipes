@@ -48,7 +48,7 @@ h1, .h1 {
 
 @media screen and (max-width: 900px) {
 
-  * { 
+  :not(.drawer *) { 
     margin: 5px 0;
     text-align: center !important;
   }

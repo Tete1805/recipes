@@ -179,6 +179,9 @@ main {
     margin-left: 5px;
   }
 
+  .drawer-frame * {
+    text-align: left !important;
+  }
 }
 
 .drawer-btn {
@@ -190,11 +193,12 @@ main {
   position: fixed;
   top: 15px;
   left: 15px;
+  z-index: 9999;
 }
 
 #drawer-btn:checked + label {
   background-color: #fff;
-  z-index: 99999;
+  z-index: 9999;
 }
 
 .drawer-btn > hr {
@@ -206,6 +210,12 @@ main {
   width: 25px;
 }
 
+.drawer-brand {
+  display: block;
+  padding-left: 80px !important;
+  padding-top: 15px !important;
+}
+
 .drawer-frame {
   background-color: #fff;
   box-shadow: 1px 0px 5px #888;
@@ -213,42 +223,48 @@ main {
   float: left;
   height: 100vh;
   line-height: normal;
+  margin-left: -280px;
+  padding: 0;
+  padding-top: 0px;
+  position: fixed;
+  transition: margin-left 0.2s;
+  width: 250px;
+  z-index: 999;
 }
 
 .drawer-frame * {
+  font-size: 1em;
+  font-weight: bold;
   list-style: none;
-  margin: 0;
   padding: 0;
 }
 
-nav input[type="checkbox"] {
+.drawer-content {
+  background-color: #fff;
+  height: 100%;
+  overflow-y: auto;
+  padding-bottom: 50px;
+}
+
+.drawer-content * {
+  margin: 7px 0;
+}
+
+.drawer input[type="checkbox"] {
   display: none
 }
 
-nav input[type="checkbox"]:checked + .drawer-btn hr {
+.drawer input[type="checkbox"]:checked + .drawer-btn hr {
   background-color: #ccc;  
   color: #ccc;
 }
-nav input[type="checkbox"]:checked + .drawer-btn {
+.drawer input[type="checkbox"]:checked + .drawer-btn {
   border-color: #ccc;
 }
 
-nav input[type="checkbox"]:checked + .drawer-btn + .drawer-frame .drawer-menu {
+.drawer input[type="checkbox"]:checked + .drawer-btn + .drawer-frame {
   margin-left: 0;
   transition: all 0.2s;
-}
-
-nav input[type="checkbox"]:checked + .drawer-btn + .drawer-frame + .brand-icon {
-  margin-left: 15px;
-  transition: all 0.2s;
-}
-
-.drawer-menu {
-  margin-left: -250px;
-  padding: 0;
-  padding-top: 50px;
-  transition: margin-left 0.2s;
-  width: 250px;
 }
 
 .drawer-menu > .title {

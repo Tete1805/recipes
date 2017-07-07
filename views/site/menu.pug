@@ -1,12 +1,24 @@
 nav
+  .brand-icon.col-50.left
+      a(no-border, href="/")
+        img(src="/images/brand.png")
 
+  .col-50.right
+    .search-bar
+      label(for="search-bar", placeholder="#custard, Strawberry, Fraise, Gourmand...") Search
+      input(name="search-bar" type="text")
+      input.pushable(type="submit", value="➜")
+
+.drawer
   input(type="checkbox" id="drawer-btn")
   label(for="drawer-btn").drawer-btn
     hr
     hr
     hr
   .drawer-frame
-    div(style="overflow-y: auto; height: 100%;")
+    a.drawer-brand(no-border, href="/")
+        img(src="/images/brand_blue.png")
+    div.drawer-content
       ul.drawer-menu
         li.separator
         li.title
@@ -64,17 +76,6 @@ nav
           if (user.local.pseudo === "Tete1805")
             li
               a(href='/admin/users') Administration
-
-  .brand-icon.col-50.left
-      a(no-border, href="/")
-        img(src="/images/brand.png")
-
-  .col-50.right
-    .search-bar
-      label(for="search-bar", placeholder="#custard, Strawberry, Fraise, Gourmand...") Search
-      input(name="search-bar" type="text")
-      input.pushable(type="submit", value="➜")
-
   //-     span Profil
   //-       ul
   //-         if (!user)
