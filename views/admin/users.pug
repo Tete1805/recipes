@@ -12,12 +12,14 @@ block content
         th Nom
         th Crée
         th Niveau
+        th Email
     tbody
       each user in users
         tr
           td= user.local.pseudo
           td= formatDate(user.ajoute, "dateTime")
           td= user.level
+          td= user.email
           td
             a(href='/user/' + user._id + '/delete') Supprimer
           td

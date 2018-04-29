@@ -5,6 +5,7 @@ block content
     img(src="/images/mad-scientist.jpg", style="max-width: 700px; width: 100%")
     h1| Oups
     h2= message
+    h3= error.status
     p
       if (env === "defvelopment")
         span= error.stack

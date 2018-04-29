@@ -1,5 +1,5 @@
 * {
-  box-sizing: border-box !important; 
+  box-sizing: border-box !important;
 }
 
 form ul {
@@ -9,19 +9,19 @@ form ul {
 }
 
 a:not([no-border]) {
-  color: #09d !important; 
+  color: #09d;
   position: relative;
   text-decoration: none;
   transition: color 0.2s;
 }
 
 a:not([no-border]):hover {
-  color: #7cf !important; 
+  color: #7cf !important;
   transition: color 0.2s;
 }
 
 a:not([no-border]):before {
-  content: "";
+  content: '';
   position: absolute;
   width: 100%;
   height: 2px;
@@ -38,17 +38,19 @@ a:not([no-border]):hover:before {
   transform: scaleX(1);
 }
 
-h1, h2, .h1 {
+h1,
+h2,
+.h1 {
   color: #09d !important;
 }
 
-h1, .h1 {
+h1,
+.h1 {
   font-size: 55px !important;
 }
 
 @media screen and (max-width: 900px) {
-
-  :not(.drawer *) { 
+  :not(.drawer *) {
     margin: 5px 0;
     text-align: center !important;
   }
@@ -171,7 +173,12 @@ h1, .h1 {
   margin-top: -8%;
 }
 
-input[type="text"], input[type="number"], input[type="password"], input[type="email"], textarea, select {
+input[type='text'],
+input[type='number'],
+input[type='password'],
+input[type='email'],
+textarea,
+select {
   border: none;
   border-bottom: 1px solid #ccc;
   color: #578;
@@ -189,17 +196,23 @@ textarea {
   border-width: 1px;
 }
 
-input[type="text"], input[type="number"], input[type="password"], input[type="email"], textarea, select, option {
+input[type='text'],
+input[type='number'],
+input[type='password'],
+input[type='email'],
+textarea,
+select,
+option {
   border-left: none;
   border-right: none;
   border-top: none;
 }
 
-input[type="number"] {
+input[type='number'] {
   text-align: right;
 }
 
-main input[type="submit"] {
+main input[type='submit'] {
   border: none;
   background-color: #6d6;
   color: white;
@@ -211,7 +224,7 @@ main input[type="submit"] {
   width: 100%;
 }
 
-main input[type="submit"]:hover {
+main input[type='submit']:hover {
   background-color: #4d4;
   color: white;
 }
@@ -227,7 +240,7 @@ main input[disabled]:hover {
 }
 
 footer {
-  background-color: #47535F;
+  background-color: #47535f;
   bottom: 0;
   color: white;
   padding: 8px;

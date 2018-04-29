@@ -4,6 +4,7 @@ var app           = express();
 var path          = require('path');
 var favicon       = require('serve-favicon');
 var logger        = require('morgan');
+var fs            = require('fs');
 var cookieParser  = require('cookie-parser');
 var bodyParser    = require('body-parser');
 var session       = require('express-session');
@@ -48,7 +49,11 @@ app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+app.use(logger('common'));
+// log all requests to access.log
+app.use(logger('common', {
+  stream: fs.createWriteStream(path.join(__dirname, 'http.log'), {flags: 'a'})
+}))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -82,6 +87,9 @@ app.use('/users', users);
 app.use('/user', user);
 app.use('/admin', admin);
 //app.use('/api', require('./api/index'));
+app.use('/*(.php|cgi|cfm|w00t|webdav)*/', function(req, res, next) {
+  res.status(418).end()
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
