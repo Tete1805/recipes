@@ -217,8 +217,9 @@ main input[type='submit'] {
   background-color: #6d6;
   color: white;
   cursor: pointer;
-  font-weight: bold;
+  font-family: 'Handlee', cursive;
   font-size: 1.3em;
+  font-weight: bold;
   margin-top: 25px;
   padding: 10px 20px;
   width: 100%;
@@ -273,8 +274,8 @@ footer span {
 
 @media all and (min-width: 900px) {
   .btn-small {
-    font-size: 1em !important;
-    padding: 5px 10px !important;
+    font-size: 0.9em !important;
+    padding: 8px 25px !important;
     width: auto !important;
   }
 }
