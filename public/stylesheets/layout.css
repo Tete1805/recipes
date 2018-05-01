@@ -144,11 +144,11 @@ main {
   background-color: #fff;
   min-height: 100%;
   padding: 20px;
-  padding-top: 80px;
+  padding-top: 120px;
   padding-bottom: 80px;
 }
 
-@media all and (max-width: 900px) {
+@media all and (max-width: 950px) {
   html,
   body,
   main,
@@ -173,7 +173,7 @@ main {
   }
 
   main {
-    padding-top: 120px;
+    padding-top: 140px;
   }
 
   .search-bar {

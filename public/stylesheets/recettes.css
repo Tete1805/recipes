@@ -103,7 +103,7 @@ main {
   width: 40px;
 }
 
-@media all and (max-width: 900px) {
+@media all and (max-width: 950px) {
   ul.recettes > li {
     margin: 10px !important;
     min-width: 95vw !important;

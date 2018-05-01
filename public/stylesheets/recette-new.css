@@ -85,13 +85,14 @@ a.btn-supprimer {
   background-color: #ff9494;
 }
 
-@media all and (max-width: 900px) {
+@media all and (max-width: 950px) {
   label {
     display: block;
   }
 
   main {
-    margin: 10px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
   }
 
   .h1 {
@@ -135,7 +136,6 @@ a.btn-supprimer {
   .recette-aromes > li {
     display: grid;
     grid-template-columns: 50% 50%;
-    padding: 0 10px;
   }
   .recette-bases > li > span:nth-child(2n + 1),
   .recette-aromes > li > span:nth-child(2n + 1) {
