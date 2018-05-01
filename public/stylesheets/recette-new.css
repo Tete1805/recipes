@@ -5,6 +5,13 @@ div.recette {
   width: 100%;
 }
 
+.recette-maturation {
+  display: flex;
+}
+.recette-maturation > span {
+  padding-top: 2px;
+}
+
 .recette .arome {
   border: 1px solid #ccc;
   display: inline-block;
