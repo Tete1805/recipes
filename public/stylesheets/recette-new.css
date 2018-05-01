@@ -6,7 +6,7 @@ div.recette {
 }
 
 .recette .arome {
-  border: 1px solid #ccc; 
+  border: 1px solid #ccc;
   display: inline-block;
   width: 50%;
 }
@@ -38,7 +38,7 @@ ul > li {
   width: 35px;
 }
 
-.recette-button > a > span{
+.recette-button > a > span {
   display: inline-block;
   height: 40px;
 }
@@ -57,7 +57,7 @@ ul > li {
   width: 25px;
 }
 
-.recette-button > a {  
+.recette-button > a {
   background-color: #09d;
   color: white;
   display: inline-block;
@@ -68,14 +68,17 @@ ul > li {
 
 .recette-button > a:hover {
   background-color: #0ae;
-}  
+}
 
-#btn-ajouter {
+.btn-ajouter {
   margin-top: 20px;
 }
 
-@media all and (max-width: 900px) {
+a.btn-supprimer {
+  background-color: #ff9494;
+}
 
+@media all and (max-width: 900px) {
   label {
     display: block;
   }
@@ -84,8 +87,8 @@ ul > li {
     margin: 10px !important;
   }
 
-  h1 {
-    font-size: 45px !important;
+  .h1 {
+    font-size: 40px !important;
     margin: 0;
   }
 
@@ -97,13 +100,9 @@ ul > li {
     padding: 10px;
   }
 
-  ul{
+  ul {
     padding-left: 0;
     list-style: none;
-  }
-
-  .recette * {
-    text-align: left !important;
   }
 
   .recette-button {
@@ -117,19 +116,43 @@ ul > li {
   }
 
   .recette-action {
-   margin: 0 10px
+    margin: 0;
   }
 
-  main input[type="submit"] {
+  main input[type='submit'] {
     display: block;
     width: 100%;
     text-align: center !important;
   }
-
-  #btn-ajouter {
+  .recette-bases > li,
+  .recette-aromes > li {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    padding: 0 10px;
+  }
+  .recette-bases > li > span:nth-child(2n + 1),
+  .recette-aromes > li > span:nth-child(2n + 1) {
+    padding-right: 10px;
+    padding-top: 5px;
+    text-align: right;
+  }
+  .recette-bases > li > span:nth-child(2n),
+  .recette-aromes > li > span:nth-child(2n) {
+    padding-left: 10px;
+    padding-top: 5px;
+    text-align: left;
+  }
+  .recette-aromes > li > div:last-child,
+  .recette-bases > li > div:last-child {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+  .btn-ajouter {
     margin-top: 0;
   }
-
+  .btn-supprimer {
+    margin-top: 20px;
+  }
 }
 
 .commentaires {

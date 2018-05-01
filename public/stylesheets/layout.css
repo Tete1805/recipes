@@ -242,6 +242,7 @@ main {
   padding-top: 0px;
   padding-bottom: 40px;
   position: fixed;
+  top: 0;
   transition: margin-left 0.2s;
   width: 250px;
   z-index: 999;
