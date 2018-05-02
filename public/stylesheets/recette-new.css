@@ -84,6 +84,9 @@ ul > li {
 a.btn-supprimer {
   background-color: #ff9494;
 }
+a.btn-supprimer:hover {
+  background-color: #ff4c4c;
+}
 
 @media all and (max-width: 950px) {
   label {
