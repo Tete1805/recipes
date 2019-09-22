@@ -1,93 +1,117 @@
 (function() {
-  window.addEventListener('load', recette, false);
+  window.addEventListener('load', windowLoaded);
+  window.addEventListener('recipe-line-deleted', inputChangeHandler);
+  window.addEventListener('recipe-line-added', newLineAdded);
 
-  function recette() {
-    if (!NodeList.prototype.forEach) {
-      NodeList.prototype.forEach = Array.prototype.forEach;
-    }
+  function windowLoaded() {
+    const btnAjouter = document.querySelectorAll('.btn-ajouter');
+    const btnSupprimer = document.querySelectorAll('.btn-supprimer');
 
-    //Fonction recursive de remontée des neouds pour trouver un élément de type donnée
-    function parent(elm, type) {
-      return elm.parentElement.tagName === type
-        ? elm.parentElement
-        : parent(elm.parentElement, type);
-    }
+    attachEventHandlerToTargets(btnAjouter, addHanler);
+    attachEventHandlerToTargets(btnSupprimer, deleteHandler);
+    attachTotalEvents();
+  }
 
-    function attachDeleteEvents() {
-      // Supprime le li container du bouton appelant
-      document.querySelectorAll('.btn-supprimer').forEach(function(input) {
-        input.addEventListener('click', function(e) {
-          const target = e.currentTarget;
-          if (parent(target, 'UL').children.length > 2) {
-            var curLi = parent(target, 'LI');
-            requestIdleCallback(() => {
-              if (curLi.parentElement) curLi.parentElement.removeChild(curLi);
-              total();
-            });
-          }
-        });
+  function newLineAdded({ detail: newLine }) {
+    const btnSupprimer = newLine.querySelector('.btn-supprimer');
+    attachEventHandlerToTargets([btnSupprimer], deleteHandler);
+    attachTotalEvents();
+  }
+
+  function attachEventHandlerToTargets(targets, handler, event = 'click') {
+    Array.from(targets).forEach(target =>
+      target.addEventListener(event, handler)
+    );
+  }
+
+  function addHanler(event) {
+    event.preventDefault();
+    const buttonLine = getParentByType(event.currentTarget, 'LI');
+    const lastLine = buttonLine.previousSibling;
+    const newLine = lastLine.cloneNode(true);
+    cleanInputValues(newLine);
+    lastLine.insertAdjacentElement('afterend', newLine);
+    window.dispatchEvent(
+      new CustomEvent('recipe-line-added', { detail: newLine })
+    );
+  }
+
+  function deleteHandler(event) {
+    event.preventDefault();
+    const target = event.currentTarget;
+    const parent = getParentByType(target, 'UL');
+    if (hasMoreThanOneLine(parent)) {
+      const line = getParentByType(target, 'LI');
+      requestIdleCallback(() => {
+        parent.removeChild(line);
+        document.dispatchEvent(new Event('recipe-line-deleted'));
       });
     }
+  }
 
-    // Clone le li en cours, supprime le bouton d'ajout de ligne,
-    // vide les inputs de la li en cours, insère le clone en amont
+  function getParentByType(element, type) {
+    return element.parentElement.tagName === type
+      ? element.parentElement
+      : getParentByType(element.parentElement, type);
+  }
 
-    function attachAddEvents() {
-      document.querySelectorAll('.btn-ajouter').forEach(function(input) {
-        input.addEventListener('click', function(e) {
-          const curLi = parent(e.currentTarget, 'LI').previousSibling;
-          const clone = curLi.cloneNode(true);
-          curLi
-            .querySelectorAll("input[type='text'], input[type='number']")
-            .forEach(function(input) {
-              input.value = null;
-            });
-          curLi.parentElement.insertBefore(clone, curLi);
-          attachDeleteEvents();
-          attachTotalEvents();
-        });
-      });
-    }
+  function hasMoreThanOneLine(section) {
+    return section.children.length > 2;
+  }
 
-    function total() {
-      const t = Array.from(document.querySelectorAll('.pourcentage')).reduce(
-        (total, input) => total + parseFloat(input.value) || 0,
-        0
+  function cleanInputValues(line) {
+    const inputs = line.querySelectorAll(
+      "input[type='text'], input[type='number']"
+    );
+    Array.from(inputs).forEach(input => (input.value = null));
+  }
+
+  function tryGetValue(input, format) {
+    return input.value ? format(input.value, 10) : 0;
+  }
+
+  function validatePourcentage() {
+    const pourcentageInputs = Array.from(
+      document.querySelectorAll('.pourcentage')
+    );
+    const totalPourcentage = pourcentageInputs.reduce(
+      (total, input) => total + tryGetValue(input, parseFloat),
+      0
+    );
+    document.getElementById('total-pourcentage').innerText = totalPourcentage;
+    document.querySelector('input[value="Enregistrer"]').disabled =
+      totalPourcentage != 100;
+  }
+
+  function validateNicotineLevel() {
+    const nicotineLevels = Array.from(document.querySelectorAll('.nicotine'));
+    const totalNicotineLevel = nicotineLevels.reduce((total, input) => {
+      const pourcentageInput = getParentByType(input, 'LI').querySelector(
+        '.pourcentage'
       );
-      document.getElementById('total-pourcentage').innerText = t;
-      const s = document.querySelector('input[value="Enregistrer"');
-      if (s) {
-        s.disabled = t < 100;
-      }
+      const pourcentage = tryGetValue(pourcentageInput, parseFloat);
+      const nicotineLevel = tryGetValue(input, parseFloat);
+      return total + (nicotineLevel * pourcentage) / 100;
+    }, 0);
 
-      const n =
-        Array.from(document.querySelectorAll('.nicotine')).reduce(
-          (total, input) =>
-            total +
-            (parseFloat(input.value) || 0) *
-              (parseInt(
-                parent(input, 'LI').querySelector('.pourcentage').value,
-                10
-              ) || 0),
-          0
-        ) / 100;
-      document.getElementById('total-nicotine').innerText = n;
-    }
+    document.getElementById('total-nicotine').innerText = totalNicotineLevel;
+  }
 
-    function attachTotalEvents() {
-      document.querySelectorAll('.pourcentage').forEach(function(input) {
+  function inputChangeHandler() {
+    validatePourcentage();
+    validateNicotineLevel();
+  }
+
+  function attachTotalEvents() {
+    document
+      .querySelectorAll('.pourcentage, .nicotine')
+      .forEach(function(input) {
         input.addEventListener('change', function() {
-          total();
+          inputChangeHandler();
         });
         input.addEventListener('keyup', function() {
-          total();
+          inputChangeHandler();
         });
       });
-    }
-
-    attachAddEvents();
-    attachDeleteEvents();
-    attachTotalEvents();
-    total();
   }
 })();
