@@ -1,76 +1,82 @@
 (function() {
   window.addEventListener('load', windowLoaded);
-  window.addEventListener('recipe-line-deleted', inputChangeHandler);
-  window.addEventListener('recipe-line-added', newLineAdded);
+  window.addEventListener('recipe-row-deleted', rowDeleted);
+  window.addEventListener('recipe-row-added', newRowAdded);
 
   function windowLoaded() {
-    const btnAjouter = document.querySelectorAll('.btn-ajouter');
-    const btnSupprimer = document.querySelectorAll('.btn-supprimer');
-
-    attachEventHandlerToTargets(btnAjouter, addHanler);
-    attachEventHandlerToTargets(btnSupprimer, deleteHandler);
-    attachTotalEvents();
+    addEventHandlerToTargets({
+      selector: '.btn-ajouter',
+      handler: addNewRow
+    });
+    addEventHandlerToTargets({
+      selector: '.btn-supprimer',
+      handler: deleteRow
+    });
+    addEventHandlerToTargets({
+      selector: '.pourcentage',
+      handler: updatePourcentage,
+      events: ['change', 'keyup']
+    });
+    addEventHandlerToTargets({
+      selector: '.pourcentage, .nicotine',
+      handler: updatePourcentage,
+      events: ['change', 'keyup']
+    });
   }
 
-  function newLineAdded({ detail: newLine }) {
-    const btnSupprimer = newLine.querySelector('.btn-supprimer');
-    attachEventHandlerToTargets([btnSupprimer], deleteHandler);
-    attachTotalEvents();
+  function newRowAdded({ detail: newRow }) {
+    addEventHandlerToTargets({
+      selector: '.btn-supprimer',
+      handler: deleteRow,
+      root: newRow
+    });
+    addEventHandlerToTargets({
+      selector: '.pourcentage, .nicotine',
+      handler: updatePourcentage,
+      events: ['change', 'keyup'],
+      root: newRow
+    });
   }
 
-  function attachEventHandlerToTargets(targets, handler, event = 'click') {
+  function rowDeleted() {
+    updatePourcentage();
+    updateNicotine();
+  }
+
+  function addEventHandlerToTargets(options) {
+    const { selector, handler, events = ['click'], root = document } = options;
+    const targets = root.querySelectorAll(selector);
     Array.from(targets).forEach(target =>
-      target.addEventListener(event, handler)
+      events.forEach(event => target.addEventListener(event, handler))
     );
   }
 
-  function addHanler(event) {
+  function addNewRow(event) {
     event.preventDefault();
-    const buttonLine = getParentByType(event.currentTarget, 'LI');
-    const lastLine = buttonLine.previousSibling;
-    const newLine = lastLine.cloneNode(true);
-    cleanInputValues(newLine);
-    lastLine.insertAdjacentElement('afterend', newLine);
-    window.dispatchEvent(
-      new CustomEvent('recipe-line-added', { detail: newLine })
+    const buttonRow = getParentByType(event.currentTarget, 'LI');
+    const lastRow = buttonRow.previousSibling;
+    const newRow = lastRow.cloneNode(true);
+    cleanInputValues(newRow);
+    lastRow.insertAdjacentElement('afterend', newRow);
+    lastRow.dispatchEvent(
+      new CustomEvent('recipe-row-added', { detail: newRow })
     );
   }
 
-  function deleteHandler(event) {
+  function deleteRow(event) {
     event.preventDefault();
     const target = event.currentTarget;
     const parent = getParentByType(target, 'UL');
-    if (hasMoreThanOneLine(parent)) {
-      const line = getParentByType(target, 'LI');
+    if (hasMoreThanOneRow(parent)) {
+      const row = getParentByType(target, 'LI');
       requestIdleCallback(() => {
-        parent.removeChild(line);
-        document.dispatchEvent(new Event('recipe-line-deleted'));
+        parent.removeChild(row);
+        parent.dispatchEvent(new Event('recipe-row-deleted'));
       });
     }
   }
 
-  function getParentByType(element, type) {
-    return element.parentElement.tagName === type
-      ? element.parentElement
-      : getParentByType(element.parentElement, type);
-  }
-
-  function hasMoreThanOneLine(section) {
-    return section.children.length > 2;
-  }
-
-  function cleanInputValues(line) {
-    const inputs = line.querySelectorAll(
-      "input[type='text'], input[type='number']"
-    );
-    Array.from(inputs).forEach(input => (input.value = null));
-  }
-
-  function tryGetValue(input, format) {
-    return input.value ? format(input.value, 10) : 0;
-  }
-
-  function validatePourcentage() {
+  function updatePourcentage() {
     const pourcentageInputs = Array.from(
       document.querySelectorAll('.pourcentage')
     );
@@ -83,7 +89,7 @@
       totalPourcentage != 100;
   }
 
-  function validateNicotineLevel() {
+  function updateNicotine() {
     const nicotineLevels = Array.from(document.querySelectorAll('.nicotine'));
     const totalNicotineLevel = nicotineLevels.reduce((total, input) => {
       const pourcentageInput = getParentByType(input, 'LI').querySelector(
@@ -97,21 +103,24 @@
     document.getElementById('total-nicotine').innerText = totalNicotineLevel;
   }
 
-  function inputChangeHandler() {
-    validatePourcentage();
-    validateNicotineLevel();
+  function getParentByType(element, type) {
+    return element.parentElement.tagName === type
+      ? element.parentElement
+      : getParentByType(element.parentElement, type);
   }
 
-  function attachTotalEvents() {
-    document
-      .querySelectorAll('.pourcentage, .nicotine')
-      .forEach(function(input) {
-        input.addEventListener('change', function() {
-          inputChangeHandler();
-        });
-        input.addEventListener('keyup', function() {
-          inputChangeHandler();
-        });
-      });
+  function hasMoreThanOneRow(section) {
+    return section.children.length > 2;
+  }
+
+  function cleanInputValues(row) {
+    const inputs = row.querySelectorAll(
+      "input[type='text'], input[type='number']"
+    );
+    Array.from(inputs).forEach(input => (input.value = null));
+  }
+
+  function tryGetValue(input, format) {
+    return input.value ? format(input.value, 10) : 0;
   }
 })();
