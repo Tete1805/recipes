@@ -4,7 +4,6 @@ var app = express();
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-var fs = require('fs');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
@@ -31,13 +30,14 @@ var configDb = require('./config/database.js');
 mongoose.Promise = global.Promise;
 
 // Connexion à la base de données
-mongoose.connect(configDb.url, function(err) {
-  if (err) {
-    console.log('Sushi connecting to db: ' + err);
-  } else {
-    console.log('Connection success');
-  }
-});
+mongoose
+  .set('useNewUrlParser', true)
+  .set('useUnifiedTopology', true)
+  .connect(configDb.url)
+  .then(() => console.log('Connection success'))
+  .catch(error => {
+    console.log('Sushi connecting to db: ' + error);
+  });
 
 // Configuration de passport avec les stratégies
 require('./config/passport')(passport);
@@ -50,14 +50,6 @@ app.set('view engine', 'pug');
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('common'));
-// log all requests to access.log
-app.use(
-  logger('common', {
-    stream: fs.createWriteStream(path.join(__dirname, 'http.log'), {
-      flags: 'a'
-    })
-  })
-);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -72,10 +64,10 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
-// app.use(csurf());
+app.use(csurf());
 
 app.use(function(req, res, next) {
-  //res.locals.csrfToken = req.csrfToken();
+  res.locals.csrfToken = req.csrfToken();
   res.locals.flash = req.flash();
   if (req.isAuthenticated()) {
     res.locals.user = req.user;
@@ -92,10 +84,6 @@ app.use('/aromes', aromes);
 app.use('/users', users);
 app.use('/user', user);
 app.use('/admin', admin);
-//app.use('/api', require('./api/index'));
-app.use('/*(.php|cgi|cfm|w00t|webdav)*/', function(req, res, next) {
-  res.status(418).end();
-});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
