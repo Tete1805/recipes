@@ -3,10 +3,6 @@
 Un site pour stocker et partager ses recettes de D.I.Y. (ou F.L.T.M. => Fais-le toi-même)
 Le site est pour le moment un POC pour Node / Express + Mongo / Mongoose + Jade (Pug) + Heroku
 
-**À corriger :**
-
-1. Quelques problèmes depuis le passage de Jade à Pug, notamment au niveau du like (à investiguer)
-
 **À rajouter :**
 
 1. Ajouter une image pour chaque recette (via cloudinary, lib ajoutée)
