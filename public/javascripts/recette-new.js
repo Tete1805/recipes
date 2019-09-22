@@ -22,6 +22,8 @@
       handler: updatePourcentage,
       events: ['change', 'keyup']
     });
+    updatePourcentage();
+    updateNicotine();
   }
 
   function newRowAdded({ detail: newRow }) {
@@ -59,7 +61,7 @@
     cleanInputValues(newRow);
     lastRow.insertAdjacentElement('afterend', newRow);
     lastRow.dispatchEvent(
-      new CustomEvent('recipe-row-added', { detail: newRow })
+      new CustomEvent('recipe-row-added', { detail: newRow, bubbles: true })
     );
   }
 
