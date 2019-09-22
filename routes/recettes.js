@@ -1,6 +1,5 @@
 var express = require('express'),
   router = express.Router(),
-  authRequired = require('./authRequired'),
   Recette = require('../models/recette');
 
 router.get(['/', '/all/:page'], (req, res) => {
