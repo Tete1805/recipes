@@ -35,9 +35,7 @@ mongoose
   .set('useUnifiedTopology', true)
   .connect(configDb.url)
   .then(() => console.log('Connection success'))
-  .catch(error => {
-    console.log('Sushi connecting to db: ' + error);
-  });
+  .catch(error => console.log('Sushi connecting to db: ' + error));
 
 // Configuration de passport avec les stratégies
 require('./config/passport')(passport);
