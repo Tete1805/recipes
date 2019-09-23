@@ -38,11 +38,14 @@ var recetteSchema = mongoose.Schema({
 });
 
 recetteSchema.methods.parse = function(req) {
+  const recette = req.body;
+  const auteur = req.user.local.pseudo;
+
   // On récupère les éléments de la recette passés dans la requêtes ou le corps de la requête
-  this.nom = req.body.nom;
-  this.auteur = req.user.local.pseudo;
-  this.notes = req.body.notes;
-  this.maturation = req.body.maturation;
+  this.nom = recette.nom;
+  this.auteur = auteur;
+  this.notes = recette.notes;
+  this.maturation = recette.maturation;
   this.aromes = [];
   this.bases = [];
   this.likes = [];
@@ -50,31 +53,21 @@ recetteSchema.methods.parse = function(req) {
   // Les hashtags ne peuvent contenir que des lettres, des chiffres, des # (qu'on supprime) et des espaces entre eux
   this.hashtags = formatHashtags(req.body.hashtags);
 
-  var bases = {};
-  ['ratio', 'nicotine', 'pourcentage'].forEach(e => {
-    bases[e] = [].concat(req.body['base-' + e]);
-  });
-
-  for (var i = 0; i < bases.ratio.length; i++) {
+  recette['base-ratio'].forEach((base, index) =>
     this.bases.push({
-      ratio: bases.ratio[i],
-      nicotine: bases.nicotine[i],
-      pourcentage: bases.pourcentage[i]
-    });
-  }
+      ratio: recette['base-ratio'][index],
+      nicotine: recette['base-nicotine'][index],
+      pourcentage: recette['base-pourcentage'][index]
+    })
+  );
 
-  var aromes = {};
-  ['marque', 'nom', 'pourcentage'].forEach(e => {
-    aromes[e] = [].concat(req.body['arome-' + e]);
-  });
-
-  for (var i = 0; i < aromes.marque.length; i++) {
+  recette['arome-marque'].forEach((arome, index) =>
     this.aromes.push({
-      marque: aromes.marque[i],
-      nom: aromes.nom[i],
-      pourcentage: aromes.pourcentage[i]
-    });
-  }
+      marque: recette['arome-marque'][index],
+      nom: recette['arome-nom'][index],
+      pourcentage: recette['arome-pourcentage'][index]
+    })
+  );
 
   if (!this.shortUrl) {
     bitly
