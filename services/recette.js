@@ -2,7 +2,7 @@ const Recette = require('../models/recette'),
   formatHashtags = require('../utils/formatHashtags'),
   { getShortUrl } = require('../config/bitly');
 
-module.exports = { findByIdOrDefault, update, like };
+module.exports = { findByIdOrDefault, update, like, comment };
 
 async function findByIdOrDefault(id) {
   const recette = await Recette.findOne({ _id: id });
@@ -49,4 +49,15 @@ async function like(recette, user) {
     recette.likes.push(user);
   }
   await recette.save();
+}
+
+async function comment(recette, user, corps) {
+  var fields = {
+    auteur: user,
+    corps: corps
+  };
+  // L'opérateur de mise à jour [`$push`](http://docs.mongodb.org/manual/reference/operator/update/push/#up._S_push)
+  // permet l'ajout à une propriété tableau. Rappel : l`appel de `.exec()` sans argument sur un objet `Query` de
+  // Mongoose le transforme en promesse.
+  await recette.update({ $push: { comments: fields } }).exec();
 }

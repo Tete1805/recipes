@@ -22,6 +22,15 @@ router.get('/:id/edit', authRequired, (req, res) => {
   });
 });
 
+router.get('/:id/fork', authRequired, (req, res) => {
+  req.recette.auteur = req.user.local.pseudo;
+  req.recette._id = null;
+  res.render('recettes/edit', {
+    title: 'Sauvegardez une copie de la recette',
+    recette: req.recette
+  });
+});
+
 router.post(['/:id/edit', '/:id/fork'], authRequired, async (req, res) => {
   await recetteService.update(req.recette, req.body, req.user.local.pseudo);
   res.redirect('/recette/' + req.recette._id);
@@ -32,28 +41,9 @@ router.post('/:id/like', async (req, res) => {
   res.status(200).send('Merci !');
 });
 
-router.get('/:id/fork', authRequired, (req, res) => {
-  req.recette.auteur = req.user.local.pseudo;
-  req.recette._id = null;
-  res.render('recettes/edit', {
-    title: 'Sauvegardez une copie de la recette',
-    recette: req.recette
-  });
-});
-
 router.post('/:id/comment', authRequired, (req, res) => {
-  req.recette
-    .update({
-      $push: {
-        comments: { auteur: req.user.local.pseudo, corps: req.body.comment }
-      }
-    })
-    .exec(err => {
-      if (err) {
-        req.flash('error', 'error while saving comment for recette: ' + err);
-      }
-      res.redirect('/recette/' + req.params.id + '/detail');
-    });
+  recetteService.comment(req.recette, req.user.local.pseudo, req.body.comment);
+  res.redirect('/recette/' + req.params.id + '/detail');
 });
 
 module.exports = router;
