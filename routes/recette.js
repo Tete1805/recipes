@@ -1,7 +1,8 @@
 var express = require('express'),
   router = express.Router(),
   authRequired = require('./authRequired'),
-  recetteService = require('../services/recette');
+  recetteService = require('../services/recette'),
+  aromeService = require('../services/arome');
 
 router.use(['/:id', '/:id/*'], async (req, res, next) => {
   req.recette = await recetteService.findByIdOrDefault(req.params.id);
@@ -31,14 +32,20 @@ router.get('/:id/fork', authRequired, (req, res) => {
   });
 });
 
-router.post(['/:id/edit', '/:id/fork'], authRequired, async (req, res) => {
-  await recetteService.update(req.recette, req.body, req.user.local.pseudo);
+router.post(['/:id/edit', '/:id/fork'], authRequired, (req, res) => {
+  aromeService.upsert(req.recette);
+  recetteService.update(req.recette, req.body, req.user.local.pseudo);
   res.redirect('/recette/' + req.recette._id);
 });
 
-router.post('/:id/like', async (req, res) => {
-  await recetteService.like(req.recette, req.user.local.pseudo);
+router.post('/:id/like', (req, res) => {
+  recetteService.like(req.recette, req.user.local.pseudo);
   res.status(200).send('Merci !');
+});
+
+router.post('/:id/unlike', (req, res) => {
+  recetteService.unlike(req.recette, req.user.local.pseudo);
+  res.status(200).send('Dommage !');
 });
 
 router.post('/:id/comment', authRequired, (req, res) => {
