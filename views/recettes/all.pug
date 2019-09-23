@@ -41,7 +41,7 @@ block content
                     if !user || !user.local
                       input(type="button").unlikeable
                     else
-                      input(type="button").liked
+                      input(type="button", recette-id=recette._id, csrf-token=csrfToken).liked
                   span(recette-id=recette._id)=recette.likes.length
 
   if page > 1
