@@ -5,7 +5,8 @@ var express = require('express'),
   aromeService = require('../services/arome');
 
 router.use(['/:id', '/:id/*'], async (req, res, next) => {
-  req.recette = await recetteService.findByIdOrDefault(req.params.id);
+  const id = req.params.id === 'new' ? null : req.params.id;
+  req.recette = await recetteService.findByIdOrDefault(id);
   next();
 });
 
