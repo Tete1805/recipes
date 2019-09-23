@@ -23,22 +23,13 @@ router.get('/:id/edit', authRequired, (req, res) => {
 });
 
 router.post(['/:id/edit', '/:id/fork'], authRequired, async (req, res) => {
-  try {
-    await recetteService.updateRecette(
-      req.recette._id,
-      req.body,
-      req.user.local.pseudo
-    );
-    res.redirect('/recette/' + req.params.id);
-  } catch (e) {
-    req.flash('error', e);
-  }
+  await recetteService.update(req.recette, req.body, req.user.local.pseudo);
+  res.redirect('/recette/' + req.recette._id);
 });
 
-router.post('/:id/like', (req, res) => {
-  req.recette.like(req.user.local.pseudo).save(() => {
-    res.status(200).send('Merci !');
-  });
+router.post('/:id/like', async (req, res) => {
+  await recetteService.like(req.recette, req.user.local.pseudo);
+  res.status(200).send('Merci !');
 });
 
 router.get('/:id/fork', authRequired, (req, res) => {

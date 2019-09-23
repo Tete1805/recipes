@@ -46,16 +46,5 @@ recetteSchema.methods.comment = function(user, corps) {
   return this.update({ $push: { comments: fields } }).exec();
 };
 
-recetteSchema.methods.like = function(user) {
-  // L'opérateur de mise à jour [`$push`](http://docs.mongodb.org/manual/reference/operator/update/push/#up._S_push)
-  // permet l'ajout à une propriété tableau. Rappel : l`appel de `.exec()` sans argument sur un objet `Query` de
-  // Mongoose le transforme en promesse.
-  this.likes = this.likes || [];
-  if (this.likes.indexOf(user) === -1) {
-    this.likes.push(user);
-  }
-  return this;
-};
-
 // create the model and expose it to our app
 module.exports = mongoose.model('Recette', recetteSchema);
