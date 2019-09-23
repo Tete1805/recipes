@@ -2,7 +2,7 @@ const Recette = require('../models/recette'),
   formatHashtags = require('../utils/formatHashtags'),
   { getShortUrl } = require('../config/bitly');
 
-module.exports = { findByIdOrDefault, update, like, comment };
+module.exports = { findByIdOrDefault, update, like, unlike, comment };
 
 async function findByIdOrDefault(id) {
   const recette = await Recette.findOne({ _id: id });
@@ -46,8 +46,16 @@ async function update(recette, request, auteur) {
 
 async function like(recette, user) {
   recette.likes = recette.likes || [];
-  if (!recette.likes.contains(user)) {
-    recette.likes.push(user);
+  if (!recette.likes.includes(user)) {
+    recette.likes = recette.likes.concat(user);
+  }
+  await recette.save();
+}
+
+async function unlike(recette, user) {
+  recette.likes = recette.likes || [];
+  if (recette.likes.includes(user)) {
+    recette.likes = recette.likes.filter(name => name != user);
   }
   await recette.save();
 }
