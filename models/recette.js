@@ -1,6 +1,7 @@
 // app/models/recette.js
 var mongoose = require('mongoose'),
-  bitly = require('../config/bitly');
+  bitly = require('../config/bitly'),
+  formatHashtags = require('../utils/formatHashtags');
 
 // define the schema for our model
 var recetteSchema = mongoose.Schema({
@@ -47,10 +48,7 @@ recetteSchema.methods.parse = function(req) {
   this.likes = [];
 
   // Les hashtags ne peuvent contenir que des lettres, des chiffres, des # (qu'on supprime) et des espaces entre eux
-  this.hashtags = req.body.hashtags.replace(/[^a-zA-Z0-9\s]*/g, '').split(' ');
-
-  //On remet le # devant chaque hashtag
-  this.hashtags = [].map.call(this.hashtags, e => '#' + e);
+  this.hashtags = formatHashtags(req.body.hashtags);
 
   var bases = {};
   ['ratio', 'nicotine', 'pourcentage'].forEach(e => {
