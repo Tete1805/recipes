@@ -1,14 +1,12 @@
 var express = require('express'),
   router = express.Router(),
-  Recette = require('../models/recette'),
   Arome = require('../models/arome'),
-  authRequired = require('./authRequired');
+  authRequired = require('./authRequired'),
+  recetteService = require('../services/recette');
 
-router.use('/:id/*', (req, res, next) => {
-  Recette.findOne({ _id: req.params.id }).exec((err, result) => {
-    req.recette = err ? new Recette() : result;
-    next();
-  });
+router.use(['/:id', '/:id/*'], async (req, res, next) => {
+  req.recette = await recetteService.findByIdOrDefault(req.params.id);
+  next();
 });
 
 router.get(['/:id', '/:id/detail'], (req, res, next) => {
