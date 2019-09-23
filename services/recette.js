@@ -37,7 +37,8 @@ async function update(recette, request, auteur) {
   );
 
   if (!recette.shortUrl) {
-    recette.shortUrl = await getShortUrl(recette._id);
+    const shortUrl = await getShortUrl(recette._id);
+    recette.shortUrl = shortUrl.url;
   }
 
   await recette.save();
@@ -52,12 +53,6 @@ async function like(recette, user) {
 }
 
 async function comment(recette, user, corps) {
-  var fields = {
-    auteur: user,
-    corps: corps
-  };
-  // L'opérateur de mise à jour [`$push`](http://docs.mongodb.org/manual/reference/operator/update/push/#up._S_push)
-  // permet l'ajout à une propriété tableau. Rappel : l`appel de `.exec()` sans argument sur un objet `Query` de
-  // Mongoose le transforme en promesse.
-  await recette.update({ $push: { comments: fields } }).exec();
+  recette.comments.push({ auteur: user, corps: corps });
+  await recette.save();
 }
