@@ -9,6 +9,8 @@ block content
     else
       h1 Profil de #{ userDetails.local.pseudo }
 
+    div
+      img(src=userDetails.avatarUrl || "/images/default-avatar.png")
     div 
       h3 Profil
     div Login : #{ userDetails.local.pseudo }
