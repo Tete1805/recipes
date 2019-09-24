@@ -1,6 +1,6 @@
 const { BitlyClient } = require('bitly');
 
-const bitly = new BitlyClient('cee54271ec940460096c29dfb72644a5f3ad7be4');
+const bitly = new BitlyClient(process.env.BITLY_KEY);
 
 function getShortUrl(recette) {
   return bitly.shorten(
