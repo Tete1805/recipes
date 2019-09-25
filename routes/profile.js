@@ -5,7 +5,7 @@ const Recette = require('../models/recette');
 const User = require('../models/user');
 const authRequired = require('./authRequired');
 
-router.get('/profile/:pseudo', authRequired, async (req, res) => {
+router.get('/:pseudo', authRequired, async (req, res) => {
   const { pseudo } = req.params;
   const userDetails = await User.findOne({ 'local.pseudo': pseudo }).exec();
   const recettes = await Recette.find({ auteur: pseudo }).exec();
@@ -20,7 +20,7 @@ router.get('/profile/:pseudo', authRequired, async (req, res) => {
   });
 });
 
-router.post('/profile/:pseudo', authRequired, async (req, res) => {
+router.post('/:pseudo', authRequired, async (req, res) => {
   const { pseudo } = req.params;
   const { pseudo: currentUser } = req.user.local;
   if (currentUser != pseudo) {
