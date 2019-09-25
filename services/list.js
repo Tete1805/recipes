@@ -17,6 +17,10 @@ class listService {
     this.filter = Object.assign(this.filter, filter);
     return this;
   }
+  setLimit(limit) {
+    this.max_items_per_page = limit;
+    return this;
+  }
   setPage(page) {
     this.page = page;
     return this;
