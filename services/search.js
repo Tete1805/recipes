@@ -1,12 +1,24 @@
-const Arome = require('../models/arome'),
-  Recette = require('../models/recette'),
-  MAX_ITEMS_TO_FETCH = 50;
+module.exports = { getFilterFromParams };
 
-async function list(type) {
-  switch (type) {
-    case 'recettes':
-      return await Recette.find();
+function getFilterFromParams(params) {
+  const search = {};
+  if (params.searchField === 'auteur') {
+    search[params.searchField] = params.searchString;
+  } else if (params.searchField !== 'all') {
+    search[params.searchField] = {
+      $regex: params.searchString,
+      $options: 'gi'
+    };
+  } else {
+    search.$or = [
+      { hashtags: { $regex: params.searchString, $options: 'gi' } },
+      { 'aromes.nom': { $regex: params.searchString, $options: 'gi' } },
+      {
+        'aromes.marque': { $regex: params.searchString, $options: 'gi' }
+      },
+      { notes: { $regex: params.searchString, $options: 'gi' } },
+      { auteur: params.searchString }
+    ];
   }
+  return search;
 }
-
-module.exports = { list };
