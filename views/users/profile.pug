@@ -3,6 +3,7 @@ extends ../site/layout
 block content
 
   form.recette(method="POST")
+    input(type="hidden" name="_csrf" value=csrfToken)
 
     if (user._id.toString() === userDetails._id.toString())
       h1 Bienvenue #{ user.local.pseudo }
@@ -16,9 +17,14 @@ block content
     div Login : #{ userDetails.local.pseudo }
     if (user._id.toString() === userDetails._id.toString())
       div
+        span URL de l'avatar
+        input.inline-block(style="margin: 0 25px 5px 15px; width: 300px !important" name="avatarUrl", type="text", value=userDetails.avatarUrl)
+        input.pushable.btn-small(style="display: inline-block;" type="submit", value="Enregistrer")
+      div
         span Email
         input.inline-block(style="margin: 0 25px 5px 15px; width: 300px !important" name="email", type="email", value=userDetails.email)
         input.pushable.btn-small(style="display: inline-block;" type="submit", value="Enregistrer")
+        
     //- div Mon avatar
     hr
     div 
