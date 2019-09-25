@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const listService = require('../services/list');
-const User = require('../models/user');
 const adminRequired = require('./adminRequired');
 
 router.get('/recettes', adminRequired, async (req, res) => {
