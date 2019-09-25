@@ -38,7 +38,7 @@ router.post('/:pseudo', authRequired, async (req, res) => {
       req.flash('error', "Je n'ai pas réussi à sauver le profil. \n" + e);
     }
     req.flash('info', 'Profil sauvegardé ! :)');
-    res.redirect('/user/profile/' + pseudo);
+    res.redirect('/' + pseudo);
   }
 });
 
