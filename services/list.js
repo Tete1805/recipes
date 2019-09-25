@@ -12,6 +12,7 @@ class listService {
     this.max_items_per_page = getMaxItemsPerPage(type);
     this.filter = { nom: { $exists: true } };
     this.page = 1;
+    this.sorts = [];
   }
   setFilter(filter) {
     this.filter = Object.assign(this.filter, filter);
@@ -25,9 +26,14 @@ class listService {
     this.page = page;
     return this;
   }
+  setSorts(sorts) {
+    this.sorts = sorts;
+    return this;
+  }
   async get() {
-    return await this.model
-      .find(this.filter)
+    let model = this.model.find(this.filter);
+    this.sorts.forEach(sort => (model = model.sort(sort)));
+    return await model
       .skip((this.page - 1) * this.max_items_per_page)
       .limit(this.max_items_per_page)
       .exec();
