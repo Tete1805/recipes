@@ -11,6 +11,7 @@ function getFilterFromParams(params) {
     };
   } else {
     search.$or = [
+      { nom: { $regex: params.searchString, $options: 'gi' } },
       { hashtags: { $regex: params.searchString, $options: 'gi' } },
       { 'aromes.nom': { $regex: params.searchString, $options: 'gi' } },
       {
