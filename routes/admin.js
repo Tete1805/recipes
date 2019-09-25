@@ -12,13 +12,12 @@ router.get('/recettes', adminRequired, async (req, res) => {
   });
 });
 
-router.get('/users', adminRequired, function(req, res) {
-  User.find()
-    .sort('level')
-    .sort('ajoute')
-    .exec((err, results) => {
-      res.render('admin/users', { title: 'Admin users', users: results });
-    });
+router.get('/users', adminRequired, async (req, res) => {
+  const users = await new listService('users')
+    .setSorts(['level', 'ajoute'])
+    .setLimit(0)
+    .get();
+  res.render('admin/users', { title: 'Admin users', users });
 });
 
 router.get('/aromes', adminRequired, async (req, res) => {
