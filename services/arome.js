@@ -1,5 +1,7 @@
 const Arome = require('../models/arome');
 
+const MAX_AROMAS_PER_PAGE = 50;
+
 function upsert(recette) {
   recette.aromes.forEach(async arome => {
     const { nom, marque } = arome;
@@ -13,11 +15,11 @@ function upsert(recette) {
   });
 }
 
-async function fetch(limit, skip = 0) {
+async function fetch(skip = 0) {
   return await Arome.find()
     .sort('marque')
-    .limit(50)
-    .skip(skip * limit)
+    .limit(MAX_AROMAS_PER_PAGE)
+    .skip(skip * MAX_AROMAS_PER_PAGE)
     .exec();
 }
 
