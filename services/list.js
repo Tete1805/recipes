@@ -10,7 +10,9 @@ class listService {
   constructor(type) {
     this.model = getModel(type);
     this.max_items_per_page = getMaxItemsPerPage(type);
-    this.filter = { nom: { $exists: true } };
+    this.filter = {
+      $or: [{ nom: { $exists: true } }, { 'local.pseudo': { $exists: true } }]
+    };
     this.page = 1;
     this.sorts = [];
   }
@@ -31,9 +33,9 @@ class listService {
     return this;
   }
   async get() {
-    let model = this.model.find(this.filter);
-    this.sorts.forEach(sort => (model = model.sort(sort)));
-    return await model
+    let results = this.model.find(this.filter);
+    this.sorts.forEach(sort => (results = results.sort(sort)));
+    return await results
       .skip((this.page - 1) * this.max_items_per_page)
       .limit(this.max_items_per_page)
       .exec();
