@@ -1,15 +1,13 @@
 var express = require('express'),
   router = express.Router(),
-  Recette = require('../models/recette');
+  Recette = require('../models/recette'),
+  listService = require('../services/list');
 
-router.get(['/', '/all/:page'], (req, res) => {
+router.get(['/', '/all/:page'], async (req, res) => {
+  const recettes = listService.list('recettes');
   const page = parseInt(req.params.page, 10);
-  Recette.find()
-    .skip(10 * (page - 1 || 0))
-    .limit(10)
-    .exec((err, results) => {
-      res.render('recettes/all', { recettes: results, page });
-    });
+  const results = await recettes.getPage(page);
+  res.render('recettes/all', { recettes: results, page });
 });
 
 router.get(
