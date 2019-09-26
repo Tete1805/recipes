@@ -11,7 +11,7 @@ router.get('/:pseudo', authRequired, async (req, res) => {
   const recettes = await Recette.find({ auteur: pseudo }).exec();
   const aromes = await Arome.find({ users: pseudo }).exec();
   const liked = await Recette.find({ likes: pseudo }).exec();
-  res.render('profile/index', {
+  res.render('profile', {
     title: 'Profil',
     userDetails,
     recettes,
