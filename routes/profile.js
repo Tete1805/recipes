@@ -1,23 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const Arome = require('../models/arome');
-const Recette = require('../models/recette');
 const User = require('../models/user');
+const profileService = require('../services/profile');
 const authRequired = require('./authRequired');
 
 router.get(['/', '/:pseudo'], authRequired, async (req, res) => {
   const pseudo = req.params.pseudo || req.user.local.pseudo;
-  const userDetails = await User.findOne({ 'local.pseudo': pseudo }).exec();
-  const recettes = await Recette.find({ auteur: pseudo }).exec();
-  const aromes = await Arome.find({ users: pseudo }).exec();
-  const liked = await Recette.find({ likes: pseudo }).exec();
-  res.render('profile', {
-    title: 'Profil',
-    userDetails,
-    recettes,
-    aromes,
-    liked
-  });
+  const profile = await profileService.getProfile(pseudo);
+  res.render('profile', { title: 'Profil', profile });
 });
 
 router.post('/:pseudo', authRequired, async (req, res) => {

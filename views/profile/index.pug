@@ -6,27 +6,27 @@ block content
 
   form.recette(method="POST")
     
-    if (user._id.toString() === userDetails._id.toString())
+    if (user._id.toString() === profile.details._id.toString())
       h1 Bienvenue #{ user.local.pseudo }
     else
-      h1 Profil de #{ userDetails.local.pseudo }
+      h1 Profil de #{ profile.details.local.pseudo }
 
     div
-      img(src=userDetails.avatarUrl || "/images/default-avatar.png")
+      img(src=profile.details.avatarUrl || "/images/default-avatar.png")
     div 
       h3 Profil
-    div Login : #{ userDetails.local.pseudo }
-    if (user._id.toString() === userDetails._id.toString())
+    div Pseudo : #{ profile.details.local.pseudo }
+    if (user._id.toString() === profile.details._id.toString())
       div
         span URL de l'avatar
-        input.inline-block(style="margin: 0 25px 5px 15px; width: 300px !important" name="avatarUrl" type="text" value=userDetails.avatarUrl)
+        input.inline-block(style="margin: 0 25px 5px 15px; width: 300px !important" name="avatarUrl" type="text" value=profile.details.avatarUrl)
       div
         span Uploader mon avatar
         input.inline-block(id="avatarInputFile" style="margin: 0 25px 5px 15px; width: 300px !important" type="file" accept="image/*")
         input(id="avatarInputFileBase64" name="avatarImageBase64" type="hidden")
       div
         span Email
-        input.inline-block(style="margin: 0 25px 5px 15px; width: 300px !important" name="email" type="email" value=userDetails.email)
+        input.inline-block(style="margin: 0 25px 5px 15px; width: 300px !important" name="email" type="email" value=profile.details.email)
       div
         input.pushable.btn-small(style="display: inline-block;" type="submit", value="Enregistrer")
         input(type="hidden" name="_csrf" value=csrfToken)
@@ -34,23 +34,23 @@ block content
     hr
     div 
       h3 Activité
-    div Nombre de recettes postées : #{ recettes.length || 0 }
+    div Nombre de recettes postées : #{ profile.recettes.length || 0 }
     //- div Nombre de recettes suivies : 
-    div Nombre d'arômes dans la besace : #{ aromes.length || 0 }
+    div Nombre d'arômes dans la besace : #{ profile.aromes.length || 0 }
     hr
     div
       h3 Statut dans la communauté
     //- div Nombre de followers :
-    div Likes reçus : #{ recettes.reduce(function(count, recette) { return count += recette.likes.length }, 0) || 0}
+    div Likes reçus : #{ profile.recettes.reduce(function(count, recette) { return count += recette.likes.length }, 0) || 0}
     div Recettes les plus likées :
     div
       ul
-        -var total = recettes.reduce((count, recette) => count += recette.likes.length > 0, 0)
-        -var sum = recettes.reduce((count, recette) => count += recette.likes.length, 0)
-        -var tops = recettes.filter((recette) => recette.likes.length >= sum / total)
+        -var total = profile.recettes.reduce((count, recette) => count += recette.likes.length > 0, 0)
+        -var sum = profile.recettes.reduce((count, recette) => count += recette.likes.length, 0)
+        -var tops = profile.recettes.filter((recette) => recette.likes.length >= sum / total)
         each recette in tops
           li
             a(href="/recette/" + recette._id + "/detail")= recette.nom
             span= " (" + recette.likes.length + ")"
 
-    div Likes donnés : #{ liked.length || 0 }
+    div Likes donnés : #{ profile.liked.length || 0 }
