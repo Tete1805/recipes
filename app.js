@@ -16,7 +16,7 @@ var flash = require('connect-flash');
 var csurf = require('csurf');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
+var authentication = require('./routes/authentication');
 var profile = require('./routes/profile');
 var recettes = require('./routes/recettes');
 var recette = require('./routes/recette');
@@ -80,7 +80,7 @@ app.use('/', index);
 app.use('/recettes', recettes);
 app.use('/recette', recette);
 app.use('/aromes', aromes);
-app.use('/users', users);
+app.use('/authentication', authentication);
 app.use('/profile', profile);
 app.use('/admin', admin);
 app.use('/list', list);

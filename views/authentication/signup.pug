@@ -5,7 +5,7 @@ block content
 
   .center
 
-    h1 Connexion
+    h1 Inscription
 
     form(method="POST")
         label
@@ -19,4 +19,4 @@ block content
         input(type="password", name="password")
         input.pushable(type="submit", value="C'est parti !")
         input(type="hidden" name="_csrf" value=csrfToken)
-        a(href="/users/signup") Pas encore inscrit ? S'enregistrer
+        a(href="/authentication/login") Déjà enregistré ? Se connecter

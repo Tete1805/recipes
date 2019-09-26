@@ -1,8 +1,8 @@
 function authRequired(req, res, next) {
   if (req.isAuthenticated()) {
-    next()
+    next();
   } else {
-    res.redirect('/users/login');
+    res.redirect('/authentication/login');
   }
 }
 

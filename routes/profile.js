@@ -5,8 +5,8 @@ const Recette = require('../models/recette');
 const User = require('../models/user');
 const authRequired = require('./authRequired');
 
-router.get('/:pseudo', authRequired, async (req, res) => {
-  const { pseudo } = req.params;
+router.get(['/', '/:pseudo'], authRequired, async (req, res) => {
+  const pseudo = req.params.pseudo || req.user.local.pseudo;
   const userDetails = await User.findOne({ 'local.pseudo': pseudo }).exec();
   const recettes = await Recette.find({ auteur: pseudo }).exec();
   const aromes = await Arome.find({ users: pseudo }).exec();
