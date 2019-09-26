@@ -1,27 +1,29 @@
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
 
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var session = require('express-session');
-var minify = require('express-minify');
-var compression = require('compression');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const minify = require('express-minify');
+const compression = require('compression');
 
-var mongoose = require('mongoose');
-var passport = require('passport');
-var flash = require('connect-flash');
-var csurf = require('csurf');
+const mongoose = require('mongoose');
+const passport = require('passport');
+const flash = require('connect-flash');
+const csurf = require('csurf');
 
-var index = require('./routes/index');
-var authentication = require('./routes/authentication');
-var profile = require('./routes/profile');
-var recettes = require('./routes/recettes');
-var recette = require('./routes/recette');
-var aromes = require('./routes/aromes');
-var admin = require('./routes/admin');
+const helpers = require('./config/helpers');
+
+const index = require('./routes/index');
+const authentication = require('./routes/authentication');
+const profile = require('./routes/profile');
+const recettes = require('./routes/recettes');
+const recette = require('./routes/recette');
+const aromes = require('./routes/aromes');
+const admin = require('./routes/admin');
 const list = require('./routes/list');
 
 // Où est stockée la chaîne de connexion
@@ -35,8 +37,8 @@ mongoose
   .set('useNewUrlParser', true)
   .set('useUnifiedTopology', true)
   .connect(configDb.url)
-  .then(() => console.log('Connection success'))
-  .catch(error => console.log('Sushi connecting to db: ' + error));
+  .then(() => console.log('Connected to database.'))
+  .catch(error => console.log("Couldn't connect to database.\n", error));
 
 // Configuration de passport avec les stratégies
 require('./config/passport')(passport);
@@ -74,7 +76,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(require('./config/helpers'));
+app.use(helpers);
 
 app.use('/', index);
 app.use('/recettes', recettes);
@@ -96,7 +98,7 @@ app.use(function(req, res, next) {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
   res.locals.env = app.get('env');
   res.status(err.status || 500);
   res.render('site/error', {
