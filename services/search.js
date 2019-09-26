@@ -1,4 +1,4 @@
-module.exports = { getFilterFromParams };
+module.exports = { getFilterFromParams, getFilterForRecettes };
 
 function getFilterFromParams(params) {
   const search = {};
@@ -22,4 +22,26 @@ function getFilterFromParams(params) {
     ];
   }
   return search;
+}
+
+function getFilterForRecettes({ search, fields }) {
+  if (!search) return {};
+  if (!fields) return { $regex: search, $options: 'gi' };
+
+  const filter = { $or: [] };
+  fields.forEach(field => {
+    if (['nom', 'auteur', 'hashtags', 'notes'].includes(field)) {
+      filter['$or'].push({ [field]: { $regex: search, $options: 'gi' } });
+    }
+    if (field === 'aromes') {
+      filter['$or'].push(
+        { 'aromes.nom': { $regex: search, $options: 'gi' } },
+        {
+          'aromes.marque': { $regex: search, $options: 'gi' }
+        }
+      );
+    }
+  });
+
+  return filter;
 }
