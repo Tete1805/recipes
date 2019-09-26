@@ -11,7 +11,7 @@ router.get('/:pseudo', authRequired, async (req, res) => {
   const recettes = await Recette.find({ auteur: pseudo }).exec();
   const aromes = await Arome.find({ users: pseudo }).exec();
   const liked = await Recette.find({ likes: pseudo }).exec();
-  res.render('users/profile', {
+  res.render('profile/index', {
     title: 'Profil',
     userDetails,
     recettes,
@@ -34,10 +34,10 @@ router.post('/:pseudo', authRequired, async (req, res) => {
         email: req.body.email,
         avatarUrl: req.body.avatarUrl
       });
+      req.flash('info', 'Profil sauvegardé ! :)');
     } catch (e) {
       req.flash('error', "Je n'ai pas réussi à sauver le profil. \n" + e);
     }
-    req.flash('info', 'Profil sauvegardé ! :)');
     res.redirect('/profile/' + pseudo);
   }
 });
