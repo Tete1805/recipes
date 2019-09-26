@@ -30,7 +30,7 @@ router.post('/:pseudo', authRequired, async (req, res) => {
   } else {
     try {
       const user = await User.findOne({ 'local.pseudo': pseudo }).exec();
-      await user.update({
+      await user.updateOne({
         email: req.body.email,
         avatarUrl: req.body.avatarUrl
       });
