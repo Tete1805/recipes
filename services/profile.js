@@ -33,10 +33,10 @@ class Profile {
     return await User.findOne({ 'local.pseudo': this.pseudo }).exec();
   }
   async getRecettesCount() {
-    return await Recette.count({ auteur: this.pseudo }).exec();
+    return await Recette.countDocuments({ auteur: this.pseudo }).exec();
   }
   async getAromesCount() {
-    return await Arome.count({ users: this.pseudo }).exec();
+    return await Arome.countDocuments({ users: this.pseudo }).exec();
   }
   async getTopRecettes() {
     return await Recette.aggregate([
@@ -46,7 +46,7 @@ class Profile {
     ]).exec();
   }
   async getLikedRecettesCount() {
-    return await Recette.count({ likes: this.pseudo }).exec();
+    return await Recette.countDocuments({ likes: this.pseudo }).exec();
   }
   async getLikesReceived() {
     const likes = await Recette.aggregate([
@@ -57,7 +57,8 @@ class Profile {
     return likes[0].total;
   }
 
-  async update({ email, avatar }) {
+  async update({ email, avatar, avatarImageBase64 }) {
+    console.log(avatarImageBase64);
     await User.updateOne(
       { 'local.pseudo': this.pseudo },
       { email, avatar }
