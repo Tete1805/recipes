@@ -16,8 +16,8 @@ router.get(['/', '/:pseudo'], async (req, res, next) => {
   }
 });
 
-router.post('/:pseudo', authRequired, async (req, res) => {
-  const { pseudo } = req.params;
+router.post(['/', '/:pseudo'], authRequired, async (req, res) => {
+  const pseudo = req.params.pseudo || req.user.local.pseudo;
   const { pseudo: currentUser } = req.user.local;
   if (currentUser != pseudo) {
     throw new Error('Vous pouvez seulement modifier votre profil.');
