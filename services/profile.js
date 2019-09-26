@@ -14,7 +14,7 @@ async function getProfile(pseudo) {
 async function newAvatar(pseudo, image) {
   const response = await cloudinary.upload(image);
   const user = User.findOne({ pseudo });
-  await user.update({ avatarUrl: response });
+  await user.update({ avatar: response });
 }
 
 module.exports = { getProfile, newAvatar };

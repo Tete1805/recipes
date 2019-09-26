@@ -36,7 +36,7 @@ var userSchema = mongoose.Schema({
     default: 'cherry'
   },
   email: String,
-  avatarUrl: String
+  avatar: String
 });
 
 // methods ======================

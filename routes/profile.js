@@ -22,7 +22,7 @@ router.post('/:pseudo', authRequired, async (req, res) => {
       const user = await User.findOne({ 'local.pseudo': pseudo }).exec();
       await user.updateOne({
         email: req.body.email,
-        avatarUrl: req.body.avatarUrl
+        avatar: req.body.avatar
       });
       req.flash('info', 'Profil sauvegardé ! :)');
     } catch (e) {
