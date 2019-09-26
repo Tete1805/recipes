@@ -3,6 +3,8 @@ const router = express.Router();
 const { Profile } = require('../services/profile');
 const authRequired = require('./authRequired');
 
+router.get('/', authRequired);
+
 router.get(['/', '/:pseudo'], async (req, res, next) => {
   const pseudo = req.params.pseudo || req.user.local.pseudo;
   const profileService = new Profile(pseudo);
