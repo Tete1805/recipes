@@ -56,6 +56,13 @@ class Profile {
     ]);
     return likes[0].total;
   }
+
+  async update({ email, avatar }) {
+    await User.updateOne(
+      { 'local.pseudo': this.pseudo },
+      { email, avatar }
+    ).exec();
+  }
 }
 
 async function newAvatar(pseudo, image) {
