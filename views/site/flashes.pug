@@ -1,5 +1,5 @@
 if flash
   each messages, kind in flash
-    .alert(class="alert-#{kind}")
+    .alert(class=`alert-${kind}`)
       each message in messages
         p= message
