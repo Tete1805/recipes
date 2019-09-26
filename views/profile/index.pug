@@ -19,13 +19,14 @@ block content
     if (user._id.toString() === userDetails._id.toString())
       div
         span URL de l'avatar
-        input.inline-block(style="margin: 0 25px 5px 15px; width: 300px !important" name="avatarUrl", type="text", value=userDetails.avatarUrl)
+        input.inline-block(style="margin: 0 25px 5px 15px; width: 300px !important" name="avatarUrl" type="text" value=userDetails.avatarUrl)
       div
         span Uploader mon avatar
-        input.inline-block(style="margin: 0 25px 5px 15px; width: 300px !important" name="avatarImage", type="file")
+        input.inline-block(id="avatarInputFile" style="margin: 0 25px 5px 15px; width: 300px !important" type="file" accept="image/*")
+        input(id="avatarInputFileBase64" name="avatarImageBase64" type="hidden")
       div
         span Email
-        input.inline-block(style="margin: 0 25px 5px 15px; width: 300px !important" name="email", type="email", value=userDetails.email)
+        input.inline-block(style="margin: 0 25px 5px 15px; width: 300px !important" name="email" type="email" value=userDetails.email)
       div
         input.pushable.btn-small(style="display: inline-block;" type="submit", value="Enregistrer")
         input(type="hidden" name="_csrf" value=csrfToken)
