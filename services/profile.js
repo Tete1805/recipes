@@ -3,12 +3,55 @@ const Arome = require('../models/arome');
 const Recette = require('../models/recette');
 const User = require('../models/user');
 
-async function getProfile(pseudo) {
-  const details = await User.findOne({ 'local.pseudo': pseudo }).exec();
-  const recettes = await Recette.find({ auteur: pseudo }).exec();
-  const aromes = await Arome.find({ users: pseudo }).exec();
-  const liked = await Recette.find({ likes: pseudo }).exec();
-  return { details, recettes, aromes, liked };
+class Profile {
+  constructor(pseudo) {
+    this.pseudo = pseudo;
+  }
+  async getProfile() {
+    const { avatar, email } = await this.getDetails();
+    return {
+      pseudo: this.pseudo,
+      login: this.pseudo,
+      email,
+      avatar,
+      recipes: {
+        count: await this.getRecettesCount(),
+        tops: await this.getTopRecettes()
+      },
+      aromas: { count: await this.getAromesCount() },
+      likes: {
+        received: await this.getLikesReceived(),
+        given: await this.getLikedRecettesCount()
+      }
+    };
+  }
+  async getDetails() {
+    return await User.findOne({ 'local.pseudo': this.pseudo }).exec();
+  }
+  async getRecettesCount() {
+    return await Recette.count({ auteur: this.pseudo }).exec();
+  }
+  async getAromesCount() {
+    return await Arome.count({ users: this.pseudo }).exec();
+  }
+  async getTopRecettes() {
+    return await Recette.aggregate([
+      { $match: { auteur: this.pseudo } },
+      { $sort: { likes: -1 } },
+      { $limit: 3 }
+    ]).exec();
+  }
+  async getLikedRecettesCount() {
+    return await Recette.count({ likes: this.pseudo }).exec();
+  }
+  async getLikesReceived() {
+    const likes = await Recette.aggregate([
+      { $match: { auteur: this.pseudo } },
+      { $group: { _id: '$auteur', total: { $sum: { $size: '$likes' } } } },
+      { $sort: { total: -1 } }
+    ]);
+    return likes[0].total;
+  }
 }
 
 async function newAvatar(pseudo, image) {
@@ -17,4 +60,4 @@ async function newAvatar(pseudo, image) {
   await user.update({ avatar: response });
 }
 
-module.exports = { getProfile, newAvatar };
+module.exports = { Profile, newAvatar };
