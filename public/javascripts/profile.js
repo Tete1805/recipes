@@ -8,8 +8,9 @@ function windowLoaded() {
 
 function readFile(event) {
   const file = event.target.files[0];
-  if (file.size > 100000) {
-    console.log('File too big');
+  if (file.size > 205000) {
+    alert("Désolé, la taille de l'image ne peut pas dépasser 200 ko.");
+    event.target.value = null;
     return;
   }
 
