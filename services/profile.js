@@ -1,7 +1,7 @@
-const cloudinary = require('cloudinary').v2;
 const Arome = require('../models/arome');
 const Recette = require('../models/recette');
 const User = require('../models/user');
+const Avatar = require('./avatar');
 
 class Profile {
   constructor(pseudo) {
@@ -58,7 +58,10 @@ class Profile {
   }
 
   async update({ email, avatar, avatarImageBase64 }) {
-    console.log(avatarImageBase64);
+    if (avatarImageBase64) {
+      const avatarService = new Avatar(this.pseudo);
+      avatar = await avatarService.upload(avatarImageBase64);
+    }
     await User.updateOne(
       { 'local.pseudo': this.pseudo },
       { email, avatar }
@@ -66,10 +69,4 @@ class Profile {
   }
 }
 
-async function newAvatar(pseudo, image) {
-  const response = await cloudinary.upload(image);
-  const user = User.findOne({ pseudo });
-  await user.update({ avatar: response });
-}
-
-module.exports = { Profile, newAvatar };
+module.exports = { Profile };
