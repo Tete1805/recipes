@@ -98,7 +98,7 @@ app.use(function(req, res, next) {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res) {
+app.use(function(err, req, res, next) {
   res.locals.env = app.get('env');
   res.status(err.status || 500);
   res.render('site/error', {

@@ -4,11 +4,15 @@ const User = require('../models/user');
 const { Profile } = require('../services/profile');
 const authRequired = require('./authRequired');
 
-router.get(['/', '/:pseudo'], async (req, res) => {
+router.get(['/', '/:pseudo'], async (req, res, next) => {
   const pseudo = req.params.pseudo || req.user.local.pseudo;
   const profileService = new Profile(pseudo);
-  const profile = await profileService.getProfile();
-  res.render('profile', { title: 'Profil', profile });
+  try {
+    const profile = await profileService.getProfile();
+    res.render('profile', { title: 'Profil', profile });
+  } catch (exception) {
+    next(exception);
+  }
 });
 
 router.post('/:pseudo', authRequired, async (req, res) => {

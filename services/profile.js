@@ -8,22 +8,26 @@ class Profile {
     this.pseudo = pseudo;
   }
   async getProfile() {
-    const { avatar, email } = await this.getDetails();
-    return {
-      pseudo: this.pseudo,
-      login: this.pseudo,
-      email,
-      avatar,
-      recipes: {
-        count: await this.getRecettesCount(),
-        tops: await this.getTopRecettes()
-      },
-      aromas: { count: await this.getAromesCount() },
-      likes: {
-        received: await this.getLikesReceived(),
-        given: await this.getLikedRecettesCount()
-      }
-    };
+    try {
+      const { avatar, email } = await this.getDetails();
+      return {
+        pseudo: this.pseudo,
+        login: this.pseudo,
+        email,
+        avatar,
+        recipes: {
+          count: await this.getRecettesCount(),
+          tops: await this.getTopRecettes()
+        },
+        aromas: { count: await this.getAromesCount() },
+        likes: {
+          received: await this.getLikesReceived(),
+          given: await this.getLikedRecettesCount()
+        }
+      };
+    } catch (exception) {
+      throw new Error("Je n'ai pas trouvé cet utilisateur.");
+    }
   }
   async getDetails() {
     return await User.findOne({ 'local.pseudo': this.pseudo }).exec();
