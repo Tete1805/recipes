@@ -6,7 +6,7 @@ block content
 
   form.recette(method="POST")
     
-    - const isOwner = user.local.pseudo === profile.pseudo;
+    - const isOwner = user && user.local.pseudo === profile.pseudo;
     h1=(isOwner ? 'Bienvenue ' : 'Profil de ') + profile.pseudo
 
     div

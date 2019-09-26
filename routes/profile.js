@@ -4,7 +4,7 @@ const User = require('../models/user');
 const { Profile } = require('../services/profile');
 const authRequired = require('./authRequired');
 
-router.get(['/', '/:pseudo'], authRequired, async (req, res) => {
+router.get(['/', '/:pseudo'], async (req, res) => {
   const pseudo = req.params.pseudo || req.user.local.pseudo;
   const profileService = new Profile(pseudo);
   const profile = await profileService.getProfile();
@@ -15,9 +15,7 @@ router.post('/:pseudo', authRequired, async (req, res) => {
   const { pseudo } = req.params;
   const { pseudo: currentUser } = req.user.local;
   if (currentUser != pseudo) {
-    throw new Error(
-      'Vous ne pouvez pas modifier un profil autre que le vôtre. =/'
-    );
+    throw new Error('Vous ne pouvez modifier que votre profil.');
   } else {
     try {
       const user = await User.findOne({ 'local.pseudo': pseudo }).exec();
@@ -25,7 +23,7 @@ router.post('/:pseudo', authRequired, async (req, res) => {
         email: req.body.email,
         avatar: req.body.avatar
       });
-      req.flash('info', 'Profil sauvegardé ! :)');
+      req.flash('info', 'Profil sauvegardé.');
     } catch (e) {
       req.flash('error', "Je n'ai pas réussi à sauver le profil. \n" + e);
     }
