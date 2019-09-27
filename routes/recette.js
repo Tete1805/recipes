@@ -35,7 +35,11 @@ router.get('/:id/fork', authRequired, (req, res) => {
 
 router.post(['/:id/edit', '/:id/fork'], authRequired, (req, res) => {
   aromeService.upsert(req.recette);
-  recetteService.update(req.recette, req.body, req.user.local.pseudo);
+  recetteService.update({
+    recette: req.recette,
+    data: req.body,
+    auteur: req.user.local.pseudo
+  });
   res.redirect('/recette/' + req.recette._id);
 });
 

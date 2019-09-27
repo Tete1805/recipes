@@ -9,30 +9,30 @@ async function findByIdOrDefault(id) {
   return recette || new Recette();
 }
 
-async function update(recette, request, auteur) {
+async function update({ recette, auteur, data }) {
   recette.auteur = auteur;
-  recette.nom = request.nom;
-  recette.notes = request.notes;
-  recette.maturation = request.maturation;
+  recette.nom = data.nom;
+  recette.notes = data.notes;
+  recette.maturation = data.maturation;
   recette.aromes = [];
   recette.bases = [];
   recette.likes = [];
 
-  recette.hashtags = formatHashtags(request.hashtags);
+  recette.hashtags = formatHashtags(data.hashtags);
 
-  request['base-ratio'].forEach((base, index) =>
+  data['base-ratio'].forEach((base, index) =>
     recette.bases.push({
-      ratio: request['base-ratio'][index],
-      nicotine: request['base-nicotine'][index],
-      pourcentage: request['base-pourcentage'][index]
+      ratio: data['base-ratio'][index],
+      nicotine: data['base-nicotine'][index],
+      pourcentage: data['base-pourcentage'][index]
     })
   );
 
-  request['arome-marque'].forEach((arome, index) =>
+  data['arome-marque'].forEach((arome, index) =>
     recette.aromes.push({
-      marque: request['arome-marque'][index],
-      nom: request['arome-nom'][index],
-      pourcentage: request['arome-pourcentage'][index]
+      marque: data['arome-marque'][index],
+      nom: data['arome-nom'][index],
+      pourcentage: data['arome-pourcentage'][index]
     })
   );
 
