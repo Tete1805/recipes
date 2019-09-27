@@ -16,7 +16,7 @@ const csurf = require('csurf');
 
 const helpers = require('./config/helpers');
 
-const index = require('./routes/index');
+const accueil = require('./routes/accueil');
 const authentication = require('./routes/authentication');
 const profile = require('./routes/profile');
 const recettes = require('./routes/recettes');
@@ -67,7 +67,7 @@ app.use(function(req, res, next) {
 
 app.use(helpers);
 
-app.use('/', index);
+app.use('/', accueil);
 app.use('/recettes', recettes);
 app.use('/recette', recette);
 app.use('/aromes', aromes);
