@@ -5,7 +5,7 @@ const MAX_AROMAS_PER_PAGE = 50;
 function upsert(recette) {
   recette.aromes.forEach(async arome => {
     const { nom, marque } = arome;
-    await Arome.findOneAndUpdate(
+    await Arome.updateOne(
       { nom, marque },
       { nom, marque },
       {
