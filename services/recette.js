@@ -9,39 +9,51 @@ async function findByIdOrDefault(id) {
   return recette || new Recette();
 }
 
-async function update({ recette, auteur, data }) {
-  recette.auteur = auteur;
-  recette.nom = data.nom;
-  recette.notes = data.notes;
-  recette.maturation = data.maturation;
-  recette.aromes = [];
-  recette.bases = [];
-  recette.likes = [];
+async function update({ id, auteur, data }) {
+  const { nom, notes, maturation, hashtags, shortUrl } = data;
+  const payload = {
+    auteur,
+    nom,
+    notes,
+    maturation,
+    aromes: getAromesFromData(data),
+    bases: getBasesFromData(data),
+    hashtags: formatHashtags(hashtags),
+    shortUrl
+  };
+  const recette = await Recette.updateOne({ _id: id }, payload);
+  if (!shortUrl) setShortUrlForId(id);
+  return recette._id;
+}
 
-  recette.hashtags = formatHashtags(data.hashtags);
-
-  data['base-ratio'].forEach((base, index) =>
-    recette.bases.push({
-      ratio: data['base-ratio'][index],
-      nicotine: data['base-nicotine'][index],
-      pourcentage: data['base-pourcentage'][index]
-    })
+async function setShortUrlForId(_id) {
+  getShortUrl(_id).then(({ url }) =>
+    Recette.updateOne({ _id }, { shortUrl: url })
   );
+}
 
+function getAromesFromData(data) {
+  const aromes = [];
   data['arome-marque'].forEach((arome, index) =>
-    recette.aromes.push({
+    aromes.push({
       marque: data['arome-marque'][index],
       nom: data['arome-nom'][index],
       pourcentage: data['arome-pourcentage'][index]
     })
   );
+  return aromes;
+}
 
-  if (!recette.shortUrl) {
-    const shortUrl = await getShortUrl(recette._id);
-    recette.shortUrl = shortUrl.url;
-  }
-
-  await recette.save();
+function getBasesFromData(data) {
+  const bases = [];
+  data['base-ratio'].forEach((base, index) =>
+    bases.push({
+      ratio: data['base-ratio'][index],
+      nicotine: data['base-nicotine'][index],
+      pourcentage: data['base-pourcentage'][index]
+    })
+  );
+  return bases;
 }
 
 async function like(recette, user) {
