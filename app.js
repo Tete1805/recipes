@@ -10,7 +10,6 @@ const session = require('express-session');
 const minify = require('express-minify');
 const compression = require('compression');
 
-const mongoose = require('mongoose');
 const passport = require('passport');
 const flash = require('connect-flash');
 const csurf = require('csurf');
@@ -27,18 +26,8 @@ const admin = require('./routes/admin');
 const list = require('./routes/list');
 
 // Où est stockée la chaîne de connexion
-var configDb = require('./config/database.js');
-
-// Permet de spécifier un autre moteur de promesses que mPromise
-mongoose.Promise = global.Promise;
-
-// Connexion à la base de données
-mongoose
-  .set('useNewUrlParser', true)
-  .set('useUnifiedTopology', true)
-  .connect(configDb.url)
-  .then(() => console.log('Connected to database.'))
-  .catch(error => console.log("Couldn't connect to database.\n", error));
+const configureDatabase = require('./config/database.js');
+configureDatabase();
 
 // Configuration de passport avec les stratégies
 require('./config/passport')(passport);
