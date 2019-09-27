@@ -1,18 +1,19 @@
 const Arome = require('../models/arome');
 
-const MAX_AROMAS_PER_PAGE = 50;
+const MAX_AROMAS_PER_PAGE = 100;
 
-function upsert(recette) {
-  recette.aromes.forEach(async arome => {
+async function upsert(recette) {
+  const bulkAromes = recette.aromes.map(arome => {
     const { nom, marque } = arome;
-    await Arome.updateOne(
-      { nom, marque },
-      { nom, marque },
-      {
+    return {
+      updateOne: {
+        filter: { nom, marque },
+        update: { nom, marque },
         upsert: true
       }
-    ).exec();
+    };
   });
+  await Arome.bulkWrite(bulkAromes);
 }
 
 async function fetch(skip = 0) {
