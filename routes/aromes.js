@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const aromeService = require('../services/arome');
-const listService = require('../services/list');
+const { ListService } = require('../services/list');
 const authRequired = require('./authRequired');
 
 router.get(['/', '/all'], async (req, res) => {
-  const aromes = await new listService('aromes').get();
+  const aromes = await new ListService('aromes').get();
   res.render('aromes/all', {
     title: 'Tous les arômes',
     aromes
@@ -14,7 +14,7 @@ router.get(['/', '/all'], async (req, res) => {
 
 router.get('/all/:page', async function(req, res) {
   const page = req.query.page || 0;
-  const aromes = await new listService('aromes').setPage(page).get();
+  const aromes = await new ListService('aromes').setPage(page).get();
   res.render('aromes/all', {
     title: 'Tous les arômes',
     aromes: aromes

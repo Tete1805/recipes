@@ -1,11 +1,11 @@
 var express = require('express'),
   router = express.Router(),
-  listService = require('../services/list'),
+  { ListService } = require('../services/list'),
   searchService = require('../services/search');
 
 router.get(['/', '/all/:page'], async (req, res) => {
   const page = parseInt(req.params.page, 10) || 1;
-  const recettes = await new listService('recettes').setPage(page).get();
+  const recettes = await new ListService('recettes').setPage(page).get();
   res.render('recettes/all', { recettes, page });
 });
 
@@ -17,7 +17,7 @@ router.get(
   async (req, res) => {
     const filter = searchService.getFilterFromParams(req.params);
     const page = parseInt(req.params.page, 10) || 1;
-    const recettes = await new listService('recettes')
+    const recettes = await new ListService('recettes')
       .setFilter(filter)
       .setPage(page)
       .get();
