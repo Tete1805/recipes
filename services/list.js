@@ -6,7 +6,7 @@ const MAX_RECIPES_PER_PAGE = 8;
 const MAX_AROMAS_PER_PAGE = 50;
 const MAX_USERS_PER_PAGE = 50;
 
-class listService {
+class ListService {
   constructor(type) {
     this.model = getModel(type);
     this.max_items_per_page = getMaxItemsPerPage(type);
@@ -64,4 +64,4 @@ function getMaxItemsPerPage(type) {
   }
 }
 
-module.exports = listService;
+module.exports = { ListService };
