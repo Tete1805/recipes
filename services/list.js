@@ -6,6 +6,24 @@ const MAX_RECIPES_PER_PAGE = 8;
 const MAX_AROMAS_PER_PAGE = 50;
 const MAX_USERS_PER_PAGE = 50;
 
+async function ListServiceAPI(model) {
+  this.service = new ListService(model);
+  ['setFilter', 'setLimit', 'setPage', 'setSorts'].forEach(
+    method =>
+      (this[method] = arg => {
+        this.service[method](arg);
+        return this;
+      })
+  );
+  this.get = async () => {
+    return this.service
+      .get()
+      .then(list => ({ status: 200, data: list }))
+      .catch(exception => ({ status: 400, data: exception }));
+  };
+  return this;
+}
+
 class ListService {
   constructor(type) {
     this.model = getModel(type);
@@ -64,4 +82,4 @@ function getMaxItemsPerPage(type) {
   }
 }
 
-module.exports = { ListService };
+module.exports = { ListService, ListServiceAPI };
