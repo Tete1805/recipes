@@ -2,7 +2,32 @@ const Recette = require('../models/recette'),
   formatHashtags = require('../utils/formatHashtags'),
   { getShortUrl } = require('../config/bitly');
 
-module.exports = { findByIdOrDefault, update, like, unlike, comment };
+const RecetteServiceAPI = {
+  find: _id => {
+    return Recette.findOne({ _id })
+      .then(recette => ({ status: 200, data: recette }))
+      .catch(exception => ({ status: 400, data: exception }));
+  },
+  post: ({ auteur, data }) => {
+    return update({ id: null, auteur, data })
+      .then(id => ({ status: 200, data: id }))
+      .catch(exception => ({ status: 400, data: exception }));
+  },
+  update: ({ id, auteur, data }) => {
+    return update({ id, auteur, data })
+      .then(id => ({ status: 200, data: id }))
+      .catch(exception => ({ status: 400, data: exception }));
+  }
+};
+
+module.exports = {
+  findByIdOrDefault,
+  update,
+  like,
+  unlike,
+  comment,
+  RecetteServiceAPI
+};
 
 async function findByIdOrDefault(id) {
   const recette = await Recette.findOne({ _id: id });
