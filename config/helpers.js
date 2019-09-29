@@ -1,32 +1,27 @@
 function inBrowserHelpers(req, res, next) {
-
   function padRight(v) {
     return v < 10 ? '0' + v : v;
   }
 
-  res.locals.formatDate = function formatDate(d, type) {
-
-    var s = '';
-    
-    s += padRight(d.getDate());
-    s += '/';
-    s += padRight(d.getMonth() + 1);
-    s += '/';
-    s += d.getFullYear();
+  res.locals.formatDate = function formatDate(date, type) {
+    const formattedDate = [
+      padRight(date.getDate()),
+      padRight(date.getMonth() + 1),
+      date.getFullYear()
+    ].join('/');
 
     if (type === 'dateTime') {
-      s += ' à ';
-      s += padRight(d.getHours());
-      s += ':';
-      s += padRight(d.getMinutes());
+      const formattedTime = [
+        padRight(date.getHours()),
+        padRight(date.getMinutes())
+      ].join(':');
+      return formattedDate + ' à ' + formattedTime;
     }
 
-    return s;
+    return formattedDate;
+  };
 
-  }
-  
   next();
-
 }
 
 module.exports = inBrowserHelpers;
