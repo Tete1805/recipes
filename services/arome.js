@@ -1,8 +1,10 @@
 const Arome = require('../models/arome');
-
 const MAX_AROMAS_PER_PAGE = 100;
 
-async function upsert(recette) {
+const AromeService = { create, fetch, updateBase };
+module.exports = { AromeService };
+
+async function updateBase(recette) {
   const bulkAromes = recette.aromes.map(arome => {
     const { nom, marque } = arome;
     return {
@@ -31,5 +33,3 @@ async function create(_arome) {
   arome.description = _arome.description;
   await arome.save();
 }
-
-module.exports = { create, fetch, upsert };

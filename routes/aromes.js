@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const aromeService = require('../services/arome');
+const { AromeService } = require('../services/arome');
 const { ListService } = require('../services/list');
 const authRequired = require('./authRequired');
 
@@ -26,7 +26,7 @@ router.get('/new', authRequired, function(req, res) {
 });
 
 router.post('/new', authRequired, function(req, res) {
-  aromeService.create(req.body);
+  AromeService.create(req.body);
   res.redirect('/aromes/all');
 });
 
