@@ -1,12 +1,19 @@
-const express = require('express'),
-  router = express.Router(),
-  authRequired = require('./authRequired'),
-  { RecetteService } = require('../services/recette'),
-  aromeService = require('../services/arome');
+const express = require('express');
+const router = express.Router();
+const authRequired = require('./authRequired');
+const { RecetteService } = require('../services/recette');
+const aromeService = require('../services/arome');
+
+router.get('/new', async (req, res) => {
+  const recette = await RecetteService.findByIdOrDefault();
+  res.render('recettes/edit', {
+    title: 'Nouvelle recette',
+    recette
+  });
+});
 
 router.use(['/:id', '/:id/*'], async (req, res, next) => {
-  const id = req.params.id === 'new' ? null : req.params.id;
-  req.recette = await RecetteService.findByIdOrDefault(id);
+  req.recette = await RecetteService.findByIdOrDefault(req.params.id);
   next();
 });
 
