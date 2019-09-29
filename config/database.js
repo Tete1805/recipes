@@ -16,4 +16,6 @@ function configureDatabase() {
     .connect(url)
     .then(() => console.log('Connected to database.'))
     .catch(error => console.log("Couldn't connect to database.\n", error));
+
+  return mongoose;
 }

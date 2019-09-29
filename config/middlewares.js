@@ -10,6 +10,8 @@ const passport = require('passport');
 const configPassport = require('./passport');
 const flash = require('connect-flash');
 const csurf = require('csurf');
+const MongoStore = require('connect-mongo')(session);
+const mongoose = require('./database.js')();
 
 router.use(logger('common'));
 router.use(bodyParser.json());
@@ -18,7 +20,12 @@ router.use(cookieParser());
 router.use(compression());
 router.use(minify());
 router.use(
-  session({ secret: 'PlopzeSecret', resave: false, saveUninitialized: false })
+  session({
+    secret: 'PlopzeSecret',
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
+  })
 );
 configPassport(passport);
 router.use(passport.initialize());

@@ -1,9 +1,6 @@
 const express = require('express');
 const app = express();
 
-const configureDatabase = require('./config/database.js');
-configureDatabase();
-
 const path = require('path');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
