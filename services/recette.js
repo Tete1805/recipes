@@ -2,6 +2,15 @@ const Recette = require('../models/recette'),
   formatHashtags = require('../utils/formatHashtags'),
   { getShortUrl } = require('../config/bitly');
 
+const RecetteService = {
+  findByIdOrDefault,
+  update,
+  deleteById,
+  like,
+  unlike,
+  comment
+};
+
 const RecetteServiceAPI = {
   find: _id => {
     return Recette.findOne({ _id })
@@ -20,14 +29,7 @@ const RecetteServiceAPI = {
   }
 };
 
-module.exports = {
-  findByIdOrDefault,
-  update,
-  like,
-  unlike,
-  comment,
-  RecetteServiceAPI
-};
+module.exports = { RecetteService, RecetteServiceAPI };
 
 async function findByIdOrDefault(id) {
   const recette = await Recette.findOne({ _id: id });
@@ -49,6 +51,31 @@ async function update({ id, auteur, data }) {
   const recette = await Recette.updateOne({ _id: id }, payload);
   if (!shortUrl) setShortUrlForId(id);
   return recette._id;
+}
+
+async function deleteById(id) {
+  await Recette.deleteOne({ _id: id });
+}
+
+async function like(recette, user) {
+  recette.likes = recette.likes || [];
+  if (!recette.likes.includes(user)) {
+    recette.likes = recette.likes.concat(user);
+  }
+  await recette.save();
+}
+
+async function unlike(recette, user) {
+  recette.likes = recette.likes || [];
+  if (recette.likes.includes(user)) {
+    recette.likes = recette.likes.filter(name => name != user);
+  }
+  await recette.save();
+}
+
+async function comment(recette, user, corps) {
+  recette.comments.push({ auteur: user, corps: corps });
+  await recette.save();
 }
 
 async function setShortUrlForId(_id) {
@@ -79,25 +106,4 @@ function getBasesFromData(data) {
     })
   );
   return bases;
-}
-
-async function like(recette, user) {
-  recette.likes = recette.likes || [];
-  if (!recette.likes.includes(user)) {
-    recette.likes = recette.likes.concat(user);
-  }
-  await recette.save();
-}
-
-async function unlike(recette, user) {
-  recette.likes = recette.likes || [];
-  if (recette.likes.includes(user)) {
-    recette.likes = recette.likes.filter(name => name != user);
-  }
-  await recette.save();
-}
-
-async function comment(recette, user, corps) {
-  recette.comments.push({ auteur: user, corps: corps });
-  await recette.save();
 }
