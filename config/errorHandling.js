@@ -1,9 +1,9 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 // catch 404 and forward to error handler
 router.use(function Erreur404(req, res, next) {
-  var err = new Error("Il n'y a rien ici.");
+  const err = new Error("Il n'y a rien ici.");
   err.status = 404;
   next(err);
 });

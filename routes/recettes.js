@@ -1,4 +1,4 @@
-var express = require('express'),
+const express = require('express'),
   router = express.Router(),
   { ListService } = require('../services/list'),
   searchService = require('../services/search');

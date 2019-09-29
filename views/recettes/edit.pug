@@ -48,7 +48,7 @@ block content
             span avec un ratio PG/VG de 
             .col-10.padded-right
               select(name="base-ratio[]", required)
-                - var i = 0, val = ''
+                - let i = 0, val = ''
                 while i < 11
                   - val = i*10 + '/' + (10-i)*10;
                   option(value=val, selected=(base.ratio === val ? 'selected' : null))= val

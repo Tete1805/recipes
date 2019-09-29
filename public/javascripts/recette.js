@@ -15,7 +15,7 @@
           }
         }).then(function(response) {
           if (response.ok) {
-            var span = document.querySelector("span[recette-id='" + id + "']");
+            const span = document.querySelector("span[recette-id='" + id + "']");
             span.innerText =
               parseInt(span.innerText) + (nextAction === 'like' ? 1 : -1);
             span.previousSibling.className =

@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
-var passport = require('passport');
-var authRequired = require('./authRequired');
+const express = require('express');
+const router = express.Router();
+const passport = require('passport');
+const authRequired = require('./authRequired');
 
 router.get('/login', function(req, res) {
   // Si l'utilisateur arrive ici déjà authentifié pour une raison ou une autre, on le renvoie vers son profil
@@ -17,7 +17,7 @@ router.get('/login', function(req, res) {
 
 router.post('/login', (req, res, next) => {
   // Quand l'utilisateur s'authentifie, on le renvoie vers la page de retour calculée dans le get initial
-  var redirectTo = req.session.redirectTo || '/login';
+  const redirectTo = req.session.redirectTo || '/login';
   delete req.session.redirectTo;
   passport.authenticate('local-login', {
     successRedirect: redirectTo,

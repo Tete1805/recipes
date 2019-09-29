@@ -14,7 +14,7 @@ function readFile(event) {
     return;
   }
 
-  var fileReader = new FileReader();
+  const fileReader = new FileReader();
 
   fileReader.onload = function(event) {
     const base64Data = event.target.result;

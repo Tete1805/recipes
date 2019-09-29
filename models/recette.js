@@ -1,8 +1,8 @@
 // app/models/recette.js
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 // define the schema for our model
-var recetteSchema = mongoose.Schema({
+const recetteSchema = mongoose.Schema({
   nom: String,
   ajoute: { type: Date, default: Date.now },
   auteur: String,
