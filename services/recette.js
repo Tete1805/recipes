@@ -46,8 +46,10 @@ async function update({ id, auteur, data }) {
     hashtags: formatHashtags(hashtags),
     shortUrl
   };
-  const recette = await Recette.updateOne({ _id: id }, payload);
-  if (!shortUrl) setShortUrlForId(id);
+  const recette = await findByIdOrDefault(id);
+  await recette.save();
+  await recette.updateOne(payload);
+  if (!shortUrl) setShortUrlForId(recette._id);
   return recette._id;
 }
 
