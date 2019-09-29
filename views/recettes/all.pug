@@ -9,7 +9,7 @@ block content
       li
         .recette-container
           div
-            a(href='/recette/' + recette._id + '/detail').title
+            a(href='/recette/' + recette._id).title
               b #{ recette.nom }
           div Ajoutée le #{ formatDate(recette.ajoute) }
           span par #{ recette.auteur }

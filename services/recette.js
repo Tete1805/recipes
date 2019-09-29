@@ -1,12 +1,14 @@
-const Recette = require('../models/recette'),
-  formatHashtags = require('../utils/formatHashtags'),
-  { getShortUrl } = require('../config/bitly');
+const Recette = require('../models/recette');
+const formatHashtags = require('../utils/formatHashtags');
+const { getShortUrl } = require('../config/bitly');
+const { AromeService } = require('../services/arome');
 
 const RecetteService = {
-  findByIdOrDefault,
+  findById,
+  getDefault,
+  post,
   update,
-  deleteById,
-  comment
+  deleteById
 };
 
 const RecetteServiceAPI = {
@@ -29,14 +31,46 @@ const RecetteServiceAPI = {
 
 module.exports = { RecetteService, RecetteServiceAPI };
 
-async function findByIdOrDefault(id) {
-  const recette = await Recette.findOne({ _id: id });
-  return recette || new Recette();
+function getDefault() {
+  return new Recette();
 }
 
-async function update({ id, auteur, data }) {
-  const { nom, notes, maturation, hashtags, shortUrl } = data;
-  const payload = {
+function findById(_id) {
+  return Recette.findOne({ _id });
+}
+
+async function post({ auteur, data }) {
+  const recette = new Recette();
+  await recette.save();
+  setShortUrlForId(recette._id);
+  return await formatAndUpdate({ recette, auteur, data });
+}
+
+async function update({ auteur, data }) {
+  const recette = await findById(data._id);
+  return await formatAndUpdate({ recette, auteur, data });
+}
+
+async function deleteById(id) {
+  await Recette.deleteOne({ _id: id });
+}
+
+async function setShortUrlForId(_id) {
+  getShortUrl(_id).then(({ url }) =>
+    Recette.updateOne({ _id }, { shortUrl: url })
+  );
+}
+
+async function formatAndUpdate({ recette, auteur, data }) {
+  const payload = getPayload({ auteur, data });
+  await recette.update(payload);
+  AromeService.updateBase(recette);
+  return recette._id;
+}
+
+function getPayload({ auteur, data }) {
+  const { nom, notes, maturation, hashtags, shortUrl, _id } = data;
+  return {
     auteur,
     nom,
     notes,
@@ -46,26 +80,6 @@ async function update({ id, auteur, data }) {
     hashtags: formatHashtags(hashtags),
     shortUrl
   };
-  const recette = await findByIdOrDefault(id);
-  await recette.save();
-  await recette.updateOne(payload);
-  if (!shortUrl) setShortUrlForId(recette._id);
-  return recette._id;
-}
-
-async function deleteById(id) {
-  await Recette.deleteOne({ _id: id });
-}
-
-async function comment(recette, user, corps) {
-  recette.comments.push({ auteur: user, corps: corps });
-  await recette.save();
-}
-
-async function setShortUrlForId(_id) {
-  getShortUrl(_id).then(({ url }) =>
-    Recette.updateOne({ _id }, { shortUrl: url })
-  );
 }
 
 function getAromesFromData(data) {

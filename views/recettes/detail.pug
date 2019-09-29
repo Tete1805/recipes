@@ -7,13 +7,13 @@ block content
     h1= recette.nom
   .col-20
     div.right
-      if (user && user.local.pseudo.toString() === recette.auteur.toString())
+      if (user && user.local.pseudo === recette.auteur)
         .recette-button
-          a.pushable(no-border, href='/recette/' + recette._id + '/edit')
+          a.pushable(no-border, href='/recette/' + recette._id + '?mode=edit')
             i.edit
       else
         .recette-button
-          a.pushable(no-border, href='/recette/' + recette._id + '/fork')
+          a.pushable(no-border, href='/recette/' + recette._id + '?mode=fork')
             i.fork
 
   em= 'postée par '

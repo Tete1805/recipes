@@ -6,8 +6,7 @@ block extend_head
   script(src="/javascripts/autocomplete.min.js" async)
 
 block content
-
-  form.recette(method="POST" action='/recette/')
+  form.recette(method="POST" action=`/recette/${mode === 'edit' ? recette._id : ''}`)
     h1
       input.h1(name="nom", type="text", placeholder="Nom", required, value=recette.nom)
     div
