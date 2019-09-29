@@ -18,6 +18,6 @@ block content
           td= formatDate(recette.ajoute, "dateTime")
           td= recette.auteur
           td
-            a(href='/recette/' + recette._id + '/delete') Supprimer
+            a(href='/admin/delete/recette/' + recette._id) Supprimer
           td
             a(href='/recette/' + recette._id + '/edit') Modifier
