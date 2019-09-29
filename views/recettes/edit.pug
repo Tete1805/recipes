@@ -7,7 +7,7 @@ block extend_head
 
 block content
 
-  form.recette(method="POST")
+  form.recette(method="POST" action='/recette/')
     h1
       input.h1(name="nom", type="text", placeholder="Nom", required, value=recette.nom)
     div
@@ -92,8 +92,7 @@ block content
       span#total-pourcentage 0
       span % pour un dosage de 
       span#total-nicotine 0
-      span mg de nicotine
-        
+      span mg de nicotine        
 
     div
       input.pushable(type="submit", disabled, value="Enregistrer")

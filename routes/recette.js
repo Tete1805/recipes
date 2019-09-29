@@ -40,19 +40,20 @@ router.get('/:id/fork', authRequired, (req, res) => {
   });
 });
 
-router.post(['/:id/edit', '/:id/fork'], authRequired, (req, res) => {
-  aromeService.upsert(req.recette);
-  RecetteService.update({
-    id: req.recette._id,
+router.post('/', authRequired, async (req, res) => {
+  const { _id } = req.body;
+  aromeService.upsert(req.body);
+  const recette = await RecetteService.update({
+    id: _id || null,
     data: req.body,
     auteur: req.user.local.pseudo
   });
-  res.redirect('/recette/' + req.recette._id);
+  res.redirect('/recette/' + recette._id);
 });
 
 router.post('/:id/comment', authRequired, (req, res) => {
   RecetteService.comment(req.recette, req.user.local.pseudo, req.body.comment);
-  res.redirect('/recette/' + req.params.id + '/detail');
+  res.redirect('/recette/' + req.params.id);
 });
 
 module.exports = router;
