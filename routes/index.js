@@ -9,6 +9,7 @@ const recette = require('./recette');
 const aromes = require('./aromes');
 const admin = require('./admin');
 const list = require('./list');
+const comment = require('./comment');
 const api = require('./api');
 
 router.use('/', accueil);
@@ -19,6 +20,7 @@ router.use('/authentication', authentication);
 router.use('/profile', profile);
 router.use('/admin', admin);
 router.use('/list', list);
+router.use('/comment', comment);
 router.use('/api', api);
 
 module.exports = router;

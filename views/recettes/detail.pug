@@ -79,7 +79,7 @@ block content
         div Soyez le premier à commenter cette recette !
         br
       if (user && user.local.pseudo)
-        form(action="/recette/" + recette._id + '/comment', method="POST")
+        form(action="/comment/recette/" + recette._id, method="POST")
           .col-50.padded-right
             label(for="comment") Votre commentaire
             textarea(name="comment", rows=4, placeholder="Super recette !")
