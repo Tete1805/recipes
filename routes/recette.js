@@ -43,16 +43,6 @@ router.post(['/:id/edit', '/:id/fork'], authRequired, (req, res) => {
   res.redirect('/recette/' + req.recette._id);
 });
 
-router.post('/:id/like', (req, res) => {
-  RecetteService.like(req.recette, req.user.local.pseudo);
-  res.status(200).send('Merci !');
-});
-
-router.post('/:id/unlike', (req, res) => {
-  RecetteService.unlike(req.recette, req.user.local.pseudo);
-  res.status(200).send('Dommage !');
-});
-
 router.post('/:id/comment', authRequired, (req, res) => {
   RecetteService.comment(req.recette, req.user.local.pseudo, req.body.comment);
   res.redirect('/recette/' + req.params.id + '/detail');

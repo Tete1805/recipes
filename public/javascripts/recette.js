@@ -7,7 +7,7 @@
       const nextAction = getNextAction(input.className);
 
       if (nextAction) {
-        fetch('/recette/' + id + '/' + nextAction, {
+        fetch(`/api/rating/recette/${nextAction}/${id}/`, {
           method: 'POST',
           credentials: 'include',
           headers: {

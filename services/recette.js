@@ -6,8 +6,6 @@ const RecetteService = {
   findByIdOrDefault,
   update,
   deleteById,
-  like,
-  unlike,
   comment
 };
 
@@ -55,22 +53,6 @@ async function update({ id, auteur, data }) {
 
 async function deleteById(id) {
   await Recette.deleteOne({ _id: id });
-}
-
-async function like(recette, user) {
-  recette.likes = recette.likes || [];
-  if (!recette.likes.includes(user)) {
-    recette.likes = recette.likes.concat(user);
-  }
-  await recette.save();
-}
-
-async function unlike(recette, user) {
-  recette.likes = recette.likes || [];
-  if (recette.likes.includes(user)) {
-    recette.likes = recette.likes.filter(name => name != user);
-  }
-  await recette.save();
 }
 
 async function comment(recette, user, corps) {
