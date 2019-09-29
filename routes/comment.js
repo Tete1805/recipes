@@ -11,3 +11,5 @@ router.post('/recette/:id', authRequired, (req, res) => {
   );
   res.redirect('/recette/' + req.params.id);
 });
+
+module.exports = router;
