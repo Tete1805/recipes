@@ -3,6 +3,7 @@ block extend_head
   link(rel='stylesheet', href='/stylesheets/recette-new.css' media='screen')
   script(src="/javascripts/recette.js" async)
   script(src="/javascripts/components/comments/comment.mjs" type="module" async)
+  script(src="/javascripts/components/comments/commentForm.mjs" type="module" async)
 
 block content
 
@@ -86,9 +87,5 @@ block content
           br
         if (user && user.local.pseudo)
           .col-50.padded-right
-            form(action="/comment/recette/" + recette._id, method="POST")
-              label(for="comment") Votre commentaire
-              textarea(name="comment", rows=4, placeholder="Super recette !")
-              input.pushable(type="submit", value="Poster")
-              input(type="hidden" name="_csrf" value=csrfToken)
+            recipe-comment-form(id=recette._id csrfToken=csrfToken)
             
