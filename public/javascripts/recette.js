@@ -15,7 +15,9 @@
           }
         }).then(function(response) {
           if (response.ok) {
-            const span = document.querySelector("span[recette-id='" + id + "']");
+            const span = document.querySelector(
+              "span[recette-id='" + id + "']"
+            );
             span.innerText =
               parseInt(span.innerText) + (nextAction === 'like' ? 1 : -1);
             span.previousSibling.className =
@@ -23,6 +25,18 @@
           }
         });
       }
+    }
+
+    function getParent(element, type) {
+      if (element.parentElement.tagName.toUpperCase() === type.toUpperCase()) {
+        return element.parentElement;
+      }
+      return getParent(element.parentElement, type);
+    }
+
+    function deleteRecette(event) {
+      const _id = getParent(event.target, 'button').getAttribute('_id');
+      alert(`${_id} deleted`);
     }
 
     function getNextAction(className) {
@@ -35,6 +49,10 @@
           return null;
       }
     }
+
+    Array.from(document.querySelectorAll('#remove-recette')).forEach(button => {
+      button.addEventListener('click', deleteRecette);
+    });
 
     Array.from(document.querySelectorAll('.like, .liked')).forEach(function(
       input

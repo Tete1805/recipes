@@ -1,6 +1,8 @@
 extends ../site/layout
 block extend_head
-  link(rel='stylesheet', href='/stylesheets/recette-new.css' media='screen') 
+  link(rel='stylesheet', href='/stylesheets/recette-new.css' media='screen')
+  script(src="/javascripts/recette.js" async)
+
 block content
 
   .recette
@@ -15,9 +17,8 @@ block content
               a(no-border, href='/recette/' + recette._id + '?mode=edit')
                 .pushable.bg-primary.bg-primary-hover
                   i.edit
-            form.recette-action(method="POST", action='/recette/' + recette._id)
-              input(type="hidden", name="method", value="DELETE")
-              button(type="submit")
+            .recette-action
+              button(id='remove-recette' _id=recette._id)
                 .pushable.bg-warning.bg-warning-hover
                   i.remove
           else
