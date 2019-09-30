@@ -7,8 +7,7 @@ block extend_head
 
 block content
   form.recette(method="POST" action=`/recette/${mode === 'edit' ? recette._id : ''}`)
-    h1
-      input.h1(name="nom", type="text", placeholder="Nom", required, value=recette.nom)
+    input.h1(name="nom", type="text", placeholder="Nom", required, value=recette.nom)
     div
       h2 Informations
     ul.recette-informations
@@ -16,7 +15,7 @@ block content
         label
           b.col-20 Maturation recommandée : 
         .col-30.padded-right
-          .recette-maturation
+          .recette-informations-maturation
             input(name="maturation", type="number" placeholder="En nombre de", required, min="0", max="180", value=recette.maturation) 
             span jours
       li
@@ -35,7 +34,7 @@ block content
 
     div
       h3#bases Bases :
-      ul.recette-bases
+      ul.no-padding.recette-bases
         for base in recette.bases && recette.bases.length ? recette.bases : [{ ratio: '0/100', nicotine: null, pourcentage: null}]
           li
             .col-10.padded-right
@@ -53,17 +52,17 @@ block content
                   option(value=val, selected=(base.ratio === val ? 'selected' : null))= val
                   - i++
             .col-10
-              .recette-button.recette-action
+              .recette-button
                 a.btn-supprimer.pushable(no-border, href="#bases")
                   i.remove
         li
           .col-10
-            .recette-button.recette-action
+            .recette-button
               a.btn-ajouter.pushable(no-border, href="#bases")
                 i.add
     div
       h3#aromes Arômes :
-      ul.recette-aromes
+      ul.no-padding.recette-aromes
         for arome in recette.aromes && recette.aromes.length ? recette.aromes : [{ marque: null, nom: null, pourcentage: null}]
           li
             .col-10.padded-right
@@ -76,12 +75,12 @@ block content
             .col-20.padded-right
               input(name="arome-marque[]", type="text", placeholder="Marque", required, value=arome.marque, my-autocomplete='{ "list": ["Capella", "Flavour Art", "Revolute", "SolubArome", "Tasty Puff", "THJ", "TPA"], "maxItems": 10, "markItems": true }')
             .col-10
-              .recette-button.recette-action
+              .recette-button
                 a.btn-supprimer.pushable(no-border, href="#aromes")
                   i.remove
         li
           .col-10
-            .recette-button.recette-action
+            .recette-button
               a.btn-ajouter.pushable(no-border, href="#aromes")
                 i.add
     br

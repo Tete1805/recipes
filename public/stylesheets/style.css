@@ -258,6 +258,22 @@ footer span {
   margin-right: 5px;
 }
 
+.bg-primary {
+  background-color: #09d;
+}
+
+.bg-primary-hover:hover {
+  background-color: #00aaff !important;
+}
+
+.bg-warning {
+  background-color: #ff9494;
+}
+
+.bg-warning-hover:hover {
+  background-color: #ff4c4c !important;
+}
+
 .pushable {
   box-shadow: 2px 2px 3px #bba687;
   transition: all 0.2s;
@@ -286,4 +302,8 @@ footer span {
 .inline-block {
   display: inline-block;
   width: initial !important;
+}
+
+.no-padding {
+  padding: 0 !important;
 }

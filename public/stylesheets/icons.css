@@ -1,5 +1,6 @@
 i {
   background: transparent 0 0 no-repeat;
+  background-position: center;
   display: inline-block;
 }
 
@@ -58,7 +59,6 @@ input.like:hover {
 /*Cleaned*/
 i.edit {
   background-image: url('data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%2032%2032%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20fill%3D%22%23fff%22%20id%3D%22svg_1%22%20d%3D%22m27%2C0c2%2C0%205%2C2%205%2C5c0%2C1%20-0%2C2%20-1%2C3l-2%2C2l-7%2C-7l2%2C-2c0%2C-0%201%2C-1%203%2C-1zm-25%2C23l-2%2C9l9%2C-2l18%2C-18l-7%2C-7l-18%2C18zm20%2C-11l-14%2C14l-1%2C-1l14%2C-14l1%2C1z%22%2F%3E%3C%2Fsvg%3E');
-  transform: scale(0.7);
 }
 
 i.facebook {

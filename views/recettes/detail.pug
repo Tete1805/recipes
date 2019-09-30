@@ -3,86 +3,93 @@ block extend_head
   link(rel='stylesheet', href='/stylesheets/recette-new.css' media='screen') 
 block content
 
-  .col-80
-    h1= recette.nom
-  .col-20
-    div.right
-      if (user && user.local.pseudo === recette.auteur)
-        .recette-button
-          a.pushable(no-border, href='/recette/' + recette._id + '?mode=edit')
-            i.edit
-      else
-        .recette-button
-          a.pushable(no-border, href='/recette/' + recette._id + '?mode=fork')
-            i.fork
-
-  em= 'postée par '
-  a(href="/recettes/search/auteur/" + recette.auteur +'/1')= recette.auteur
-  span=' le ' + formatDate(recette.ajoute)
-
   .recette
-    div
-      h2 Informations
-    ul.recette-informations
-      li
-        b Maturation recommandée : 
-        span #{ recette.maturation } jours
-      li
-        b Tags&nbsp;: 
-        each tag in recette.hashtags
-          a(href="/recettes/search/hashtags/" + tag.substr(1))= tag
-          span &nbsp;
-      li
-        b Notes&nbsp;: 
-        span #{ recette.notes }
+    .col-70
+      h1.recette-title= recette.nom
+    .col-30
+      .col-50
+      .col-50
+        div.recette-actions
+          if (user && user.local.pseudo === recette.auteur)
+            .recette-action
+              a(no-border, href='/recette/' + recette._id + '?mode=edit')
+                .pushable.bg-primary.bg-primary-hover
+                  i.edit
+            form.recette-action(method="POST", action='/recette/' + recette._id)
+              input(type="hidden", name="method", value="DELETE")
+              button(type="submit")
+                .pushable.bg-warning.bg-warning-hover
+                  i.remove
+          else
+            .recette-button
+              a.pushable(no-border, href='/recette/' + recette._id + '?mode=fork')
+                i.fork
 
-    div
-      h2 Ingrédients
+    em= 'postée par '
+    a(href="/recettes/search/auteur/" + recette.auteur +'/1')= recette.auteur
+    span=' le ' + formatDate(recette.ajoute)
 
-    if (recette.bases && recette.bases.length > 0)
+    .recette-details
       div
-        h3 Bases&nbsp;:
-        ul
-          for base in recette.bases
-            li #{ base.pourcentage }% de base en #{ base.nicotine }mg de nicotine avec un ratio PG/VG de #{ base.ratio }
+        h2 Informations
+      ul
+        li
+          b Maturation recommandée : 
+          span #{ recette.maturation } jours
+        li
+          b Tags&nbsp;: 
+          each tag in recette.hashtags
+            a(href="/recettes/search/hashtags/" + tag.substr(1))= tag
+            span &nbsp;
+        li
+          b Notes&nbsp;: 
+          span #{ recette.notes }
 
-    if (recette.aromes && recette.aromes.length > 0)
       div
-        h3 Arômes&nbsp;:
-        ul
-          for arome in recette.aromes
-            li #{ arome.pourcentage }% de #{ arome.nom } (#{ arome.marque })
+        h2 Ingrédients
 
-    div
-      h2 Total
-      -const totalA = recette.aromes.reduce(function(accumulateur, arome) { return accumulateur + arome.pourcentage }, 0)
-      span= totalA
-      span % d'arômes pour un dosage de 
-      -const totalN = recette.bases.reduce(function(accumulateur, base) { return accumulateur + base.pourcentage * base.nicotine / 100 }, 0)
-      span= totalN
-      span mg de nicotine
+      if (recette.bases && recette.bases.length > 0)
+        div
+          h3 Bases&nbsp;:
+          ul
+            for base in recette.bases
+              li #{ base.pourcentage }% de base en #{ base.nicotine }mg de nicotine avec un ratio PG/VG de #{ base.ratio }
 
-    div
-      h3 Commentaires&nbsp;:
-      if (recette.comments && recette.comments.length > 0)
-        ul.commentaires
-          for comment in recette.comments
-            li
-              span posté par 
-              a(href="/user/profile/" + comment.auteur)= comment.auteur 
-              span &nbsp;le 
-              span= formatDate(comment.ajoute, 'dateTime')
-              br
-              br
-              div= comment.corps
-      else
-        div Soyez le premier à commenter cette recette !
-        br
-      if (user && user.local.pseudo)
-        form(action="/comment/recette/" + recette._id, method="POST")
+      if (recette.aromes && recette.aromes.length > 0)
+        div
+          h3 Arômes&nbsp;:
+          ul
+            for arome in recette.aromes
+              li #{ arome.pourcentage }% de #{ arome.nom } (#{ arome.marque })
+
+      div
+        h2 Total
+        -const totalA = recette.aromes.reduce(function(accumulateur, arome) { return accumulateur + arome.pourcentage }, 0)
+        span= totalA
+        span % d'arômes pour un dosage de 
+        -const totalN = recette.bases.reduce(function(accumulateur, base) { return accumulateur + base.pourcentage * base.nicotine / 100 }, 0)
+        span= totalN
+        span mg de nicotine
+
+      div
+        h3 Commentaires&nbsp;:
+        if (recette.comments && recette.comments.length > 0)
+          ul.comments
+            for comment in recette.comments
+              li
+                div.comment-title
+                  span posté par 
+                  a(href="/user/profile/" + comment.auteur)= comment.auteur 
+                  span &nbsp;le 
+                  span= formatDate(comment.ajoute, 'dateTime')
+                div= comment.corps
+        else
+          div Soyez le premier à commenter cette recette !
+          br
+        if (user && user.local.pseudo)
           .col-50.padded-right
-            label(for="comment") Votre commentaire
-            textarea(name="comment", rows=4, placeholder="Super recette !")
-          .col-50
-            input.pushable.btn-small(type="submit", value="Poster")
-            input(type="hidden" name="_csrf" value=csrfToken)
+            form(action="/comment/recette/" + recette._id, method="POST")
+              label(for="comment") Votre commentaire
+              textarea(name="comment", rows=4, placeholder="Super recette !")
+              input.pushable(type="submit", value="Poster")
+              input(type="hidden" name="_csrf" value=csrfToken)
