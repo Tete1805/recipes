@@ -2,6 +2,7 @@ extends ../site/layout
 block extend_head
   link(rel='stylesheet', href='/stylesheets/recette-new.css' media='screen')
   script(src="/javascripts/recette.js" async)
+  script(src="/javascripts/components/comments/comment.mjs" type="module" async)
 
 block content
 
@@ -78,12 +79,8 @@ block content
           ul.comments
             for comment in recette.comments
               li
-                div.comment-title
-                  span posté par 
-                  a(href="/user/profile/" + comment.auteur)= comment.auteur 
-                  span &nbsp;le 
-                  span= formatDate(comment.ajoute, 'dateTime')
-                div= comment.corps
+                recipe-comment(author=comment.auteur posted=formatDate(comment.ajoute, 'dateTime') message=comment.corps)
+
         else
           div Soyez le premier à commenter cette recette !
           br
@@ -94,3 +91,4 @@ block content
               textarea(name="comment", rows=4, placeholder="Super recette !")
               input.pushable(type="submit", value="Poster")
               input(type="hidden" name="_csrf" value=csrfToken)
+            
