@@ -1,5 +1,6 @@
-import { pushable, submitButton } from '../styles/buttons.mjs';
-import { input } from '../styles/input.mjs';
+import { define } from '../../lib.mjs';
+import { pushable, submitButton } from '../../styles/buttons.mjs';
+import { input } from '../../styles/input.mjs';
 
 const template = document.createElement('template');
 template.innerHTML = /*html*/ `
@@ -38,4 +39,4 @@ class CommentForm extends HTMLElement {
   }
 }
 
-window.customElements.define('recipe-comment-form', CommentForm);
+define('recipe-comment-form', CommentForm);

@@ -1,3 +1,5 @@
+import { define } from '../lib.mjs';
+
 const template = document.createElement('template');
 template.innerHTML = /*html*/ `
 <style>
@@ -52,4 +54,4 @@ class Link extends HTMLElement {
   }
 }
 
-window.customElements.define('recipe-link', Link);
+define('recipe-link', Link);

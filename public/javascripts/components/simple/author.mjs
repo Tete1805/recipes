@@ -1,4 +1,5 @@
-import './base/link.mjs';
+import { define } from '../lib.mjs';
+import '../base/link.mjs';
 
 class AuthorLink extends HTMLElement {
   constructor() {
@@ -11,4 +12,4 @@ class AuthorLink extends HTMLElement {
   }
 }
 
-window.customElements.define('recipe-author-link', AuthorLink);
+define('recipe-author-link', AuthorLink);

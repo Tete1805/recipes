@@ -2,8 +2,9 @@ extends ../site/layout
 block extend_head
   link(rel='stylesheet', href='/stylesheets/recette-new.css' media='screen')
   script(src="/javascripts/recette.js" async)
-  script(src="/javascripts/components/comments/comment.mjs" type="module" async)
-  script(src="/javascripts/components/comments/commentForm.mjs" type="module" async)
+  script(src="/javascripts/components/complex/comments/comment.mjs" type="module" async)
+  script(src="/javascripts/components/complex/comments/commentList.mjs" type="module" async)
+  script(src="/javascripts/components/complex/comments/commentForm.mjs" type="module" async)
 
 block content
 
@@ -74,17 +75,8 @@ block content
         span= totalN
         span mg de nicotine
 
-      div
-        h3 Commentaires&nbsp;:
-        if (recette.comments && recette.comments.length > 0)
-          ul.comments
-            for comment in recette.comments
-              li
-                recipe-comment(author=comment.auteur posted=formatDate(comment.ajoute, 'dateTime') message=comment.corps)
-
-        else
-          div Soyez le premier à commenter cette recette !
-          br
+      div 
+        recipe-comment-list(comments=recette.comments)
         if (user && user.local.pseudo)
           .col-50.padded-right
             recipe-comment-form(id=recette._id csrfToken=csrfToken)
