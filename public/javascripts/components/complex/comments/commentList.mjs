@@ -11,7 +11,7 @@ template.innerHTML = /*html*/ `
     ul > li {
       border: 1px solid #ddd;
       border-radius: 5px;
-      margin: 5px;
+      margin: 5px 0;
       padding: 10px;
     }
   </style>
