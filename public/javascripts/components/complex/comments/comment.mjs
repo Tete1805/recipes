@@ -1,4 +1,3 @@
-import { define } from '../../lib.mjs';
 import '../../simple/author.mjs';
 import '../../simple/date.mjs';
 
@@ -30,4 +29,4 @@ class RecipeComment extends HTMLElement {
   }
 }
 
-define('recipe-comment', RecipeComment);
+customElements.define('recipe-comment', RecipeComment);

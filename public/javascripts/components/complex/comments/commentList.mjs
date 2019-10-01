@@ -1,4 +1,3 @@
-import { define } from '../../lib.mjs';
 import './comment.mjs';
 
 const template = document.createElement('template');
@@ -56,4 +55,4 @@ class CommentList extends HTMLElement {
   }
 }
 
-define('recipe-comment-list', CommentList);
+customElements.define('recipe-comment-list', CommentList);

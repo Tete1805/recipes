@@ -1,4 +1,4 @@
-import { define, template } from '../lib.mjs';
+import { template } from '../lib.mjs';
 
 const html = /*html*/ `
 <style>
@@ -53,4 +53,4 @@ class Link extends HTMLElement {
   }
 }
 
-define('recipe-link', Link);
+customElements.define('recipe-link', Link);

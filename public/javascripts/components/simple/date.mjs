@@ -1,5 +1,3 @@
-import { define } from '../lib.mjs';
-
 class RecipeDate extends HTMLElement {
   constructor() {
     super();
@@ -8,7 +6,7 @@ class RecipeDate extends HTMLElement {
   }
 }
 
-define('recipe-date', RecipeDate);
+customElements.define('recipe-date', RecipeDate);
 
 function padRight(v) {
   return v < 10 ? '0' + v : v;
