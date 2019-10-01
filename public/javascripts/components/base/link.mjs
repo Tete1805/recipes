@@ -1,7 +1,6 @@
-import { define } from '../lib.mjs';
+import { define, template } from '../lib.mjs';
 
-const template = document.createElement('template');
-template.innerHTML = /*html*/ `
+const html = /*html*/ `
 <style>
   a {
     color: #09d;
@@ -37,7 +36,7 @@ class Link extends HTMLElement {
   constructor() {
     super();
     this.shadow = this.attachShadow({ mode: 'open' });
-    const clone = template.content.cloneNode(true);
+    const clone = template(html).content.cloneNode(true);
     this.shadow.appendChild(clone);
     this.link = this.shadow.querySelector('a');
   }
