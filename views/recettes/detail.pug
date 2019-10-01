@@ -2,7 +2,8 @@ extends ../site/layout
 block extend_head
   link(rel='stylesheet', href='/stylesheets/recette-new.css' media='screen')
   script(src="/javascripts/recette.js" async)
-  script(src="/javascripts/components/complex/comments/comment.mjs" type="module" async)
+  script(src="/javascripts/components/simple/date.mjs" type="module" async)
+  script(src="/javascripts/components/simple/author.mjs" type="module" async)
   script(src="/javascripts/components/complex/comments/commentList.mjs" type="module" async)
   script(src="/javascripts/components/complex/comments/commentForm.mjs" type="module" async)
 
@@ -30,8 +31,9 @@ block content
                 i.fork
 
     em= 'postée par '
-    a(href="/recettes/search/auteur/" + recette.auteur +'/1')= recette.auteur
-    span=' le ' + formatDate(recette.ajoute)
+    recipe-author-link(author=recette.auteur)
+    span=' le ' 
+    recipe-date(initial=recette.ajoute format="Date")
 
     .recette-details
       div
