@@ -1,25 +1,32 @@
-import { define } from '../../lib.mjs';
-import { pushable, submitButton } from '../../styles/buttons.mjs';
-import { input } from '../../styles/input.mjs';
+import '../../base/textarea.mjs';
+import '../../base/button.mjs';
 
-const template = document.createElement('template');
-template.innerHTML = /*html*/ `
-<style>
-  ${input} ${pushable} ${submitButton}
-</style>
-<form method="POST">
-  <label for="comment">Votre commentaire</label>
-  <textarea name="comment" rows=4 placeholder="Super recette !"></textarea>
-  <input class="pushable" type="submit" value="Poster">
-  <input type="hidden" name="_csrf">
-</form>`;
+const { html, render } = window.litHtml;
 
 class CommentForm extends HTMLElement {
   constructor() {
     super();
     this.shadow = this.attachShadow({ mode: 'open' });
-    const clone = template.content.cloneNode(true);
-    this.shadow.append(clone);
+    render(this.template(), this.shadow);
+  }
+  template() {
+    return html`
+      <form method="POST">
+        <label for="comment">Votre commentaire</label>
+        <recipe-textarea
+          appearance="textarea"
+          name="comment"
+          rows="4"
+          placeholder="Super recette !"
+        ></recipe-textarea>
+        <recipe-button class="pushable" type="submit">Poster</recipe-button>
+        <input
+          type="hidden"
+          name="_csrf"
+          value=${this.attributes.csrfToken.value}
+        />
+      </form>
+    `;
   }
   onClick(event) {
     if (this.isTextareaEmpty()) {
@@ -28,10 +35,10 @@ class CommentForm extends HTMLElement {
     }
   }
   isTextareaEmpty() {
-    return this.shadow.querySelector('textarea').value === '';
+    return this.shadow.querySelector('recipe-textarea').textContent === '';
   }
   connectedCallback() {
-    this.submitButton = this.shadow.querySelector('input.pushable');
+    this.submitButton = this.shadow.querySelector('.pushable');
     this.submitButton.addEventListener('click', this.onClick.bind(this));
   }
   disconnectedCallback() {
@@ -39,4 +46,4 @@ class CommentForm extends HTMLElement {
   }
 }
 
-define('recipe-comment-form', CommentForm);
+customElements.define('recipe-comment-form', CommentForm);
