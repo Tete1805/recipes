@@ -140,13 +140,13 @@ main {
 }
 
 .recettes-pages-links {
-  margin: 10px;
   display: flex;
 }
 
 .recettes-pages-links > a {
   display: block;
   color: white !important;
+  margin: 10px;
   padding: 11px 35px;
 }
 
