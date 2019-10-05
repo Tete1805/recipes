@@ -19,7 +19,7 @@ block content
                 li
                   a.hashtag(href='/recettes/search/hashtags/' + hashtag.substr(1, hashtag.length - 1)) #{ hashtag }
             .recette-socials
-              .col-50
+              .col-70
                 .recette-icon.pushable
                   a(no-border, href="https://twitter.com/intent/tweet?text=D%C3%A9couvrez%20la%20recette%20" + recette.nom + "%20:%20"+ recette.shortUrl)
                     i.twitter
@@ -30,10 +30,10 @@ block content
                     span Share               
                 if (user && user.local && recette.auteur.toString() !== user.local.pseudo.toString())
                     .recette-icon.pushable
-                      a(no-border, href='/recette/' + recette._id + '/fork')
+                      a(no-border, href='/recette/' + recette._id + '?mode=fork')
                         i.fork
                         span Fork
-              .col-50
+              .col-30
                 .likes
                   form(method="POST", action='/recette/' + recette._id + '/like')
                     if (user && user.local && recette.likes && recette.likes.indexOf(user.local.pseudo) === -1)
@@ -45,7 +45,8 @@ block content
                         input(type="button", recette-id=recette._id, csrf-token=csrfToken).liked
                     span(recette-id=recette._id)=recette.likes.length
 
-  if page > 1
-    a(href="/recettes/all/" + (page - 1)) Page précédente
-  if recettes.length === 8
-    a(href="/recettes/all/" + (page + 1)) Page suivante
+  .recettes-pages-links
+    if page > 1
+      a.pushable.bg-primary.bg-primary-hover(href="/recettes/all/" + (page - 1)) Page précédente
+    if recettes.length === 8
+      a.pushable.bg-primary.bg-primary-hover(href="/recettes/all/" + (page + 1)) Page suivante

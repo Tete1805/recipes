@@ -275,17 +275,15 @@ footer span {
 }
 
 .pushable {
-  box-shadow: 2px 2px 3px #bba687;
+  box-shadow: 2px 2px 3px #bfbfbf;
   transition: all 0.2s;
 }
 
 .pushable:hover {
-  background-color: #ffd080;
   transition: all 0.2s;
 }
 
 .pushable:active {
-  background-color: #ffd38a;
   transform: translate(2px, 2px);
   box-shadow: none !important;
   transition: all 0.2s;
