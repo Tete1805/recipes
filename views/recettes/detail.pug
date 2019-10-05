@@ -70,11 +70,9 @@ block content
 
       div
         h2 Total
-        -const totalA = recette.aromes.reduce(function(accumulateur, arome) { return accumulateur + arome.pourcentage }, 0)
-        span= totalA
+        span= recette.aromes.reduce(function(accumulateur, arome) { return accumulateur + arome.pourcentage }, 0)
         span % d'arômes pour un dosage de 
-        -const totalN = recette.bases.reduce(function(accumulateur, base) { return accumulateur + base.pourcentage * base.nicotine / 100 }, 0)
-        span= totalN
+        span= recette.bases.reduce(function(accumulateur, base) { return accumulateur + base.pourcentage * base.nicotine / 100 }, 0)
         span mg de nicotine
 
       div 
