@@ -3,11 +3,11 @@ import './comment.mjs';
 const template = document.createElement('template');
 template.innerHTML = /*html*/ `
   <style>
-    ul {
+    :host ul {
       list-style: none;
       padding: 0;
     }
-    ul > li {
+    :host ul > li {
       border: 1px solid #ddd;
       border-radius: 5px;
       margin: 5px 0;
