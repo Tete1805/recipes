@@ -3,28 +3,45 @@ main {
 }
 
 .recettes {
-  display: inline-block;
+  display: flex;
+  flex-wrap: wrap;
   margin-top: 0;
   padding: 0;
 }
 
 .recettes > li {
+  display: block;
+  min-height: 100%;
+  min-width: 300px;
+  padding: 10px;
+  width: 25%;
+}
+
+.recette-card {
   background: white;
   box-shadow: 2px 2px 4px -1px rgba(0, 0, 0, 0.3);
-  display: inline-block;
-  list-style: none;
-  margin-bottom: 20px;
-  margin-right: 20px;
-  min-width: 430px;
-  padding: 4px;
-  width: 20%;
+  height: 100%;
+  padding: 35px 25px;
 }
 
 .recette-container {
   border-left: 2px dashed #ccc;
   height: 100%;
-  margin: 25px 35px 25px 20px;
   padding-left: 25px;
+  position: relative;
+}
+
+.recette-socials {
+  bottom: 0;
+  display: flex;
+  padding-right: 25px;
+  position: absolute;
+  width: 100%;
+}
+
+.recette-socials > * {
+  margin-top: auto;
+  margin-bottom: 0;
 }
 
 .recette-container > div:first-of-type {
@@ -40,6 +57,7 @@ main {
   margin: 10px 0;
   margin-bottom: 20px;
   padding: 0;
+  padding-bottom: 50px;
 }
 
 .tags > li {
@@ -49,7 +67,13 @@ main {
 }
 
 .likes {
-  text-align: right;
+  display: flex;
+}
+
+.likes > form {
+  margin: auto;
+  margin-bottom: -5px;
+  margin-right: 0;
 }
 
 .hashtag {
