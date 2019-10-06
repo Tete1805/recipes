@@ -1,7 +1,7 @@
 import '../../base/textarea.mjs';
 import '../../base/button.mjs';
 
-const { html, render } = window.litHtml;
+import { html, render } from '/lit-html.js';
 
 class CommentForm extends HTMLElement {
   constructor() {
