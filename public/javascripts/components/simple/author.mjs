@@ -1,13 +1,18 @@
 import '../base/link.mjs';
+import { LitElement, html } from '/lit-element.js';
 
-class AuthorLink extends HTMLElement {
-  constructor() {
-    super();
-    const { author } = this.attributes;
-    const href = '/profile/' + author.value;
-    this.innerHTML =
-      /*html*/
-      `<recipe-link content=${author.value} href=${href}></recipe-link>`;
+class AuthorLink extends LitElement {
+  static get properties() {
+    return { author: { type: String } };
+  }
+
+  render() {
+    return html`
+      <recipe-link
+        content=${this.author}
+        href=${'/profile/' + this.author}
+      ></recipe-link>
+    `;
   }
 }
 

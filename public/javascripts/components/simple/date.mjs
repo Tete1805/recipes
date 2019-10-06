@@ -1,8 +1,17 @@
-class RecipeDate extends HTMLElement {
-  constructor() {
-    super();
-    const { initial, format } = this.attributes;
-    this.innerText = formatDate(initial.value, format.value);
+import { LitElement, html } from '/lit-element.js';
+
+class RecipeDate extends LitElement {
+  static get properties() {
+    return {
+      initial: { type: String },
+      format: { type: String }
+    };
+  }
+
+  render() {
+    return html`
+      ${formatDate(this.initial, this.format)}
+    `;
   }
 }
 
