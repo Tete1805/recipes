@@ -20,7 +20,7 @@ class RecipeComment extends HTMLElement {
   }
 
   attributeChangedCallback(attrName, oldVal, newVal) {
-    this.comment = JSON.parse(newVal);
+    this.comment = JSON.parse(decodeURI(newVal));
     this.render();
   }
 

@@ -13,6 +13,9 @@ template.innerHTML = /*html*/ `
       margin: 5px 0;
       padding: 10px;
     }
+    :host #content {
+      margin-bottom: 20px;
+    }
   </style>
   <h3>Commentaires&nbsp;:</h3>
   <div id="content">Soyez le premier à commenter cette recette !</div>
@@ -36,7 +39,7 @@ class CommentList extends HTMLElement {
           comment => /*html*/ `
             <li>
               <recipe-comment
-                comment=${JSON.stringify(comment)}>
+                comment=${encodeURI(JSON.stringify(comment))}>
               </recipe-comment>
             </li>`
         )
