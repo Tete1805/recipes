@@ -26,9 +26,10 @@ block content
                 .pushable.bg-warning.bg-warning-hover
                   i.remove
           else
-            .recette-button
-              a.pushable(no-border, href='/recette/' + recette._id + '?mode=fork')
-                i.fork
+            .recette-action
+              a(no-border, href='/recette/' + recette._id + '?mode=fork')
+                .pushable.bg-primary.bg-primary-hover
+                  i.fork
 
     em= 'postée par '
     recipe-author-link(author=recette.auteur)
