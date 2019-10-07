@@ -48,6 +48,9 @@ async function post({ auteur, data }) {
 
 async function update({ auteur, data }) {
   const recette = await findById(data._id);
+  if (!recette.shortUrl) {
+    setShortUrlForId(recette._id);
+  }
   return await formatAndUpdate({ recette, auteur, data });
 }
 
