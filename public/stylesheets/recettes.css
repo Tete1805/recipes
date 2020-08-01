@@ -44,6 +44,12 @@ main {
   margin-bottom: 0;
 }
 
+.recette-shares {
+  display: flex;
+}
+.recette-shares > * {
+  margin: 5px;
+}
 .recette-container > div:first-of-type {
   padding-bottom: 15px;
 }
@@ -84,11 +90,9 @@ main {
 
 .recette-icon {
   background-color: #ffbc24;
-  display: inline-block;
+  display: block;
   height: 31px;
-  margin-right: 4px;
   position: relative;
-  width: 40px;
 }
 
 .recette-icon:hover {
@@ -135,7 +139,7 @@ main {
   width: 40px;
 }
 
-.recettes-pages-links > a:hover {
+.recettes-pages-links a:hover {
   color: white !important;
 }
 
@@ -143,14 +147,17 @@ main {
   display: flex;
 }
 
-.recettes-pages-links > a {
+.recettes-pages-links > * {
+  margin: 10px;
+}
+
+.recettes-pages-links a {
   display: block;
   color: white !important;
-  margin: 10px;
   padding: 11px 35px;
 }
 
-.recettes-pages-links > a::before {
+.recettes-pages-links a::before {
   height: 0;
 }
 

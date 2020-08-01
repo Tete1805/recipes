@@ -2,8 +2,9 @@ extends ../site/layout
 block extend_head
   link(rel='stylesheet', href='/stylesheets/recettes.css' media='screen')
   script(src="/javascripts/recette.js" async)    
-block content
+  script(src="/javascripts/components/simple/pushable.mjs" type="module" async)
 
+block content
   ul.recettes
     each recette in recettes
       li
@@ -19,17 +20,21 @@ block content
                 li
                   a.hashtag(href='/recettes/search/hashtags/' + hashtag.substr(1, hashtag.length - 1)) #{ hashtag }
             .recette-socials
-              .col-70
-                .recette-icon.pushable
-                  a(no-border, href="https://twitter.com/intent/tweet?text=D%C3%A9couvrez%20la%20recette%20" + recette.nom + "%20:%20"+ recette.shortUrl)
-                    i.twitter
-                    span Tweet
-                .recette-icon.pushable
-                  a(no-border, href="https://www.facebook.com/sharer/sharer.php?u=" + recette.shortUrl)
-                    i.facebook
-                    span Share               
+              .col-70.recette-shares
+                if (recette.shortUrl)
+                  recette-pushable
+                    .recette-icon
+                      a(no-border, href="https://twitter.com/intent/tweet?text=D%C3%A9couvrez%20la%20recette%20" + recette.nom + "%20:%20"+ recette.shortUrl)
+                        i.twitter
+                        span Tweet
+                  recette-pushable
+                    .recette-icon
+                      a(no-border, href="https://www.facebook.com/sharer/sharer.php?u=" + recette.shortUrl)
+                        i.facebook
+                        span Share               
                 if (user && user.local && recette.auteur.toString() !== user.local.pseudo.toString())
-                    .recette-icon.pushable
+                  recette-pushable
+                    .recette-icon
                       a(no-border, href='/recette/' + recette._id + '?mode=fork')
                         i.fork
                         span Fork
@@ -47,6 +52,8 @@ block content
 
   .recettes-pages-links
     if page > 1
-      a.pushable.bg-primary.bg-primary-hover(href="/recettes/all/" + (page - 1)) Page précédente
+      recette-pushable
+        a.bg-primary.bg-primary-hover(href="/recettes/all/" + (page - 1)) Page précédente
     if recettes.length === 8
-      a.pushable.bg-primary.bg-primary-hover(href="/recettes/all/" + (page + 1)) Page suivante
+      recette-pushable
+        a.bg-primary.bg-primary-hover(href="/recettes/all/" + (page + 1)) Page suivante

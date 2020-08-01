@@ -260,6 +260,7 @@ footer span {
 
 .bg-primary {
   background-color: #09d;
+  color: white;
 }
 
 .bg-primary-hover:hover {
@@ -268,6 +269,7 @@ footer span {
 
 .bg-warning {
   background-color: #ff9494;
+  color: white;
 }
 
 .bg-warning-hover:hover {
