@@ -10,8 +10,8 @@ const passport = require('passport');
 const configPassport = require('./passport');
 const flash = require('connect-flash');
 const csurf = require('csurf');
-const MongoStore = require('connect-mongo')(session);
-const mongoose = require('./database.js')();
+const MongoStore = require('connect-mongo');
+const mongoose = require('./database.js');
 
 router.use(logger('common'));
 router.use(bodyParser.json());
@@ -24,15 +24,16 @@ router.use(
     secret: 'PlopzeSecret',
     resave: false,
     saveUninitialized: false,
-    store: new MongoStore({ mongooseConnection: mongoose.connection })
+    store: MongoStore.create({ mongoUrl: mongoose.url }),
   })
 );
+mongoose.configureDatabase();
 configPassport(passport);
 router.use(passport.initialize());
 router.use(passport.session());
 router.use(flash());
 router.use(csurf());
-router.use(function(req, res, next) {
+router.use(function (req, res, next) {
   res.locals.csrfToken = req.csrfToken();
   res.locals.flash = req.flash();
   if (req.isAuthenticated()) {
