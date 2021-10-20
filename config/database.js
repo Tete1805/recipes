@@ -7,7 +7,7 @@ module.exports = { configureDatabase, url };
 
 function configureDatabase() {
   // Permet de spécifier un autre moteur de promesses que mPromise
-  mongoose.Promise = global.Promise;
+  // mongoose.Promise = global.Promise;
 
   // Connexion à la base de données
   mongoose
