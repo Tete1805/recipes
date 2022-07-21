@@ -12,7 +12,7 @@ router.get(['/', '/all/:page'], async (req, res) => {
 router.get(
   [
     '/search/:searchField/:searchString/',
-    '/search/:searchField/:searchString/:page'
+    '/search/:searchField/:searchString/:page',
   ],
   async (req, res) => {
     const filter = searchService.getFilterFromParams(req.params);
@@ -21,7 +21,8 @@ router.get(
       .setFilter(filter)
       .setPage(page)
       .get();
-    res.render('recettes/all', { recettes, page });
+    const { searchField, searchString } = req.params;
+    res.render('search/all', { recettes, page, searchField, searchString });
   }
 );
 

@@ -1,47 +1,59 @@
 extends ../site/layout
 block extend_head
   link(rel='stylesheet', href='/stylesheets/recettes.css' media='screen')
-  script(src="../../javascripts/recette.js" async)    
+  script(src="/javascripts/recette.js" async)    
+  script(src="/javascripts/components/simple/pushable.mjs" type="module" async)
+
 block content
-
-  h1 #{ title }
-
   ul.recettes
     each recette in recettes
       li
-        .recette-container
-          a(href='/recette/' + recette._id + '/detail').title
-            b #{ recette.nom }
-          span Ajoutée le #{ formatDate(recette.ajoute) }
-          br
-          span par #{ recette.auteur }
-          ul.tags
-            each hashtag in recette.hashtags
-              li
-                a.hashtag(href='/recettes/search/hashtags/' + hashtag.substr(1, hashtag.length - 1)) #{ hashtag }
-          div
-            .col-50
-              .recette-icon
-                a(href="https://twitter.com/intent/tweet?text=D%C3%A9couvrez%20la%20recette%20" + recette.nom + "%20:%20"+ recette.shortUrl)
-                  i.twitter
-                  span Tweet
-              .recette-icon
-                a(href="https://www.facebook.com/sharer/sharer.php?u=" + recette.shortUrl)
-                  i.facebook
-                  span Share               
-              if (user && user.local && recette.auteur.toString() !== user.local.pseudo.toString())
-                  .recette-icon
-                    a(href='/recette/' + recette._id + '/fork')
-                      i.fork
-                      span Fork
-            .col-50
-              .likes
-                form(method="POST", action='/recette/' + recette._id + '/like')
-                  if (user && user.local && recette.likes && recette.likes.indexOf(user.local.pseudo) === -1)
-                    input(type="button", recette-id=recette._id, csrf-token=csrfToken).like
-                  else
-                    if !user || !user.local
-                      input(type="button").unlikeable
+        .recette-card
+          .recette-container
+            div
+              a(href='/recette/' + recette._id).title
+                b #{ recette.nom }
+            div Ajoutée le #{ formatDate(recette.ajoute) }
+            span par #{ recette.auteur }
+            ul.tags
+              each hashtag in recette.hashtags
+                li
+                  a.hashtag(href='/recettes/search/hashtags/' + hashtag.substr(1, hashtag.length - 1)) #{ hashtag }
+            .recette-socials
+              .col-70.recette-shares
+                if (recette.shortUrl)
+                  recette-pushable
+                    .recette-icon
+                      a(no-border, href="https://twitter.com/intent/tweet?text=D%C3%A9couvrez%20la%20recette%20" + recette.nom + "%20:%20"+ recette.shortUrl)
+                        i.twitter
+                        span Tweet
+                  recette-pushable
+                    .recette-icon
+                      a(no-border, href="https://www.facebook.com/sharer/sharer.php?u=" + recette.shortUrl)
+                        i.facebook
+                        span Share
+                if (user && user.local && recette.auteur.toString() !== user.local.pseudo.toString())
+                  recette-pushable
+                    .recette-icon
+                      a(no-border, href='/recette/' + recette._id + '?mode=fork')
+                        i.fork
+                        span Fork
+              .col-30
+                .likes
+                  form(method="POST", action='/recette/' + recette._id + '/like')
+                    if (user && user.local && recette.likes && recette.likes.indexOf(user.local.pseudo) === -1)
+                      input(type="button", recette-id=recette._id, csrf-token=csrfToken).like
                     else
-                      input(type="button").liked
-                  span(recette-id=recette._id)=recette.likes.length
+                      if !user || !user.local
+                        input(type="button").unlikeable
+                      else
+                        input(type="button", recette-id=recette._id, csrf-token=csrfToken).liked
+                    span(recette-id=recette._id)=recette.likes.length
+
+  .recettes-pages-links
+    if page > 1
+      recette-pushable
+        a.bg-primary.bg-primary-hover(href=`/recettes/search/${searchField}/${searchString}/` + (page - 1)) Page précédente
+    if recettes.length === 8
+      recette-pushable
+        a.bg-primary.bg-primary-hover(href=`/recettes/search/${searchField}/${searchString}/` + (page + 1)) Page suivante
