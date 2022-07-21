@@ -35,7 +35,11 @@ class CommentForm extends HTMLElement {
     }
   }
   isTextareaEmpty() {
-    return this.shadow.querySelector('recipe-textarea').textContent === '';
+    return (
+      this.shadow
+        .querySelector('recipe-textarea')
+        .shadow.querySelector('textarea').value === ''
+    );
   }
   connectedCallback() {
     this.submitButton = this.shadow.querySelector('.pushable');
