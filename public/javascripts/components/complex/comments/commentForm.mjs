@@ -1,52 +1,53 @@
 import '../../base/textarea.mjs';
 import '../../base/button.mjs';
 
-import { html, render } from '/lit-html.js';
+import { LitElement, html } from '/lit-element.js';
 
-class CommentForm extends HTMLElement {
-  constructor() {
-    super();
-    this.shadow = this.attachShadow({ mode: 'open' });
-    render(this.template(), this.shadow);
+class CommentForm extends LitElement {
+  static get properties() {
+    return {
+      comment: String,
+      csrfToken: String,
+      id: String,
+    };
   }
-  template() {
+  render() {
     return html`
       <form method="POST">
         <label for="comment">Votre commentaire</label>
         <recipe-textarea
-          appearance="textarea"
-          name="comment"
-          rows="4"
           placeholder="Super recette !"
+          rows="4"
+          @input="${this.onCommentChange}"
         ></recipe-textarea>
-        <recipe-button class="pushable" type="submit">Poster</recipe-button>
-        <input
-          type="hidden"
-          name="_csrf"
-          value=${this.attributes.csrfToken.value}
-        />
+        <recipe-button class="pushable" type="submit" @click="${this.onSubmit}"
+          >Poster</recipe-button
+        >
+        <input type="hidden" name="_csrf" value=${this.csrfToken} />
       </form>
     `;
   }
-  onClick(event) {
-    if (this.isTextareaEmpty()) {
+  onCommentChange(event) {
+    this.comment = event.currentTarget.value;
+  }
+  onSubmit(event) {
+    if (!this.comment) {
       event.preventDefault();
-      alert('Vous devez saisir du texte pour soumettre votre commentaire.');
+      alert('Vous devez saisir un commentaire');
+      return;
     }
-  }
-  isTextareaEmpty() {
-    return (
-      this.shadow
-        .querySelector('recipe-textarea')
-        .shadow.querySelector('textarea').value === ''
-    );
-  }
-  connectedCallback() {
-    this.submitButton = this.shadow.querySelector('.pushable');
-    this.submitButton.addEventListener('click', this.onClick.bind(this));
-  }
-  disconnectedCallback() {
-    this.submitButton.removeEventListener('click', this.onClick.bind(this));
+    console.log(this.id);
+    fetch(`/comment/recette/${this.id}`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        comment: this.comment,
+        _csrf: this.csrfToken,
+      }),
+    });
   }
 }
 

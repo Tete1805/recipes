@@ -1,12 +1,19 @@
-class RecipeTextarea extends HTMLElement {
-  constructor() {
-    super();
-    this.shadow = this.attachShadow({ mode: 'open' });
-    this.htmlAttributes = this.getHTMLAttributes();
-    this.shadow.innerHTML = this.template();
+import { LitElement, html } from '/lit-element.js';
+
+class RecipeTextarea extends LitElement {
+  static get properties() {
+    return {
+      placeholder: String,
+      rows: String,
+    };
   }
-  template() {
-    return /*html*/ `
+  constructor(props) {
+    super();
+    this.value = '';
+    console.log(props);
+  }
+  render() {
+    return html`
     <style>
       textarea
        {
@@ -26,12 +33,10 @@ class RecipeTextarea extends HTMLElement {
         width: 100%;
       }
     </style>
-    <textarea ${this.getHTMLAttributes()} >`;
+    <textarea appearance="textarea" placeholder="${this.placeholder}" rows=${this.rows} @input="${this.onChange}">`;
   }
-  getHTMLAttributes() {
-    return Array.from(this.attributes)
-      .map(attribute => attribute.name + "='" + attribute.value + "'")
-      .shift();
+  onChange(event) {
+    this.value = event.currentTarget.value;
   }
 }
 

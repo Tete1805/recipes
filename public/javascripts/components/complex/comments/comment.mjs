@@ -5,7 +5,7 @@ import { LitElement, html } from '/lit-element.js';
 class RecipeComment extends LitElement {
   constructor() {
     super();
-    this.comment = '';
+    this.comment = {};
   }
 
   static get properties() {
