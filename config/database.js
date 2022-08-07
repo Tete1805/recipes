@@ -11,8 +11,6 @@ function configureDatabase() {
 
   // Connexion à la base de données
   mongoose
-    .set('useNewUrlParser', true)
-    .set('useUnifiedTopology', true)
     .connect(url)
     .then(() => console.log('Connected to database.'))
     .catch((error) => console.log("Couldn't connect to database.\n", error));

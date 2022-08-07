@@ -8,25 +8,25 @@ const RecetteService = {
   getDefault,
   post,
   update,
-  deleteById
+  deleteById,
 };
 
 const RecetteServiceAPI = {
-  find: _id => {
+  find: (_id) => {
     return Recette.findOne({ _id })
-      .then(recette => ({ status: 200, data: recette }))
-      .catch(exception => ({ status: 400, data: exception }));
+      .then((recette) => ({ status: 200, data: recette }))
+      .catch((exception) => ({ status: 400, data: exception }));
   },
   post: ({ auteur, data }) => {
     return update({ id: null, auteur, data })
-      .then(id => ({ status: 200, data: id }))
-      .catch(exception => ({ status: 400, data: exception }));
+      .then((id) => ({ status: 200, data: id }))
+      .catch((exception) => ({ status: 400, data: exception }));
   },
   update: ({ id, auteur, data }) => {
     return update({ id, auteur, data })
-      .then(id => ({ status: 200, data: id }))
-      .catch(exception => ({ status: 400, data: exception }));
-  }
+      .then((id) => ({ status: 200, data: id }))
+      .catch((exception) => ({ status: 400, data: exception }));
+  },
 };
 
 module.exports = { RecetteService, RecetteServiceAPI };
@@ -66,7 +66,7 @@ async function setShortUrlForId(_id) {
 
 async function formatAndUpdate({ recette, auteur, data }) {
   const payload = getPayload({ auteur, data });
-  await recette.update(payload);
+  await recette.updateOne(payload);
   AromeService.updateBase(recette);
   return recette._id;
 }
@@ -81,7 +81,7 @@ function getPayload({ auteur, data }) {
     aromes: getAromesFromData(data),
     bases: getBasesFromData(data),
     hashtags: formatHashtags(hashtags),
-    shortUrl
+    shortUrl,
   };
 }
 
@@ -91,7 +91,7 @@ function getAromesFromData(data) {
     aromes.push({
       marque: data['arome-marque'][index],
       nom: data['arome-nom'][index],
-      pourcentage: data['arome-pourcentage'][index]
+      pourcentage: data['arome-pourcentage'][index],
     })
   );
   return aromes;
@@ -103,7 +103,7 @@ function getBasesFromData(data) {
     bases.push({
       ratio: data['base-ratio'][index],
       nicotine: data['base-nicotine'][index],
-      pourcentage: data['base-pourcentage'][index]
+      pourcentage: data['base-pourcentage'][index],
     })
   );
   return bases;
